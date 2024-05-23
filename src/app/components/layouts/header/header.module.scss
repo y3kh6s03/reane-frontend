@@ -1,0 +1,27 @@
+@use "@/styles/_variables.scss" as *;
+
+.header{
+  width: 100vw;
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 5% 0 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  z-index: 99999;
+
+  @include mq(lg){
+    backdrop-filter: blur(0px);
+    z-index: 10;
+  }
+
+  & .logout_container{
+
+    @include mq(lg){
+      opacity: 0;
+    }
+  }
+}

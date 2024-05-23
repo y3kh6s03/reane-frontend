@@ -1,0 +1,70 @@
+@use "@/styles/_variables.scss" as *;
+
+.skillModal_wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba($baseColor, $alpha: .8);
+  transition: all 1s $ease;
+  z-index: 99999;
+
+  .skillModal {
+    width: 90%;
+    max-width: 450px;
+    background-color: $gray;
+    border-radius: 10px;
+
+    &_input {
+      display: block;
+      width: 80%;
+      height: 4rem;
+      border-radius: 10px;
+      margin: 3rem auto 0;
+      padding: .5rem;
+      background-color: white;
+      color: $baseColor;
+    }
+
+    & .button_container {
+      padding: 0 10%;
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem;
+
+      .skillModal {
+
+        &_ok,
+        &_cancel {
+          width: 6rem;
+          aspect-ratio: 2/1;
+          border-radius: 10px;
+          font-weight: bold;
+
+        }
+
+        &_ok {
+          background-color: $green;
+
+          &:hover {
+            background-color: lighten($green, 10%);
+          }
+        }
+
+        &_cancel {
+          background-color: $alertRed;
+
+          &:hover {
+            background-color: lighten(#FF3700, 10%);
+          }
+        }
+      }
+
+    }
+
+  }
+}

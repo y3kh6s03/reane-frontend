@@ -1,0 +1,22 @@
+@use "@/styles/_variables.scss" as *;
+
+.form {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &:hover {
+    & .form_button {
+      font-size: 2rem;
+    }
+  }
+
+  &_button {
+    font-family: var(--font-en);
+    font-weight: bold;
+    color: $red;
+    transition: all .05s $ease;
+  }
+}

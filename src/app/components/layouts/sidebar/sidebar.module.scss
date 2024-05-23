@@ -1,0 +1,26 @@
+@use "@/styles/variables" as *;
+
+.container{
+  display: none;
+
+  @include mq(lg){
+    display: block;
+    width: 13.5rem;
+    height: 100vh;
+    position: fixed;
+    right: 3%;
+    bottom: 0;
+    padding: 2rem 0 0 1rem;
+
+    &::before{
+      content: "";
+      width: .5px;
+      height: 90%;
+      background-color: white;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      opacity: .2;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+@use "./variables" as *;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  height: 100%;
+  overflow-x: hidden;
+  @extend .font-md;
+  font-family: var(--font-jp);
+  color: white;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(174deg, rgba(255, 255, 255, 1) 0%, rgba(118, 119, 121, 1) 0%, rgba(77, 78, 80, 1) 19%, rgba(56, 57, 60, 1) 42%, rgba(56, 57, 60, 1) 100%);
+  position: relative;
+}
+
+body {
+  padding: 0 3%;
+  @include mq(lg) {
+  }
+}
+
+main{
+  @include mq(lg){
+    width: calc(100vw - 36rem);
+    margin: 0 auto;
+  }
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+input {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  outline: none;
+}
+
+textarea {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: normal;
+  resize: none;
+  background-color: transparent;
+  color: inherit;
+  overflow-y: auto;
+}

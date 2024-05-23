@@ -1,0 +1,21 @@
+@use '../../../styles/variables' as *;
+
+.logo_container {
+  aspect-ratio: 10 / 3.2;
+  position: relative;
+
+  &_img {
+    position: absolute;
+  }
+}
+  .sm {
+    width: 8rem;
+  }
+
+  .md {
+    width: 15rem;
+  }
+
+  .lg {
+    width: 25rem;
+  }

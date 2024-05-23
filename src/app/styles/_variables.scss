@@ -1,0 +1,28 @@
+$baseColor: #38393C;
+$red: #DF8B74;
+$gray: #938A90;
+$rGray: #C2C2C2;
+$green: #458850;
+$alertRed: #FF3700;
+$ease: cubic-bezier(.98,-0.01,.25,.99);
+
+$breakpoints: (
+  'sm':'(min-width: 480px)',
+  'md':'(min-width: 768px)',
+  'lg':'(min-width: 960px)',
+  'xl':'(min-width: 1280px)'
+);
+
+@mixin mq($breakpoint) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+.font-md {
+  font-size: 14px;
+
+  @include mq(lg){
+    font-size: 16px;
+  }
+}

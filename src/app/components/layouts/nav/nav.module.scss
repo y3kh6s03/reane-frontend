@@ -1,0 +1,132 @@
+@use "../../../styles/variables" as *;
+
+.nav {
+  width: 100vw;
+  height: 3rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: $gray;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+
+  @include mq(lg) {
+    display: block;
+    width: 12.5rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 3%;
+    background-color: transparent;
+
+    &::before {
+      content: "";
+      width: .5px;
+      height: 90vh;
+      background-color: white;
+      opacity: .2;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  &_ul {
+    width: 100%;
+    height: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    place-items: center;
+
+    @include mq(lg) {
+      padding: 5rem 1rem 0 0;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(5, 1fr) 3fr;
+    }
+  }
+
+  &_li {
+    width: 100%;
+    height: 2rem;
+
+    @include mq(lg) {
+      height: 4rem;
+    }
+
+    &:nth-child(3) {
+      & .image_container {
+        background-color: white;
+        width: 1.7rem;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+      }
+    }
+
+    &_link {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include mq(lg) {
+        justify-content: start;
+        gap: 1rem;
+        padding-left: 10%;
+        position: relative;
+
+        &::before {
+          content: "";
+          width: 100%;
+          height: 100%;
+          background-color: white;
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-radius: 10px;
+          transition: all .15s $ease;
+        }
+
+        &:hover {
+          &::before {
+            opacity: .1;
+          }
+        }
+      }
+
+      & .image_container {
+        width: 1.7rem;
+        aspect-ratio: 1/1;
+        position: relative;
+
+        @include mq(lg) {
+          width: 1.5rem;
+        }
+
+        &_img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      & .name {
+        display: none;
+
+        @include mq(lg) {
+          display: inline-block;
+          color: white;
+          font-size: 1rem;
+          font-family: var(--font-en);
+          line-height: 2.5rem;
+        }
+      }
+    }
+  }
+
+  &_logout {
+    margin-top: 5rem;
+    padding-left: calc(10% + 2.5rem);
+  }
+}

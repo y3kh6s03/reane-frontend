@@ -1,0 +1,86 @@
+@use "@/styles/_variables.scss" as *;
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba($baseColor, $alpha: .8);
+  transition: all 1s $ease;
+  z-index: 99999;
+
+  & .container {
+    width: 90%;
+    max-width: 450px;
+    padding: 2rem 1.5rem;
+    background-color: $gray;
+    border-radius: 10px;
+
+    & .form {
+      font-family: var(--font-en);
+      font-weight: bold;
+      font-size: 1.3rem;
+      line-height: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      & .inputLabel {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+      }
+
+      & .action_select,
+      .time_input {
+        height: 3rem;
+        background-color: transparent;
+        border: white solid .1px;
+        border-radius: 10px;
+        padding-left: 1rem;
+        color: white;
+      }
+
+      & .memo_textarea {
+        border: white solid .1px;
+        border-radius: 10px;
+        padding: 1rem;
+      }
+
+      & .button_container {
+        padding: 0 10%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+
+        & .save_button,
+        .cancel_button {
+          width: 6rem;
+          aspect-ratio: 2/1;
+          border-radius: 10px;
+          font-weight: bold;
+        }
+
+        & .save_button {
+          background-color: $green;
+
+          &:hover {
+            background-color: lighten($green, 10%);
+          }
+        }
+
+        & .cancel_button {
+          background-color: $alertRed;
+
+          &:hover {
+            background-color: lighten(#FF3700, 10%);
+          }
+        }
+      }
+    }
+  }
+}

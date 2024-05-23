@@ -1,0 +1,85 @@
+@use "@/styles/_variables.scss" as *;
+
+.container {
+  margin-bottom: 5rem;
+
+  & .action_title {
+    font: bold 1.5rem var(--font-en);
+    margin-bottom: .5rem;
+  }
+
+  & .skill_rate_container {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    & .skill_rate {
+      display: block;
+      width: 3.5rem;
+      aspect-ratio: 1/1;
+      text-align: center;
+      font: 700 1.5rem var(--font-en);
+      line-height: 3.5rem;
+      background-color: $red;
+      border-radius: 50%;
+
+      &_parcent {
+        font: 400 .8rem var(--font-en)
+      }
+    }
+
+    & .skill_count {
+      letter-spacing: .3rem;
+    }
+  }
+
+  & .actions_container {
+    display: grid;
+    grid-template-columns: 2rem 3fr 2rem 1fr;
+    gap: .5rem;
+    align-items: center;
+
+    & .checkbox input[type=checkbox] {
+      appearance: checkbox;
+      display: inline-block;
+      width: 1.5rem;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      border: .1rem solid white;
+
+      &:checked {
+        & .checkbox::before {
+          content: "";
+          display: block;
+          width: 12px;
+          height: 12px;
+          background-color: #333;
+          border-radius: 50%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+
+    & .action_name {
+      & input {
+        width: 100%;
+        font: 1rem var(--font-jp);
+        line-height: 2.5rem;
+        border-radius: 10px;
+        padding: 0 1rem;
+
+        &:focus {
+          border: 1px solid white;
+        }
+      }
+
+    }
+  }
+
+
+}

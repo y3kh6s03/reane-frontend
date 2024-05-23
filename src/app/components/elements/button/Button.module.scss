@@ -1,0 +1,101 @@
+@use "@/styles/_variables.scss" as *;
+
+.button {
+  display: block;
+  width: 1.5rem;
+  aspect-ratio: 1/1;
+  position: relative;
+
+  & .icon_container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+
+}
+
+.journal_link {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & .title_container {
+    width: 4.5rem;
+    font-size: 1rem;
+    font-weight: normal;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+    & span {
+      display: block;
+      width: 100%;
+      transform: translateX(-100%);
+      transition: all .3s $ease;
+    }
+  }
+
+  &_inner {
+    position: relative;
+    width: 2rem;
+    aspect-ratio: 1/1;
+
+    & img {
+      transform: rotate(-90deg);
+      transition: all .3s .1s $ease;
+    }
+  }
+
+  &:hover {
+    & .title_container {
+      & span {
+        transform: translateY(0%);
+      }
+    }
+
+    & .journal_link_inner {
+      & img {
+        transform: rotate(-90deg) translateY(10%);
+      }
+    }
+  }
+}
+
+.addSkill {
+  font-size: 3rem;
+  font-weight: 0;
+  margin-bottom: 1rem;
+
+  & span {
+    display: block;
+    font-size: .9rem;
+  }
+}
+
+.createAndCancel_button {
+  width: 6rem;
+  aspect-ratio: 2/1;
+  border-radius: 10px;
+  font-weight: bold;
+  font: 700 1rem var(--font-en);
+  transition: all .1s $ease;
+
+  &:global(.CANCEL),
+  &:global(.DELETE) {
+    background-color: $alertRed;
+
+    &:hover {
+      background-color: lighten(#FF3700, 10%);
+      transform: scale(1.1);
+    }
+  }
+
+  &:global(.CREATE),
+  &:global(.SAVE) {
+    background-color: $green;
+
+    &:hover {
+      background-color: lighten($green, 10%);
+      transform: scale(1.1);
+
+    }
+  }
+}

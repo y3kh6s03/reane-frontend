@@ -1,0 +1,61 @@
+@use "@/styles/_variables.scss" as *;
+
+.card_wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 3rem;
+
+  @include mq(lg) {
+    margin: 0 auto 3rem;
+  }
+
+  .card {
+    & .user {
+      padding: 1.5rem 0 1rem;
+      width: 100%;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+
+      & .user_icon_container {
+        width: 10rem;
+        aspect-ratio: 1/1;
+        position: relative;
+        background-color: $rGray;
+        border-radius: 50%;
+
+        & img {}
+      }
+
+      & .detail_container {
+
+        & .user_name {}
+
+        & .postage {
+          display: block;
+        }
+      }
+
+    }
+
+    & .chartdetail {
+      margin-bottom: 1rem;
+
+      & .chart_name {
+        font-weight: bold;
+        display: block;
+        padding-bottom: .5rem;
+      }
+
+      & .chart_description {}
+    }
+
+  }
+
+  .icons_container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+}

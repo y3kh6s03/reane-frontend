@@ -1,0 +1,18 @@
+@use "@/styles/_variables.scss" as *;
+
+.watch{
+  width: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .icon_container{
+    width: 2rem;
+    aspect-ratio: 1/1;
+    position: relative;
+  }
+
+  &_count{
+    display: block;
+  }
+}

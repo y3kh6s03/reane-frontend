@@ -1,0 +1,28 @@
+@use "@/styles/_variables" as *;
+
+.tab {
+  width: 100%;
+  max-width: 650px;
+  height: 2rem;
+  margin-top: 6rem;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+
+  @include mq(lg){
+    margin: 3rem auto 4rem;
+  }
+
+  &_button {
+    font-family: var(--font-en);
+  }
+
+  &_bottom_line {
+    width: 100%;
+    height: .5px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

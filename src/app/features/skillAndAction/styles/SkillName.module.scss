@@ -1,0 +1,17 @@
+@use "@/styles/_variables.scss" as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+
+  & .skill_title {
+    font: bold 1.5rem var(--font-en);
+
+    &_name {
+      font: 1rem var(--font-jp) 700;
+    }
+  }
+
+}

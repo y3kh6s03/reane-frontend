@@ -1,0 +1,50 @@
+@use "@/styles/variables" as *;
+
+.container {
+  width: 100%;
+  max-width: 550px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+
+  & .reach {
+    display: flex;
+    gap: 1rem;
+
+    &_title {
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      font-family: var(--font-en);
+      font-size: 2rem;
+    }
+
+    &_name {
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    & .edit_link {
+      width: 1.5rem;
+      aspect-ratio: 1/1;
+      align-self: flex-end;
+
+      &_inner {
+        width: 100%;
+        aspect-ratio: 1/1;
+        position: relative;
+      }
+    }
+  }
+  & .authDetail_container{
+    display: none;
+
+    @include mq(lg){
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 2rem;
+    }
+  }
+}

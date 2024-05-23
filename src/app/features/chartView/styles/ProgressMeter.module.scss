@@ -1,0 +1,42 @@
+@use "@/styles/variables" as *;
+
+.container {
+  width: 10rem;
+  aspect-ratio: 1/1;
+  position: absolute;
+  left: 50%;
+  top: 6rem;
+  transform: translateX(-50%);
+
+  @include mq(lg){
+    top: 8rem;
+  }
+
+  & .text_number {
+    font-family: var(--font-en);
+    font-size: 3rem;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @include mq(lg){
+      font-size: 4rem;
+    }
+  }
+
+  & .text_percent {
+    font-size: 1rem;
+  }
+}
+
+@keyframes circleStroke {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 10;
+  }
+}
