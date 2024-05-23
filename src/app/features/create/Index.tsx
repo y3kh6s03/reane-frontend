@@ -76,7 +76,7 @@ export default function CreateIndex({ userData }: UserData) {
   }
 
   const createHandler = async () => {
-    await axios.post('http://localhost:3000/api/myChart/create', createChartStates)
+    await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/create`, createChartStates)
     dispatch(initCreateChart())
     setReachName('');
     router.push('/myChart');

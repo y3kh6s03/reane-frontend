@@ -25,7 +25,7 @@ export default function MobileNav({ props }: Props) {
         {
           navItems.map(item =>
             <li key={item.id} className={styles.nav_li}>
-              <Link href={`${process.env.BASE_URL}/${item.name}`} className={styles.nav_li_link}>
+              <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/${item.name}`} className={styles.nav_li_link}>
                 <div className={styles.image_container}>
                   <Image
                     className={styles.image_container_img}

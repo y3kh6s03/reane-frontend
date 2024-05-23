@@ -37,7 +37,7 @@ export default function Button({ buttonName }: ButtonName) {
 
 export function JournalButton({ journal }: JournalProps) {
   return (
-    <Link className={styles.journal_link} href={`http://localhost:3000/journal/${journal}`}>
+    <Link className={styles.journal_link} href={`${process.env.NEXT_PUBLIC_BASE_URL}/journal/${journal}`}>
       <div className={styles.title_container}>
         <span>
           振り返り

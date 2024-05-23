@@ -9,7 +9,6 @@ import styles from "./styles/Action.module.scss";
 type ActionProps = ActionData
 
 export default function Actions(actions: ActionProps) {
-  console.log(actions)
   const actionCount = Object.keys(actions).length
   let executedCount = 0;
   Object.values(actions).forEach((val) => {
