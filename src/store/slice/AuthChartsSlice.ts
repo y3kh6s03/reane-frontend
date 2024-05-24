@@ -41,7 +41,7 @@ const initialState: AuthChartState = {
 export const fetchAuthChartData = createAsyncThunk<ChartData[], { authEmail: string }>(
   'authChart/fetchAuthChartData',
   async ({ authEmail }) => {
-    const res = await axios.post('http://localhost:3000/api/myChart', { authEmail });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart`, { authEmail });
     const data = await res.data
     return data;
   }
