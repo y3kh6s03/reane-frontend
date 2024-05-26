@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import styles from "./styles/reach.module.scss";
+import styles from "./styles/Reach.module.scss";
 import { JournalButton } from "../../components/elements/button/Button";
 import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 

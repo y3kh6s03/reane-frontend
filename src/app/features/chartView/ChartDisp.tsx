@@ -1,4 +1,4 @@
-import styles from "./styles/chartDisp.module.scss";
+import styles from "./styles/ChartDisp.module.scss";
 
 interface ChartDispData {
   chartDispData: {

@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { SkillData } from "@/store/slice/AuthChartsSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { currentSkillAndAction } from "@/store/slice/SkillAndActionSlice";
-import styles from "./chart.module.scss"
+import styles from "./Chart.module.scss"
 
 interface SkillDatas {
   skillDatas: {

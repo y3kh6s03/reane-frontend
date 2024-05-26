@@ -1,3 +1,5 @@
+import path from 'path';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -11,6 +13,10 @@ const nextConfig = {
         hostname: 'next-auth.js.org',
       }
     ],
+  },
+  webpack(config) {
+    config.resolve.alias['@'] = path.resolve(process.cwd());
+    return config;
   },
 };
 

@@ -1,4 +1,4 @@
-import styles from "./styles/progressMeter.module.scss"
+import styles from "./styles/ProgressMeter.module.scss"
 
 interface ProgressData {
   progressData: {
