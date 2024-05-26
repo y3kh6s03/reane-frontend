@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/../auth";
 import CreateIndex from "../features/create/Index";
 
 export default async function Create() {

@@ -3,10 +3,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { AddAction, addReach, initCreateChart } from "@/store/slice/CreateChartSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useAppDispatch, useAppSelector } from "@/../store/hooks";
+import { AddAction, addReach, initCreateChart } from "@/../store/slice/CreateChartSlice";
 import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 
 import styles from "./Create.module.scss";

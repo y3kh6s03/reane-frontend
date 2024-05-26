@@ -1,9 +1,9 @@
 "use client"
 
-import { ModalToggleButton } from "@/app/components/elements/button/Button"
 import { useState } from "react"
-import JournalInputModalContainer from "@/app/components/utils/JournalInputModalContainer"
-import JournalInputModal from "@/app/components/elements/Modal/JournalInputModal"
+import { ModalToggleButton } from "@/../app/components/elements/button/Button"
+import JournalInputModalContainer from "@/../app/components/utils/JournalInputModalContainer"
+import JournalInputModal from "@/../app/components/elements/Modal/JournalInputModal"
 import styles from "./styles/Journal.module.scss"
 import SearchFilter from "./SearchFilter"
 import Archive from "./Archive"

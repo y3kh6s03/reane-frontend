@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { addSkill } from "@/store/slice/CreateChartSlice";
-import { useAppDispatch } from "@/store/hooks";
+import { addSkill } from "@/../store/slice/CreateChartSlice";
+import { useAppDispatch } from "@/../store/hooks";
 import styles from "./styles/SkillInput.module.scss";
 
 type SkillInputModalProps = {

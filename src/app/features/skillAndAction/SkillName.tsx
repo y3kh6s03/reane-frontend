@@ -1,6 +1,6 @@
 "use client"
 
-import { JournalButton } from "@/app/components/elements/button/Button";
+import { JournalButton } from "@/../app/components/elements/button/Button";
 import styles from "./styles/SkillName.module.scss";
 
 interface SkillNameProps {
@@ -19,7 +19,7 @@ export default function SkillName({skillName}:SkillNameProps) {
           {skillName}
         </h3>
       </div>
-      <JournalButton />
+      <JournalButton journal=""/>
     </div>
   )
 }

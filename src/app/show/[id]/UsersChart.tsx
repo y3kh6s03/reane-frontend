@@ -1,7 +1,7 @@
 "use client"
 
-import ChartIndex from "@/app/features/chartView/Index";
-import { useAppSelector } from "@/store/hooks";
+import ChartIndex from "@/features/chartView/Index";
+import { useAppSelector } from "@/../store/hooks";
 
 export default function UsersChart() {
   const { userChartData } = useAppSelector((state) => state.usersChart);

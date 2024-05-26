@@ -1,9 +1,9 @@
 "use client"
 
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { ChartData, fetchAuthChartData } from "@/store/slice/AuthChartsSlice";
+import { useAppDispatch, useAppSelector } from "@/../store/hooks";
+import { ChartData, fetchAuthChartData } from "@/../store/slice/AuthChartsSlice";
 import ChartIndex from "../features/chartView/Index";
 
 export default function MyChart() {

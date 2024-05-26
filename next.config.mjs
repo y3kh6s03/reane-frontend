@@ -15,7 +15,7 @@ const nextConfig = {
     ],
   },
   webpack(config) {
-    config.resolve.alias['@'] = path.resolve(process.cwd(), 'src');
+    config.resolve.alias['@'] = path.resolve(process.cwd(), 'src/app');
     return config;
   },
 };

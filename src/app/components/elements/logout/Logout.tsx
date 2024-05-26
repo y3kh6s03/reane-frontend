@@ -1,4 +1,4 @@
-import { signOut } from '@/auth';
+import { signOut } from '@/../auth';
 import styles from "./logout.module.scss"
 
 

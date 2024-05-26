@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Button from "@/app/components/elements/button/Button";
-import { Watch } from "@/app/components/elements/icons/Icons";
+import Button from "@/../app/components/elements/button/Button";
+import { Watch } from "@/../app/components/elements/icons/Icons";
 import styles from "./styles/UserCard.module.scss";
 
 export default function UserCard() {

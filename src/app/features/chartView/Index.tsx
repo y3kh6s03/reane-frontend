@@ -1,7 +1,7 @@
-import AuthDetail from "@/app/components/elements/authDetail/AuthDetail";
 import { useSession } from "next-auth/react";
-import { ChartData } from "@/store/slice/AuthChartsSlice";
-import { splitString } from "@/app/components/utils/chartUtils";
+import { splitString } from "@/components/utils/chartUtils";
+import AuthDetail from "@/components/elements/authDetail/AuthDetail";
+import { ChartData } from "@/../store/slice/AuthChartsSlice";
 import styles from "./styles/ChartView.module.scss";
 import Reach from "./Reach";
 
@@ -18,7 +18,7 @@ export default function ChartIndex({ chartData }: ChartProps) {
   const { data: session } = useSession();
   const authName = session?.user?.name;
   let dispCreatedAt;
-  if(chartData?.createdAt){
+  if (chartData?.createdAt) {
     dispCreatedAt = splitString(chartData && chartData?.createdAt, 'T');
   }
 

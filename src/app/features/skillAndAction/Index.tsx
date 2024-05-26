@@ -1,7 +1,7 @@
 "use client"
 
-import AuthDetail from "@/app/components/elements/authDetail/AuthDetail";
-import { useAppSelector } from "@/store/hooks";
+import AuthDetail from "@/components/elements/authDetail/AuthDetail";
+import { useAppSelector } from "@/../store/hooks";
 import SkillName from "./SkillName";
 import styles from "./styles/SkillAndAction.module.scss";
 import Actions from "./Actions";

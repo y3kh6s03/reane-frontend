@@ -1,9 +1,9 @@
 "use client"
 
 // import { useState } from "react";
-// import Button, { JournalButton } from "@/app/components/elements/button/Button";
-import Button from "@/app/components/elements/button/Button";
-import { ActionData } from "@/store/slice/AuthChartsSlice";
+// import Button, { JournalButton } from "@/../app/components/elements/button/Button";
+import Button from "@/../app/components/elements/button/Button";
+import { ActionData } from "@/../store/slice/AuthChartsSlice";
 import styles from "./styles/Action.module.scss";
 
 type ActionProps = ActionData

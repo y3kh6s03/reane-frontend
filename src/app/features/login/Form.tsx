@@ -1,5 +1,5 @@
-import { signIn } from "@/auth";
 import Image from "next/image";
+import { signIn } from "@/../auth";
 import styles from './login.module.scss';
 
 export default function LoginForm() {

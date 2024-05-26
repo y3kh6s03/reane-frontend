@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
-import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import { auth } from "@/../auth";
 import ChartProvider from "./components/libs/ChartProvider";
 import { accFont, jpFont, enFont } from "./styles/fonts";
 import Nav from "./components/layouts/nav/Nav";
