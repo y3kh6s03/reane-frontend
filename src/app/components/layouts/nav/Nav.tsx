@@ -3,7 +3,7 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./nav.module.scss"
+import styles from "./nav.module.scss";
 import Logout from '../../elements/logout/Logout';
 
 interface Props {
