@@ -36,6 +36,12 @@ interface AddChartPayload {
   actionDatas?: AddAction[];
 }
 
+interface EditActionNamePayload {
+  skillName: string,
+  index: number,
+  newActionName: string
+}
+
 const initialState: CreateChartProps = {
   userName: '',
   userImage: '',
@@ -75,11 +81,16 @@ const createChartSlice = createSlice({
       }
     },
 
+    editActionName(state, action: PayloadAction<EditActionNamePayload>) {
+      const { skillName, index, newActionName } = action.payload;
+      state.skills[skillName][index] = { [newActionName]: 0 };
+    },
+
     initCreateChart() {
       return initialState
     }
   },
 })
 
-export const { addSkill, addActions, addReach, initCreateChart } = createChartSlice.actions;
+export const { addSkill, addActions, addReach, initCreateChart, editActionName } = createChartSlice.actions;
 export default createChartSlice.reducer;
