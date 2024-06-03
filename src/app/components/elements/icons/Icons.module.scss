@@ -1,18 +1,24 @@
 @use "@/styles/_variables.scss" as *;
 
-.watch{
+.watch_container {
   width: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  & .icon_container{
+  & .watch_inner {
     width: 2rem;
     aspect-ratio: 1/1;
     position: relative;
   }
 
-  &_count{
+  & .watch_count {
     display: block;
   }
+}
+
+.delete_container {
+  width: 1rem;
+  aspect-ratio: 1/1;
+  position: relative;
 }
