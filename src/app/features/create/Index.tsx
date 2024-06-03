@@ -50,13 +50,14 @@ export default function CreateIndex({ userData }: UserData) {
   const actionData = {
     setIsActionModal,
     skillName,
+    setSkillName,
     addModalActions,
     setAddModalActions,
     inputAction,
     setInputAction,
     addedActions: createChartStates.skills,
     editActionNames,
-    setEditActionNames
+    setEditActionNames,
   }
 
   const modalToggleProps = {
