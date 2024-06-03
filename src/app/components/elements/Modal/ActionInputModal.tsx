@@ -1,8 +1,8 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect } from "react";
 import { useAppDispatch } from "@/../store/hooks";
-import { AddAction, addActions } from "@/../store/slice/CreateChartSlice";
+import { AddAction, addActions, editActionName } from "@/../store/slice/CreateChartSlice";
 import { SkillData } from "@/../store/slice/AuthChartsSlice";
-import styles from "./styles/ActionInput.module.scss"
+import styles from "./styles/ActionInput.module.scss";
 import { CreateAndCancelButton } from "../button/Button";
 
 interface ActionInputProps {
@@ -13,11 +13,25 @@ interface ActionInputProps {
     setAddModalActions: Dispatch<SetStateAction<AddAction[]>>,
     inputAction: string,
     setInputAction: Dispatch<SetStateAction<string>>,
-    addedActions?: SkillData
+    addedActions?: SkillData,
+    editActionNames: string[],
+    setEditActionNames: Dispatch<SetStateAction<string[]>>,
   }
 };
 
 export default function ActionInputModal({ actionData }: ActionInputProps) {
+
+  useEffect(() => {
+    if (actionData.addedActions) {
+      actionData.setEditActionNames([]);
+      actionData.addedActions[actionData.skillName].map((val) =>
+        actionData.setEditActionNames((prev) =>
+          [...prev, Object.keys(val)[0]]
+        )
+      )
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const dispatch = useAppDispatch();
 
@@ -25,6 +39,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
     dispatch(addActions({ skillName: actionData.skillName, actionDatas: actionData.addModalActions }))
     actionData.setAddModalActions([])
     actionData.setIsActionModal((prev) => !prev);
+    actionData.setEditActionNames([]);
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +49,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
   const onBlurHandler = () => {
     if (actionData.inputAction !== '') {
       const addAction = { id: new Date().getTime(), name: actionData.inputAction }
-      actionData.setAddModalActions((prev: AddAction[]) => [...prev, addAction])
+      actionData.setAddModalActions((prev: AddAction[]) => [...prev, addAction]);
       actionData.setInputAction('');
     }
   }
@@ -44,7 +59,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
     onBlurHandler();
   }
 
-  const cancelHandler = ()=>{
+  const cancelHandler = () => {
     actionData.setIsActionModal((prev) => !prev);
     actionData.setAddModalActions([]);
   }
@@ -56,15 +71,11 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
           // eslint-disable-next-line no-param-reassign
           action.name = name;
         }
-        return action
+        return action;
       })
       return newAddActions;
     })
   }
-
-  const addedActionDatas = actionData.addedActions;
-
-  const actions = addedActionDatas && addedActionDatas[actionData.skillName]
 
   return (
     <div className={styles.wrapper}>
@@ -86,11 +97,21 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
           </h3>
           <ul className={styles.action_name_container}>
             {
-              actions
+              actionData.editActionNames
                 ?
-                actions.map((action) =>
-                  <li key={Object.keys(action)[0]} className={styles.action_name}>
-                    {Object.keys(action)[0]}
+                actionData.editActionNames.map((actionName, index) =>
+                  // eslint-disable-next-line react/no-array-index-key
+                  <li key={index} className={styles.action_name}>
+                    <input
+                      type="text"
+                      value={actionName}
+                      onChange={(e) => {
+                        const newEditActionNames = [...actionData.editActionNames];
+                        newEditActionNames[index] = e.target.value;
+                        actionData.setEditActionNames(newEditActionNames);
+                        dispatch(editActionName({ skillName: actionData.skillName, index, newActionName: actionName }))
+                      }}
+                    />
                   </li>
                 )
                 :

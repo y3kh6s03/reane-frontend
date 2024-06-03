@@ -36,6 +36,7 @@ export default function CreateIndex({ userData }: UserData) {
   const [reachName, setReachName] = useState('');
   const [addModalActions, setAddModalActions] = useState<AddAction[]>([]);
   const [inputAction, setInputAction] = useState<string>('');
+  const [editActionNames, setEditActionNames] = useState<string[]>([]);
   const router = useRouter();
 
   const chartData = {
@@ -53,7 +54,9 @@ export default function CreateIndex({ userData }: UserData) {
     setAddModalActions,
     inputAction,
     setInputAction,
-    addedActions: createChartStates.skills
+    addedActions: createChartStates.skills,
+    editActionNames,
+    setEditActionNames
   }
 
   const modalToggleProps = {

@@ -36,8 +36,13 @@
 
       &_name {
         display: block;
+        width: 100%;
         font-weight: normal;
         font-size: 1rem;
+
+        & input{
+          width: 100%;
+        }
       }
     }
 
