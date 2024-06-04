@@ -1,10 +1,11 @@
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useAppDispatch } from '@/../store/hooks';
-import { AddAction, addActions, deleteActionName, deleteSkillName, editActionName, editSkillName } from '@/../store/slice/CreateChartSlice';
+import { AddAction, addActions, deleteSkillName, editActionName } from '@/../store/slice/CreateChartSlice';
 import { SkillData } from '@/../store/slice/AuthChartsSlice';
 import styles from './styles/ActionInput.module.scss';
 import { CreateAndCancelButton } from '../button/Button';
 import { Delete } from '../icons/Icons';
+import { addActionDeleteHandler, editActionDeleteHandler, editSkillNameHandler, handleInputEdit, onBlurEditSkillNameHandler, onBlurHandler, onChangeHandler, onSubmitHandler } from './ActionInputHandler';
 
 interface ActionInputProps {
   actionData: {
@@ -17,7 +18,7 @@ interface ActionInputProps {
     setInputAction: Dispatch<SetStateAction<string>>,
     addedActions?: SkillData,
     editSkillName: string,
-    setEditSkillName: Dispatch<SetStateAction<string>>
+    setEditSkillName: Dispatch<SetStateAction<string>>,
     editActionNames: string[],
     setEditActionNames: Dispatch<SetStateAction<string[]>>,
   }
@@ -47,48 +48,9 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
     actionData.setEditActionNames([]);
   }
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    actionData.setInputAction(e.target.value);
-  }
-
-  const onBlurHandler = () => {
-    if (actionData.inputAction !== '') {
-      const addAction = { id: new Date().getTime(), name: actionData.inputAction }
-      actionData.setAddModalActions((prev: AddAction[]) => [...prev, addAction]);
-      actionData.setInputAction('');
-    }
-  }
-
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onBlurHandler();
-  }
-
   const cancelHandler = () => {
     actionData.setIsActionModal((prev) => !prev);
     actionData.setAddModalActions([]);
-  }
-
-  const handleInputEdit = (name: string, id: number) => {
-    actionData.setAddModalActions((prevActions) => {
-      const newAddActions = prevActions.map((action) => {
-        if (action.id === id) {
-          // eslint-disable-next-line no-param-reassign
-          action.name = name;
-        }
-        return action;
-      })
-      return newAddActions;
-    })
-  }
-
-  const editSkillNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    actionData.setEditSkillName(e.target.value)
-  }
-
-  const onBlurEditSkillNameHandler = () => {
-    const currentSkillName = actionData.skillName;
-    dispatch(editSkillName({ currentSkillName, newSkillName: actionData.editSkillName }));
   }
 
   const deleteSkillNameHandler = () => {
@@ -97,19 +59,6 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
       dispatch(deleteSkillName({ skillName: actionData.editSkillName }))
       cancelHandler();
     }
-  }
-
-  const editActionDeleteHandler = (index: number) => {
-    const newEditActionNames = [...actionData.editActionNames];
-    newEditActionNames.splice(index, 1);
-    actionData.setEditActionNames(newEditActionNames);
-    dispatch(deleteActionName({ skillName: actionData.skillName, index }))
-  }
-
-  const addActionDeleteHandler = (index: number) => {
-    const newAddModalActions = [...actionData.addModalActions];
-    newAddModalActions.splice(index, 1);
-    actionData.setAddModalActions(newAddModalActions);
   }
 
   return (
@@ -126,8 +75,8 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
             <input
               className={styles.skill_name}
               value={actionData.editSkillName}
-              onChange={(e) => { editSkillNameHandler(e) }}
-              onBlur={() => { onBlurEditSkillNameHandler() }}
+              onChange={(e) => { editSkillNameHandler(e, actionData.setEditSkillName) }}
+              onBlur={() => { onBlurEditSkillNameHandler(actionData.skillName, dispatch, actionData.editSkillName) }}
             />
             <div className={styles.deleteIcon_container}>
               <Delete deleteHandler={() => deleteSkillNameHandler()} />
@@ -157,7 +106,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
                       onBlur={() => dispatch(editActionName({ skillName: actionData.editSkillName, index, newActionName: actionName }))}
                     />
                     <div className={styles.deleteIcon_container}>
-                      <Delete deleteHandler={() => { editActionDeleteHandler(index) }} />
+                      <Delete deleteHandler={() => { editActionDeleteHandler(index, actionData.editActionNames, actionData.setEditActionNames, dispatch, actionData.skillName) }} />
                     </div>
                   </li>
                 )
@@ -171,14 +120,14 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
           <h3 className={styles.addAction_title}>
             ADD ACTION
           </h3>
-          <form onSubmit={(e) => { onSubmitHandler(e) }}>
+          <form onSubmit={(e) => { onSubmitHandler(e, actionData.inputAction, actionData.setAddModalActions, actionData.setInputAction) }}>
             <input
               type='text'
               className={styles.addAction_input}
               placeholder='actionを追加'
               value={actionData.inputAction}
-              onChange={onChangeHandler}
-              onBlur={onBlurHandler}
+              onChange={(e) => onChangeHandler(e, actionData.setInputAction)}
+              onBlur={() => onBlurHandler(actionData.inputAction, actionData.setAddModalActions, actionData.setInputAction)}
             />
           </form>
           <ul className={styles.addAction_name_inner}>
@@ -190,11 +139,11 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
                 >
                   <input
                     value={action.name}
-                    onChange={(e) => { handleInputEdit(e.target.value, action.id) }}
+                    onChange={(e) => { handleInputEdit(actionData.setAddModalActions, e.target.value, action.id) }}
                   />
                   <div className={styles.deleteIcon_container}>
                     <Delete deleteHandler={() => {
-                      addActionDeleteHandler(index)
+                      addActionDeleteHandler(index, actionData.addModalActions, actionData.setAddModalActions)
                     }} />
                   </div>
                 </li>
