@@ -32,19 +32,28 @@ export interface AddAction {
   name: string,
 }
 interface AddChartPayload {
-  skillName: string;
-  actionDatas?: AddAction[];
+  skillName: string,
+  actionDatas?: AddAction[],
+}
+
+interface DeleteSkillNamePayload {
+  skillName: string
+}
+
+interface EditSkillNamePayload {
+  currentSkillName: string,
+  newSkillName: string,
 }
 
 interface EditActionNamePayload {
   skillName: string,
   index: number,
-  newActionName: string
+  newActionName: string,
 }
 
 interface DeleteActionNamePayload {
   skillName: string,
-  index: number
+  index: number,
 }
 
 const initialState: CreateChartProps = {
@@ -86,9 +95,18 @@ const createChartSlice = createSlice({
       }
     },
 
-    // editSkillName(state, action: PayloadAction<>){
+    editSkillName(state, action: PayloadAction<EditSkillNamePayload>) {
+      const { currentSkillName, newSkillName } = action.payload;
+      const currentSkillNameActions = [...state.skills[currentSkillName]]
+      delete state.skills[currentSkillName];
+      state.skills[newSkillName] = currentSkillNameActions
+    },
 
-    // },
+    deleteSkillName(state, action: PayloadAction<DeleteSkillNamePayload>) {
+      const { skillName } = action.payload;
+      delete state.skills[skillName]
+
+    },
 
     editActionName(state, action: PayloadAction<EditActionNamePayload>) {
       const { skillName, index, newActionName } = action.payload;
@@ -106,5 +124,5 @@ const createChartSlice = createSlice({
   },
 })
 
-export const { addSkill, addActions, addReach, initCreateChart, editActionName, deleteActionName } = createChartSlice.actions;
+export const { addSkill, addActions, addReach, initCreateChart, editSkillName, deleteSkillName, editActionName, deleteActionName } = createChartSlice.actions;
 export default createChartSlice.reducer;

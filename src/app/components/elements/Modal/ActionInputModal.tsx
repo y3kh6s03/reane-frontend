@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect } from 'react';
 import { useAppDispatch } from '@/../store/hooks';
-import { AddAction, addActions, deleteActionName, editActionName } from '@/../store/slice/CreateChartSlice';
+import { AddAction, addActions, deleteActionName, deleteSkillName, editActionName, editSkillName } from '@/../store/slice/CreateChartSlice';
 import { SkillData } from '@/../store/slice/AuthChartsSlice';
 import styles from './styles/ActionInput.module.scss';
 import { CreateAndCancelButton } from '../button/Button';
@@ -16,6 +16,8 @@ interface ActionInputProps {
     inputAction: string,
     setInputAction: Dispatch<SetStateAction<string>>,
     addedActions?: SkillData,
+    editSkillName: string,
+    setEditSkillName: Dispatch<SetStateAction<string>>
     editActionNames: string[],
     setEditActionNames: Dispatch<SetStateAction<string[]>>,
   }
@@ -24,6 +26,7 @@ interface ActionInputProps {
 export default function ActionInputModal({ actionData }: ActionInputProps) {
 
   useEffect(() => {
+    actionData.setEditSkillName(actionData.skillName);
     if (actionData.addedActions) {
       actionData.setEditActionNames([]);
       actionData.addedActions[actionData.skillName].map((val) =>
@@ -38,7 +41,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
   const dispatch = useAppDispatch();
 
   const addActionsHandler = () => {
-    dispatch(addActions({ skillName: actionData.skillName, actionDatas: actionData.addModalActions }))
+    dispatch(addActions({ skillName: actionData.editSkillName, actionDatas: actionData.addModalActions }))
     actionData.setAddModalActions([])
     actionData.setIsActionModal((prev) => !prev);
     actionData.setEditActionNames([]);
@@ -80,7 +83,20 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
   }
 
   const editSkillNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    actionData.setSkillName(e.target.value)
+    actionData.setEditSkillName(e.target.value)
+  }
+
+  const onBlurEditSkillNameHandler = () => {
+    const currentSkillName = actionData.skillName;
+    dispatch(editSkillName({ currentSkillName, newSkillName: actionData.editSkillName }));
+  }
+
+  const deleteSkillNameHandler = () => {
+    const result = confirm('スキルに登録したアクションもすべて削除されます。\nこのスキルを削除してもいいですか？');
+    if (result) {
+      dispatch(deleteSkillName({ skillName: actionData.editSkillName }))
+      cancelHandler();
+    }
   }
 
   const editActionDeleteHandler = (index: number) => {
@@ -106,12 +122,17 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
           <h3 className={styles.skill_title}>
             SKILL
           </h3>
-          <input
-            className={styles.skill_name}
-            value={actionData.skillName}
-            onChange={(e) => { editSkillNameHandler(e) }}
-            onBlur={() => {alert('skillnameを変えちゃうぞーーー')}}
-          />
+          <div className={styles.skill_name_inner}>
+            <input
+              className={styles.skill_name}
+              value={actionData.editSkillName}
+              onChange={(e) => { editSkillNameHandler(e) }}
+              onBlur={() => { onBlurEditSkillNameHandler() }}
+            />
+            <div className={styles.deleteIcon_container}>
+              <Delete deleteHandler={() => deleteSkillNameHandler()} />
+            </div>
+          </div>
         </div>
 
         <div className={styles.action_name_container}>
@@ -133,7 +154,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
                         newEditActionNames[index] = e.target.value;
                         actionData.setEditActionNames(newEditActionNames);
                       }}
-                      onBlur={() => dispatch(editActionName({ skillName: actionData.skillName, index, newActionName: actionName }))}
+                      onBlur={() => dispatch(editActionName({ skillName: actionData.editSkillName, index, newActionName: actionName }))}
                     />
                     <div className={styles.deleteIcon_container}>
                       <Delete deleteHandler={() => { editActionDeleteHandler(index) }} />

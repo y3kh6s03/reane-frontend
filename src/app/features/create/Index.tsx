@@ -36,6 +36,7 @@ export default function CreateIndex({ userData }: UserData) {
   const [reachName, setReachName] = useState('');
   const [addModalActions, setAddModalActions] = useState<AddAction[]>([]);
   const [inputAction, setInputAction] = useState<string>('');
+  const [editSkillName, setEditSkillName] = useState<string>('');
   const [editActionNames, setEditActionNames] = useState<string[]>([]);
   const router = useRouter();
 
@@ -56,6 +57,8 @@ export default function CreateIndex({ userData }: UserData) {
     inputAction,
     setInputAction,
     addedActions: createChartStates.skills,
+    editSkillName,
+    setEditSkillName,
     editActionNames,
     setEditActionNames,
   }

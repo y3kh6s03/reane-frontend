@@ -13,6 +13,8 @@
     "import/extensions": "off",
     "react/jsx-props-no-spreading": "off",
     "import/no-extraneous-dependencies": "off",
-    "label-has-associated-control": "off"
+    "label-has-associated-control": "off",
+    "no-restricted-globals":"off",
+    "no-alert": "off"
   }
 }
