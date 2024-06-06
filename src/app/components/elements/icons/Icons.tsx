@@ -20,7 +20,7 @@ export function Watch({ watchCount }: WatchCount) {
 export function Delete({ deleteHandler }: { deleteHandler: () => void }) {
   return (
     <button type='button' onClick={deleteHandler} className={styles.delete_container}>
-      <Image src='./delete.svg' fill sizes='100%' alt='delete' />
+      <Image src='/delete.svg' fill sizes='100%' alt='delete' />
     </button>
   )
 }

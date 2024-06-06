@@ -15,13 +15,20 @@ export default function SkillAndActionIndex() {
     userImage: skillAndActionData.userImage
   }
 
+  const skillNameData = {
+    userEmail: skillAndActionData.userEmail,
+    skillName: skillAndActionData.skillName,
+    reachName: skillAndActionData.reachName,
+
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.page_title}>
         Skill and Action
       </h1>
         <AuthDetail userData={userData} />
-      <SkillName skillName={skillAndActionData.skillName} />
+      <SkillName {...skillNameData} />
       {
         skillAndActionData.actionDatas
           ? <Actions {...skillAndActionData.actionDatas} />

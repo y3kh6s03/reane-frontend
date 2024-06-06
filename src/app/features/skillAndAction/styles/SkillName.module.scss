@@ -6,12 +6,33 @@
   justify-content: space-between;
   align-self: center;
 
-  & .skill_title {
-    font: bold 1.5rem var(--font-en);
+  & .title_container {
+    width: 100%;
 
-    &_name {
-      font: 1rem var(--font-jp) 700;
+    & .skill_title {
+      font: bold 1.5rem var(--font-en);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+
+      & button {
+        transform: translateY(-200%);
+        transition: transform .1s $ease;
+      }
+
+      &_name {
+        font: 1rem var(--font-jp) 700;
+        width: 100%;
+      }
     }
   }
 
+  &:hover {
+    & .skill_title {
+      & button {
+        transform: translateY(0%);
+      }
+    }
+  }
 }

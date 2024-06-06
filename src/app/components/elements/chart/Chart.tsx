@@ -11,6 +11,8 @@ interface SkillDatas {
   skillDatas: {
     userName: string | undefined,
     userImage: string | undefined,
+    userEmail: string | undefined,
+    reachName: string | undefined,
     skills: SkillData | undefined,
     setIsActionModal?: Dispatch<SetStateAction<boolean>>;
     setSkillName?: Dispatch<SetStateAction<string>>
@@ -37,11 +39,13 @@ export default function Chart({ skillDatas }: SkillDatas) {
         const skillAndActionData = {
           userName: skillDatas.userName,
           userImage: skillDatas.userImage,
+          userEmail: skillDatas.userEmail,
+          reachName: skillDatas.reachName,
           skillName,
           actionDatas
         }
         dispatch(currentSkillAndAction(skillAndActionData));
-        router.push(`/skillAndAction/${skillDatas.userName}/${skillName}`);
+        router.push(`/skillAndAction/${skillDatas.userName}/${skillDatas.reachName}/${skillName}`);
       }
     }
   }

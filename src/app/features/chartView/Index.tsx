@@ -36,6 +36,8 @@ export default function ChartIndex({ chartData }: ChartProps) {
   const skillDatas = {
     userName: chartData?.userName,
     userImage: chartData?.userImage,
+    userEmail: chartData?.userEmail,
+    reachName: chartData?.reachName,
     skills: chartData?.skills
   }
 
