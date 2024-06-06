@@ -21,4 +21,8 @@
   width: 1rem;
   aspect-ratio: 1/1;
   position: relative;
+
+  & image{
+    transition: transform .1s $ease;
+  }
 }

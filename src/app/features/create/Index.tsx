@@ -43,6 +43,8 @@ export default function CreateIndex({ userData }: UserData) {
   const chartData = {
     userName: userData.userName,
     userImage: userData.userImage,
+    userEmail: userData.userEmail,
+    reachName,
     skills: createChartStates.skills,
     setIsActionModal,
     setSkillName,
