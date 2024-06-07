@@ -1,10 +1,13 @@
 "use client"
 
+
 import { FormEvent, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { JournalButton } from "@/../app/components/elements/button/Button";
 import axios from "axios";
 import { Delete } from "@/components/elements/icons/Icons";
 import styles from "./styles/SkillName.module.scss";
+import { deleteHandler } from "./handler";
 
 interface SkillNameProps {
   skillName: string,
@@ -22,6 +25,7 @@ interface EditSkillNameData {
 export default function SkillName({ skillName, reachName, userEmail }: SkillNameProps) {
 
   const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter();
 
   const formTestHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,6 +44,7 @@ export default function SkillName({ skillName, reachName, userEmail }: SkillName
       formRef.current.dispatchEvent(event);
     }
   }
+
   return (
     <div className={styles.container}>
       <form
@@ -48,7 +53,7 @@ export default function SkillName({ skillName, reachName, userEmail }: SkillName
         className={styles.title_container}>
         <h2 className={styles.skill_title}>
           SKILL
-          <Delete deleteHandler={() => { }} />
+          <Delete deleteHandler={() => { deleteHandler({ skillName, reachName, userEmail, router }) }} />
         </h2>
         <input
           type="text"

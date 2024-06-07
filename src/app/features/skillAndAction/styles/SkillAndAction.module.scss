@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  max-width: 700px;
+  max-width: 650px;
   height: 100vh;
   display: grid;
   margin: 0 auto;
@@ -10,22 +10,28 @@
   grid-template-rows: 1fr 1fr 1fr 5fr;
   gap: 2rem;
 
-  @include mq(lg){
+  @include mq(lg) {
     padding-top: 1rem;
   }
-}
 
-.page_title {
-  position: relative;
-  align-self: center;
+  & .page_title_container {
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 
-  &::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: .1px;
-    background-color: white;
-    position: absolute;
-    bottom: 0;
+    & .page_title {
+      align-self: center;
+
+    }
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: .1px;
+      background-color: white;
+      position: absolute;
+      bottom: 0;
+    }
   }
 }
