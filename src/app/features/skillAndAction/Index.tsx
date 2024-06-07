@@ -8,7 +8,7 @@ import Actions from "./Actions";
 
 export default function SkillAndActionIndex() {
 
-  const {skillAndActionData} = useAppSelector((state) => state.skillAndAction)
+  const { skillAndActionData } = useAppSelector((state) => state.skillAndAction)
 
   const userData = {
     userName: skillAndActionData.userName,
@@ -24,10 +24,12 @@ export default function SkillAndActionIndex() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.page_title}>
-        Skill and Action
-      </h1>
+      <div className={styles.page_title_container}>
+        <h1 className={styles.page_title}>
+          Skill and Action
+        </h1>
         <AuthDetail userData={userData} />
+      </div>
       <SkillName {...skillNameData} />
       {
         skillAndActionData.actionDatas
@@ -35,6 +37,6 @@ export default function SkillAndActionIndex() {
           : <Actions {...{}} />
       }
 
-    </div>
+    </div >
   )
 }

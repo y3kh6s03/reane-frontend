@@ -9,3 +9,11 @@ export async function POST(req: Request) {
   const data = await res.data;
   return Response.json(data);
 }
+
+export async function DELETE(req: Request) {
+  const reqData = await req.json();
+  const URL = `${process.env.LARAVEL_API_BASE_URL}/myChart/${reqData.editSkillName}`
+  const res = await axios.delete(URL, { data: reqData });
+  const data = await res.data;
+  return Response.json(data);
+}
