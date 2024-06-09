@@ -2,13 +2,20 @@
 
 // import { useState } from "react";
 // import Button, { JournalButton } from "@/../app/components/elements/button/Button";
-import Button from "@/../app/components/elements/button/Button";
+
+import { Delete } from "@/components/elements/icons/Icons";
 import { ActionData } from "@/../store/slice/AuthChartsSlice";
+import axios from "axios";
+import { FormEvent, useRef } from "react";
 import styles from "./styles/Action.module.scss";
 
-type ActionProps = ActionData
+interface ActionProps {
+  reachName: string,
+  skillName: string,
+  actions: ActionData
+}
 
-export default function Actions(actions: ActionProps) {
+export default function Actions({ reachName, skillName, actions }: ActionProps) {
   const actionCount = Object.keys(actions).length
   let executedCount = 0;
   Object.values(actions).forEach((val) => {
@@ -18,7 +25,31 @@ export default function Actions(actions: ActionProps) {
   })
   const rate = Math.floor(executedCount / actionCount * 100)
 
-  const dammyFunction = async () => {
+  const actionNameForms = useRef<(HTMLFormElement | null)[]>([]);
+
+  const actionNameSubmitHandler = async (e: FormEvent<HTMLFormElement>, actionName: string, actionId: number) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const editActionName = form.get(actionName);
+    if (actionName !== editActionName) {
+      const encordActionId = encodeURIComponent(actionId);
+      const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/${encordActionId}`;
+      const editActionNameData = {
+        reachName,
+        skillName,
+        actionId,
+        actionName,
+        editActionName
+      }
+      const res = await axios.post(URL, editActionNameData);
+      const data = await res.data;
+      console.log(data);
+    }
+  }
+
+  const actionNameBlurHandler = async (index: number) => {
+    const actionNameFormEvnet = new Event('submit', { cancelable: true, bubbles: true });
+    actionNameForms.current[index]?.dispatchEvent(actionNameFormEvnet);
   }
 
   return (
@@ -40,29 +71,39 @@ export default function Actions(actions: ActionProps) {
       </div>
 
       {
-        Object.values(actions).map((actionData) => {
-          const actionName = actionData.name
+        Object.values(actions).map((actionData, index) => {
+          const actionName = actionData.name;
+          const actionId = actionData.id;
           return (
             <div key={actionData.id} className={styles.actions_container}>
-              <form className={styles.checkbox} onChange={dammyFunction}>
+
+              <form
+                className={styles.checkbox}
+                onSubmit={() => { }}
+              >
                 <input type="checkbox" />
               </form>
-              <form className={styles.action_name} onBlur={dammyFunction}>
+
+              <form
+                ref={(el) => { actionNameForms.current[index] = el }}
+                onSubmit={(e) => { actionNameSubmitHandler(e, actionName, actionId) }}
+                className={styles.action_name}
+              >
                 <input
                   type="text"
                   placeholder="アクションを入力"
-                  value={actionName}
-                  // onChange={(e) => setinputActionName(e.target.value)}
-                  onChange={() => { }}
+                  name={actionName}
+                  defaultValue={actionName}
+                  onBlur={() => { actionNameBlurHandler(index) }}
                 />
+                <Delete deleteHandler={() => { }} />
               </form>
-              <Button buttonName="delete" />
+
               {/* <JournalButton /> */}
             </div>
           )
         })
       }
-
     </div>
   )
 }

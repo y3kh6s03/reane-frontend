@@ -34,7 +34,11 @@ export default function SkillName({ skillName, reachName, userEmail }: SkillName
     const currentSkillName = skillName;
     if (editSkillName !== currentSkillName) {
       const editSkillNameData: EditSkillNameData = { reachName, editSkillName, currentSkillName, userEmail };
-      const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/${editSkillName}`; await axios.post(URL, editSkillNameData)
+      const encordSkillName = encodeURIComponent(currentSkillName)
+      const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/skillName/${encordSkillName}`;
+      const res = await axios.post(URL, editSkillNameData);
+      console.log(res);
+
     }
   }
 
