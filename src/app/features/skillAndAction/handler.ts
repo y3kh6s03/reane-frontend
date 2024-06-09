@@ -14,7 +14,7 @@ interface DeleteHandlerProps {
 export const deleteHandler = async ({ reachName, skillName, userEmail, router }: DeleteHandlerProps) => {
   const result = confirm('スキルを削除しますか？\nスキルに登録されたアクションも一緒に削除されます。')
   if (result) {
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/${skillName}`;
+    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/skillName/${skillName}`;
     const deleteData = {
       reachName,
       skillName,
