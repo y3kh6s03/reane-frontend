@@ -4,13 +4,16 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export interface ActionData {
-  name?: string,
-  id?: number,
-  isCompleted?: number
+  name: string,
+  id: number,
+  isCompleted: number
 }
 
 export interface SkillData {
-  [skill: string]: ActionData[]
+  [skill: string]: {
+    id?: number,
+    actions: ActionData[]
+  }
 }
 
 export type ChartData = {

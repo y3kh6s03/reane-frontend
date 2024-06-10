@@ -4,7 +4,7 @@
 // import Button, { JournalButton } from "@/../app/components/elements/button/Button";
 
 import { Delete } from "@/components/elements/icons/Icons";
-import { ActionData } from "@/../store/slice/AuthChartsSlice";
+// import { ActionData } from "@/../store/slice/AuthChartsSlice";
 import axios from "axios";
 import { FormEvent, useRef } from "react";
 import styles from "./styles/Action.module.scss";
@@ -12,14 +12,18 @@ import styles from "./styles/Action.module.scss";
 interface ActionProps {
   reachName: string,
   skillName: string,
-  actions: ActionData
+  actions: {
+    id: number,
+    name: string,
+    isCompleted: number
+  }[]
 }
 
 export default function Actions({ reachName, skillName, actions }: ActionProps) {
   const actionCount = Object.keys(actions).length
   let executedCount = 0;
   Object.values(actions).forEach((val) => {
-    if (val === 1) {
+    if (val.isCompleted === 1) {
       executedCount += 1
     }
   })
@@ -41,9 +45,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
         actionName,
         editActionName
       }
-      const res = await axios.post(URL, editActionNameData);
-      const data = await res.data;
-      console.log(data);
+      await axios.post(URL, editActionNameData);
     }
   }
 
@@ -72,6 +74,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
       {
         Object.values(actions).map((actionData, index) => {
+          console.log(actions)
           const actionName = actionData.name;
           const actionId = actionData.id;
           return (

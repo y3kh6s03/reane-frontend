@@ -9,7 +9,7 @@ interface SKillAndActionProps {
     userImage: string,
     reachName: string,
     skillName: string,
-    actionDatas: ActionData,
+    actionDatas: ActionData[],
   }
 }
 
@@ -20,7 +20,7 @@ const initialState: SKillAndActionProps = {
     userEmail: '',
     reachName: '',
     skillName: '',
-    actionDatas: {}
+    actionDatas: []
   }
 }
 

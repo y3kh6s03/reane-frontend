@@ -4,8 +4,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface ActionData {
   [action: string]: number
 }
-interface SkillData {
-  [skill: string]: ActionData[]
+export interface CreateSkillData {
+  [skill: string]: {
+    actions: ActionData[]
+  }
 }
 
 type CreateChartProps = {
@@ -13,7 +15,7 @@ type CreateChartProps = {
   userImage: string;
   userEmail: string;
   reachName: string;
-  skills: SkillData,
+  skills: CreateSkillData,
   actionCount?: number;
   executedActionCount?: number;
   days: number;
@@ -82,24 +84,24 @@ const createChartSlice = createSlice({
 
     addSkill(state, action: PayloadAction<AddChartPayload>) {
       const { skillName } = action.payload;
-      state.skills[skillName] = []
+      state.skills[skillName] = { actions: [] }
     },
 
     addActions(state, action: PayloadAction<AddChartPayload>) {
       const { skillName, actionDatas } = action.payload;
       const actions = actionDatas?.map(actionData => actionData.name);
       const insertActions = actions?.map((actionName) => ({ [actionName]: 0 }))
-      const currentActions = [...state.skills[skillName]]
+      const currentActions = [...state.skills[skillName].actions]
       if (currentActions && insertActions) {
-        state.skills[skillName] = [...currentActions, ...insertActions]
+        state.skills[skillName].actions = [...currentActions, ...insertActions]
       }
     },
 
     editSkillName(state, action: PayloadAction<EditSkillNamePayload>) {
       const { currentSkillName, newSkillName } = action.payload;
-      const currentSkillNameActions = [...state.skills[currentSkillName]]
+      const currentSkillNameActions = [...state.skills[currentSkillName].actions]
       delete state.skills[currentSkillName];
-      state.skills[newSkillName] = currentSkillNameActions
+      state.skills[newSkillName] = { actions: [...currentSkillNameActions] }
     },
 
     deleteSkillName(state, action: PayloadAction<DeleteSkillNamePayload>) {
@@ -110,12 +112,12 @@ const createChartSlice = createSlice({
 
     editActionName(state, action: PayloadAction<EditActionNamePayload>) {
       const { skillName, index, newActionName } = action.payload;
-      state.skills[skillName][index] = { [newActionName]: 0 };
+      state.skills[skillName].actions[index] = { [newActionName]: 0 };
     },
 
     deleteActionName(state, action: PayloadAction<DeleteActionNamePayload>) {
       const { skillName, index } = action.payload;
-      state.skills[skillName].splice(index, 1);
+      state.skills[skillName].actions.splice(index, 1);
     },
 
     initCreateChart() {
