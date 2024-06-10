@@ -6,20 +6,21 @@ import { SkillData } from "@/../store/slice/AuthChartsSlice";
 import { useAppDispatch } from "@/../store/hooks";
 import { currentSkillAndAction } from "@/../store/slice/SkillAndActionSlice";
 import styles from "./Chart.module.scss"
+import { CreateSkillData } from "../../../../store/slice/CreateChartSlice";
 
-interface SkillDatas {
+interface ChartDatas {
   skillDatas: {
     userName: string | undefined,
     userImage: string | undefined,
     userEmail: string | undefined,
     reachName: string | undefined,
-    skills: SkillData | undefined,
+    skills: SkillData | CreateSkillData | undefined,
     setIsActionModal?: Dispatch<SetStateAction<boolean>>;
     setSkillName?: Dispatch<SetStateAction<string>>
   },
 }
 
-export default function Chart({ skillDatas }: SkillDatas) {
+export default function Chart({ skillDatas }: ChartDatas) {
 
   const pathName = usePathname().substring(1);
   const modalOpen = (skill: string) => {

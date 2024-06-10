@@ -74,6 +74,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
       {
         Object.values(actions).map((actionData, index) => {
+          console.log(actions)
           const actionName = actionData.name;
           const actionId = actionData.id;
           return (

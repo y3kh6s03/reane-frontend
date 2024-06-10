@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useAppDispatch } from '@/../store/hooks';
-import { AddAction, addActions, deleteSkillName, editActionName } from '@/../store/slice/CreateChartSlice';
+import { AddAction, CreateSkillData, addActions, deleteSkillName, editActionName } from '@/../store/slice/CreateChartSlice';
 import { SkillData } from '@/../store/slice/AuthChartsSlice';
 import styles from './styles/ActionInput.module.scss';
 import { CreateAndCancelButton } from '../button/Button';
@@ -16,7 +16,7 @@ interface ActionInputProps {
     setAddModalActions: Dispatch<SetStateAction<AddAction[]>>,
     inputAction: string,
     setInputAction: Dispatch<SetStateAction<string>>,
-    addedActions?: SkillData,
+    addedActions?: SkillData | CreateSkillData,
     editSkillName: string,
     setEditSkillName: Dispatch<SetStateAction<string>>,
     editActionNames: string[],
@@ -30,7 +30,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
     actionData.setEditSkillName(actionData.skillName);
     if (actionData.addedActions) {
       actionData.setEditActionNames([]);
-      actionData.addedActions[actionData.skillName].map((val) =>
+      actionData.addedActions[actionData.skillName].actions.map((val) =>
         actionData.setEditActionNames((prev) =>
           [...prev, Object.keys(val)[0]]
         )
