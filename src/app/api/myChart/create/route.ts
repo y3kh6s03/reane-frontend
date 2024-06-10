@@ -8,5 +8,6 @@ export async function POST(req: Request) {
   const reqData = await req.json();
   const res = await axios.post(CREATE_API_URL, reqData);
   const data = await res.data;
+  console.log(data);
   return Response.json(data);
 }
