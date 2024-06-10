@@ -16,13 +16,16 @@ const initialState: UserChartState = {
     reachName: 'ベンチプレス888kg',
     skills:
     {
-      "ダイエット": [
-        {
-          name: "カロリー摂取量を把握する",
-          id: 1,
-          isCompleted: 0
-        }
-      ],
+      "ダイエット": {
+        id: 1,
+        actions: [
+          {
+            name: "カロリー摂取量を把握する",
+            id: 1,
+            isCompleted: 0
+          }
+        ]
+      },
     },
     actionCount: 999,
     executedActionCount: 444,

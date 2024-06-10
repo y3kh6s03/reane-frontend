@@ -34,7 +34,7 @@ export default function Chart({ skillDatas }: SkillDatas) {
   const router = useRouter();
   const skillAndActionRedirect = (skillName: string) => {
     if (skillDatas.skills && skillDatas.userName && skillDatas.userImage) {
-      const actionDatas = skillDatas.skills[skillName]
+      const actionDatas = skillDatas.skills[skillName].actions
       if (actionDatas) {
         const skillAndActionData = {
           userName: skillDatas.userName,
