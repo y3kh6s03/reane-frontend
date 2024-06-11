@@ -1,25 +1,16 @@
 "use client"
 
-// import { useState } from "react";
-// import Button, { JournalButton } from "@/../app/components/elements/button/Button";
-
 import { Delete } from "@/components/elements/icons/Icons";
-// import { ActionData } from "@/../store/slice/AuthChartsSlice";
-import axios from "axios";
-import { FormEvent, useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "./styles/Action.module.scss";
-
-interface ActionProps {
-  reachName: string,
-  skillName: string,
-  actions: {
-    id: number,
-    name: string,
-    isCompleted: number
-  }[]
-}
+import { ActionProps } from "./type";
+import { actionDeleteHndler, actionNameSubmitHandler } from "./handler";
 
 export default function Actions({ reachName, skillName, actions }: ActionProps) {
+
+  const [actionList, setActionList] = useState(actions);
+  const [error, setError] = useState<string | null>(null);
+
   const actionCount = Object.keys(actions).length
   let executedCount = 0;
   Object.values(actions).forEach((val) => {
@@ -31,24 +22,6 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
   const actionNameForms = useRef<(HTMLFormElement | null)[]>([]);
 
-  const actionNameSubmitHandler = async (e: FormEvent<HTMLFormElement>, actionName: string, actionId: number) => {
-    e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const editActionName = form.get(actionName);
-    if (actionName !== editActionName) {
-      const encordActionId = encodeURIComponent(actionId);
-      const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/${encordActionId}`;
-      const editActionNameData = {
-        reachName,
-        skillName,
-        actionId,
-        actionName,
-        editActionName
-      }
-      await axios.post(URL, editActionNameData);
-    }
-  }
-
   const actionNameBlurHandler = async (index: number) => {
     const actionNameFormEvnet = new Event('submit', { cancelable: true, bubbles: true });
     actionNameForms.current[index]?.dispatchEvent(actionNameFormEvnet);
@@ -56,7 +29,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
   return (
     <div className={styles.container}>
-
+      {error && <div className={styles.error}>{error}</div>}
       <h2 className={styles.action_title}>
         ACTION
       </h2>
@@ -73,8 +46,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
       </div>
 
       {
-        Object.values(actions).map((actionData, index) => {
-          console.log(actions)
+        actionList.map((actionData, index) => {
           const actionName = actionData.name;
           const actionId = actionData.id;
           return (
@@ -89,7 +61,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
               <form
                 ref={(el) => { actionNameForms.current[index] = el }}
-                onSubmit={(e) => { actionNameSubmitHandler(e, actionName, actionId) }}
+                onSubmit={(e) => { actionNameSubmitHandler(e, actionName, actionId, reachName, skillName, setError) }}
                 className={styles.action_name}
               >
                 <input
@@ -99,7 +71,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
                   defaultValue={actionName}
                   onBlur={() => { actionNameBlurHandler(index) }}
                 />
-                <Delete deleteHandler={() => { }} />
+                <Delete deleteHandler={() => { actionDeleteHndler({ reachName, skillName, actionName, actionId }, setActionList, actionList) }} />
               </form>
 
               {/* <JournalButton /> */}
