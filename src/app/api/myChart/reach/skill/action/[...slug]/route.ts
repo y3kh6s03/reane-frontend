@@ -8,6 +8,11 @@ interface ActionNameProps {
   actionId: number,
 }
 
+interface ActionNamePatchProps {
+  isCompleted: boolean,
+  actionId: number
+}
+
 const encodeFactory = (encordProps: ActionNameProps) => {
   const encordReachName = encodeURIComponent(encordProps.reachName);
   const encordSkillName = encodeURIComponent(encordProps.skillName);
@@ -30,6 +35,15 @@ export async function PUT(req: Request) {
   const { encordReachName, encordSkillName, } = encodeFactory(reqData);
   const URL = `${process.env.LARAVEL_API_BASE_URL}/myChart/${encordReachName}/${encordSkillName}/put`;
   const res = await axios.put(URL, reqData);
+  const data = await res.data;
+  return Response.json(data);
+}
+
+export async function PATCH(req: Request) {
+  const reqData: ActionNamePatchProps = await req.json();
+  // const encodeActionId = encodeURIComponent(reqData.actionId);
+  const URL = `${process.env.LARAVEL_API_BASE_URL}/myChart/reach/skill/action`;
+  const res = await axios.patch(URL,reqData);
   const data = await res.data;
   return Response.json(data);
 }

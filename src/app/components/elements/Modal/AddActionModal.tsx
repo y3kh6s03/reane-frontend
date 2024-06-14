@@ -7,7 +7,7 @@ import styles from "./styles/AddAction.module.scss";
 import { addActionHandler, addActionNameDeleteHander, addActionSubmitHandler, formSubmitHandler } from "./handlers/AddActionHandler";
 import { ModalActionProps } from "./types";
 
-export default function AddActionModal({ userEmail, setModal, reachName, skillName, actionList, setActionList,modalActions,setModalActions  }: ModalActionProps) {
+export default function AddActionModal({ userEmail, setIsModal, reachName, skillName, actionList, setActionList,modalActions,setModalActions  }: ModalActionProps) {
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -59,8 +59,8 @@ export default function AddActionModal({ userEmail, setModal, reachName, skillNa
 
         </ul>
         <div className={styles.button_container}>
-          <CreateAndCancelButton createAndCancelProps={{ buttonName: 'CANCEL', handler: () => { setModal((prev) => !prev) } }} />
-          <CreateAndCancelButton createAndCancelProps={{ buttonName: 'SAVE', handler: () => { addActionSubmitHandler({ modalActions, setModal, userEmail, reachName, skillName, actionList, setActionList, setErrorMsg }) } }} />
+          <CreateAndCancelButton createAndCancelProps={{ buttonName: 'CANCEL', handler: () => { setIsModal((prev) => !prev) } }} />
+          <CreateAndCancelButton createAndCancelProps={{ buttonName: 'SAVE', handler: () => { addActionSubmitHandler({ modalActions, setIsModal, userEmail, reachName, skillName, actionList, setActionList, setErrorMsg }) } }} />
         </div>
       </div>
     </div >

@@ -2,8 +2,8 @@ import styles from "./styles/ProgressMeter.module.scss"
 
 interface ProgressData {
   progressData: {
-    actionCount: number,
-    executedCount: number
+    actionCount: number | undefined,
+    executedCount: number | undefined
   }
 }
 
@@ -11,13 +11,19 @@ export default function ProgressMeter({ progressData }: ProgressData) {
   // SVGの描画サイズ
   const size = 450;
   // 現在の進捗
-  const progressPercent = Math.floor(progressData.executedCount / progressData.actionCount * 100);
+  let progressPercent;
+  if (progressData.executedCount && progressData.actionCount) {
+    progressPercent = Math.floor(progressData.executedCount / progressData.actionCount * 100);
+  }
   // 円の半径
   const radius = 190;
   // 円周
   const circumference = 2 * Math.PI * radius;
   // 表示割合
-  const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
+  let strokeDashoffset;
+  if (progressPercent) {
+    strokeDashoffset = circumference - (progressPercent / 100) * circumference;
+  }
   return (
     <>
       <style>

@@ -35,7 +35,7 @@ export const addActionHandler = ({ e, index, setModalActions }: AddActionHandler
 export const addActionNameDeleteHander = async ({ index, id, userEmail, reachName, skillName, actionName, setModalActions, setErrorMsg, setActionList }: AddActionNameDeleteHanderProps) => {
 
   if (id !== null) {
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/id`;
+    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/id`;
     try {
       const res = await axios.delete(URL, {
         data: {
@@ -77,7 +77,7 @@ export const addActionNameDeleteHander = async ({ index, id, userEmail, reachNam
 export const addActionSubmitHandler = async ({
   modalActions,
   actionList,
-  setModal,
+  setIsModal,
   userEmail,
   reachName,
   skillName,
@@ -85,7 +85,7 @@ export const addActionSubmitHandler = async ({
   setActionList
 }: AddActionSubmitHandlerProps) => {
   if (JSON.stringify(modalActions) === JSON.stringify(actionList)) {
-    setModal((prev) => !prev)
+    setIsModal((prev) => !prev)
     return;
   }
   const addActionPayload = {
@@ -94,14 +94,14 @@ export const addActionSubmitHandler = async ({
     skillName,
     modalActions,
   }
-  const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/put`;
+  const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/put`;
 
   try {
     const res = await axios.put(URL, addActionPayload);
     const data = await res.data;
     if (res.status === 200) {
       setActionList([...data]);
-      setModal((prev) => !prev);
+      setIsModal((prev) => !prev);
       setErrorMsg(null);
     } else {
       setErrorMsg('サーバー処理でエラーが発生しました。')

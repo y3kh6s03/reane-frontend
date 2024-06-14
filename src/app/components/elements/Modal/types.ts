@@ -27,7 +27,7 @@ export interface AddActions {
 
 export interface ModalActionProps {
   userEmail: string,
-  setModal: Dispatch<SetStateAction<boolean>>,
+  setIsModal: Dispatch<SetStateAction<boolean>>,
   reachName: string,
   skillName: string,
   actionList: AddActions[],
@@ -72,7 +72,7 @@ export interface AddActionHandlerProps {
 export interface AddActionSubmitHandlerProps {
   modalActions: AddActions[],
   actionList: AddActions[],
-  setModal: (value: SetStateAction<boolean>) => void,
+  setIsModal: (value: SetStateAction<boolean>) => void,
   userEmail: string,
   reachName: string,
   skillName: string,
