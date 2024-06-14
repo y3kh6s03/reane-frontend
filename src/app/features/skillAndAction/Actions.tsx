@@ -5,116 +5,107 @@ import { useEffect, useRef, useState } from "react";
 import ModalContainer from "@/components/utils/ModalContainer";
 import AddActionModal from "@/components/elements/Modal/AddActionModal";
 import { AddActions } from "@/components/elements/Modal/types";
-// import { AxiosResponse } from "axios";
 import { ActionProps } from "./type";
-import { actionDeleteHndler, actionNameFormHandler } from "./handler";
+import { handleActionDelete, handleActionNameSubmit, handleToggleActionCompletion } from "./handers/handler";
 import styles from "./styles/Action.module.scss";
 
 export default function Actions({ userEmail, reachName, skillName, actions }: ActionProps) {
 
   const [actionList, setActionList] = useState(actions);
   const [modalActions, setModalActions] = useState<AddActions[]>(actionList);
-  const [error, setError] = useState<string | null>(null);
-  const [modal, setModal] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [executedCount, setExecutedCount] = useState(0);
+  const [rate, setRate] = useState(0);
 
   useEffect(() => {
     setModalActions(actionList);
-    console.log(actionList);
   }, [actionList]);
 
-  const actionCount = Object.keys(actions).length
-  let executedCount = 0;
-  Object.values(actions).forEach((val) => {
-    if (val.isCompleted === 1) {
-      executedCount += 1
-    }
-  })
-  const rate = Math.floor(executedCount / actionCount * 100)
+  useEffect(() => {
+    const count = actionList.reduce((acc, action) => acc + (action.isCompleted === 1 ? 1 : 0), 0);
+    setExecutedCount(count);
+    setRate(Math.floor((count / actionList.length) * 100));
+  }, [actionList]);
 
   const actionNameForms = useRef<(HTMLFormElement | null)[]>([]);
 
-  const actionNameBlurHandler = async (index: number) => {
-    const actionNameFormEvnet = new Event('submit', { cancelable: true, bubbles: true });
-    actionNameForms.current[index]?.dispatchEvent(actionNameFormEvnet);
+  const handleActionNameBlur = async (index: number) => {
+    const actionNameFormEvent = new Event('submit', { cancelable: true, bubbles: true });
+    actionNameForms.current[index]?.dispatchEvent(actionNameFormEvent);
   }
 
   return (
     <div className={styles.container} id="actions">
-      {error && <div className={styles.error}>{error}</div>}
+      {errorMsg && <div className={styles.error}>{errorMsg}</div>}
       <h2 className={styles.action_title}>
         ACTION
       </h2>
 
       <div className={styles.skill_rate_container}>
         <span className={styles.skill_rate}>
-          {/* 取得データに変更 */}
           {rate}
           <span className={styles.skill_rate_parcent}>%</span>
         </span>
         <span className={styles.skill_count}>
-          {executedCount} / {actionCount}
+          {executedCount} / {actionList.length}
         </span>
       </div>
 
-      {
-        actionList.map((actionData, index) => {
-          const actionId = actionData.id;
-          const actionName = actionData.name;
-          return (
-            <div key={actionId} className={styles.actions_container}>
+      {actionList.map((actionData, index) => {
+        const actionId = actionData.id;
+        const actionName = actionData.name;
+        return (
+          <div key={actionId} className={styles.actions_container}>
 
-              <form
-                className={styles.checkbox}
-                onSubmit={() => { }}
-              >
-                <input type="checkbox" />
-              </form>
-
-              <form
-                ref={(el) => { actionNameForms.current[index] = el }}
-                onSubmit={async (e) => {
-                  await actionNameFormHandler({ e, index, actionName, actionId, reachName, skillName, setActionList, setError });
+            <form className={styles.checkbox}>
+              <input
+                type="checkbox"
+                checked={actionData.isCompleted === 1}
+                onChange={() => {
+                  handleToggleActionCompletion({ actionId, index, actionList, setActionList, setErrorMsg });
                 }}
-                className={styles.action_name}
-              >
-                <input
-                  type="text"
-                  placeholder="アクションを入力"
-                  name={actionName}
-                  defaultValue={actionName}
-                  onBlur={() => { actionNameBlurHandler(index) }}
-                />
-                <Delete deleteHandler={() => { actionDeleteHndler({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
-              </form>
+              />
+            </form>
 
-              {/* <JournalButton /> */}
-            </div>
-          )
-        })
-      }
+            <form
+              ref={(el) => { actionNameForms.current[index] = el }}
+              onSubmit={(e) => {
+                handleActionNameSubmit({ e, index, actionName, actionId, reachName, skillName, setActionList, setErrorMsg });
+              }}
+              className={styles.action_name}
+            >
+              <input
+                type="text"
+                placeholder="アクションを入力"
+                name={actionName}
+                defaultValue={actionName}
+                onBlur={() => { handleActionNameBlur(index) }}
+              />
+              <Delete deleteHandler={() => { handleActionDelete({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
+            </form>
+          </div>
+        );
+      })}
+
       <div className={styles.icon_container}>
-        <Plus pulsHandler={() => { setModal((prev) => !prev) }} />
+        <Plus pulsHandler={() => { setIsModal((prev) => !prev) }} />
       </div>
 
-      {
-        modal
-          ?
-          <ModalContainer targetName="actions">
-            <AddActionModal
-              userEmail={userEmail}
-              reachName={reachName}
-              skillName={skillName}
-              actionList={actionList}
-              setActionList={setActionList}
-              setModal={setModal}
-              modalActions={modalActions}
-              setModalActions={setModalActions}
-            />
-          </ModalContainer>
-          :
-          ''
-      }
-
+      {isModal && (
+        <ModalContainer targetName="actions">
+          <AddActionModal
+            userEmail={userEmail}
+            reachName={reachName}
+            skillName={skillName}
+            actionList={actionList}
+            setActionList={setActionList}
+            setIsModal={setIsModal}
+            modalActions={modalActions}
+            setModalActions={setModalActions}
+          />
+        </ModalContainer>
+      )}
     </div>
-  )
+  );
 }

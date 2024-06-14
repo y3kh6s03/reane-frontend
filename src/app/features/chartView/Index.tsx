@@ -41,10 +41,10 @@ export default function ChartIndex({ chartData }: ChartProps) {
     skills: chartData?.skills
   }
 
-  // const progressData = {
-  //   actionCount: chartData?.actionCount,
-  //   executedCount: chartData?.executedActionCount
-  // }
+  const progressData = {
+    actionCount: chartData?.actionCount,
+    executedCount: chartData?.executedActionCount
+  }
 
   const chartDispData = {
     createdAt: dispCreatedAt,
@@ -60,7 +60,8 @@ export default function ChartIndex({ chartData }: ChartProps) {
       <Reach reachData={reachData} />
       <div className={styles.skills_wrapper}>
         <Chart skillDatas={skillDatas} />
-        <ProgressMeter progressData={{ actionCount: 400, executedCount: 245 }} />
+
+        <ProgressMeter progressData={progressData} />
         <ChartDisp chartDispData={chartDispData} />
       </div>
       {

@@ -31,7 +31,7 @@ export interface ActionNameFormHandlerProps {
     name: string;
     isCompleted: number;
   }[]>>,
-  setError: (error: string | null) => void
+  setErrorMsg: (error: string | null) => void
 }
 
 export interface ActionDeleteHndlerProps {
@@ -39,14 +39,30 @@ export interface ActionDeleteHndlerProps {
   skillName: string,
   actionName: string,
   actionId: number | null
-  setActionList: (value: SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>) => void,
   actionList: {
     id: number | null;
     name: string;
     isCompleted: number;
   }[]
+  setActionList: (value: SetStateAction<{
+    id: number | null;
+    name: string;
+    isCompleted: number;
+  }[]>) => void,
+}
+
+export interface ActionCheckHander {
+  actionId: number | null,
+  index: number,
+  actionList: {
+    id: number | null;
+    name: string;
+    isCompleted: number;
+  }[],
+  setActionList: (value: SetStateAction<{
+    id: number | null;
+    name: string;
+    isCompleted: number;
+  }[]>) => void,
+  setErrorMsg: (error: string | null) => void
 }
