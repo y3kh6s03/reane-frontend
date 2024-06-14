@@ -7,14 +7,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { AddAction, addReach, initCreateChart } from "@/../store/slice/CreateChartSlice";
+import ModalContainer from "@/components/utils/ModalContainer";
 import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 
 import styles from "./Create.module.scss";
 import { CreateAndCancelButton, ModalToggleButton } from "../../components/elements/button/Button";
 import SkillInputModal from "../../components/elements/Modal/SkillInputModal";
 import Chart from "../../components/elements/chart/Chart";
-import SkillInputModalContainer from "../../components/utils/SkillInputModalContainer";
-import ActionInputModalContainer from "../../components/utils/ActionInputModalContainer";
 import ActionInputModal from "../../components/elements/Modal/ActionInputModal";
 
 
@@ -123,16 +122,16 @@ export default function CreateIndex({ userData }: UserData) {
       </div>
 
       {isSkillModal &&
-        <SkillInputModalContainer>
+        <ModalContainer targetName='create'>
           <SkillInputModal setIsSkillModal={setIsSkillModal} />
-        </SkillInputModalContainer>
+        </ModalContainer>
       }
 
       {isActionModal &&
-        <ActionInputModalContainer>
+        <ModalContainer targetName='create'>
           <ActionInputModal actionData={actionData}
           />
-        </ActionInputModalContainer>
+        </ModalContainer>
       }
 
     </div>

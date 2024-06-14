@@ -1,28 +1,11 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch } from '@/../store/hooks';
-import { AddAction, CreateSkillData, addActions, deleteSkillName, editActionName } from '@/../store/slice/CreateChartSlice';
-import { SkillData } from '@/../store/slice/AuthChartsSlice';
+import { addActions, deleteSkillName, editActionName } from '@/../store/slice/CreateChartSlice';
 import styles from './styles/ActionInput.module.scss';
 import { CreateAndCancelButton } from '../button/Button';
 import { Delete } from '../icons/Icons';
-import { addActionDeleteHandler, editActionDeleteHandler, editSkillNameHandler, handleInputEdit, onBlurEditSkillNameHandler, onBlurHandler, onChangeHandler, onSubmitHandler } from './ActionInputHandler';
-
-interface ActionInputProps {
-  actionData: {
-    setIsActionModal: Dispatch<SetStateAction<boolean>>,
-    skillName: string,
-    setSkillName: Dispatch<SetStateAction<string>>
-    addModalActions: AddAction[],
-    setAddModalActions: Dispatch<SetStateAction<AddAction[]>>,
-    inputAction: string,
-    setInputAction: Dispatch<SetStateAction<string>>,
-    addedActions?: SkillData | CreateSkillData,
-    editSkillName: string,
-    setEditSkillName: Dispatch<SetStateAction<string>>,
-    editActionNames: string[],
-    setEditActionNames: Dispatch<SetStateAction<string[]>>,
-  }
-};
+import { addActionDeleteHandler, editActionDeleteHandler, editSkillNameHandler, handleInputEdit, onBlurEditSkillNameHandler, onBlurHandler, onChangeHandler, onSubmitHandler } from './handlers/ActionInputHandler';
+import { ActionInputProps } from './types';
 
 export default function ActionInputModal({ actionData }: ActionInputProps) {
 

@@ -17,12 +17,20 @@
   }
 }
 
-.delete_container {
+.delete_container,
+.plus_container {
   width: 1rem;
   aspect-ratio: 1/1;
   position: relative;
+  transition: transform .3s $ease;
 
-  & image{
+  & image {
     transition: transform .1s $ease;
+  }
+}
+
+.plus_container {
+  &:hover {
+    transform: scale(1.5);
   }
 }

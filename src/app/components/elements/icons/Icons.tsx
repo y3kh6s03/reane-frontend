@@ -24,3 +24,11 @@ export function Delete({ deleteHandler }: { deleteHandler: () => void }) {
     </button>
   )
 }
+
+export function Plus({ pulsHandler }: { pulsHandler: () => void }) {
+  return (
+    <button type='button' onClick={pulsHandler} className={styles.plus_container}>
+      <Image src='/plus.svg' fill sizes='100%' alt='delete' />
+    </button>
+  )
+}

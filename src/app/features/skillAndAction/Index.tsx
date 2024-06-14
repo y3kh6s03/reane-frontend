@@ -22,6 +22,7 @@ export default function SkillAndActionIndex() {
   }
 
   const actionProps = {
+    userEmail: skillAndActionData.userEmail,
     skillName: skillAndActionData.skillName,
     reachName: skillAndActionData.reachName,
     actions: skillAndActionData.actionDatas
@@ -41,7 +42,6 @@ export default function SkillAndActionIndex() {
           ? <Actions {...actionProps} />
           : ''
       }
-
     </div >
   )
 }
