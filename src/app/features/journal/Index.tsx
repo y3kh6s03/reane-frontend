@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { ModalToggleButton } from "@/../app/components/elements/button/Button"
-import JournalInputModalContainer from "@/../app/components/utils/JournalInputModalContainer"
+import ModalContainer from "@/components/utils/ModalContainer"
 import JournalInputModal from "@/../app/components/elements/Modal/JournalInputModal"
 import styles from "./styles/Journal.module.scss"
 import SearchFilter from "./SearchFilter"
@@ -34,9 +34,9 @@ export default function JournalIndex() {
       {
         isJournalModal
         &&
-        <JournalInputModalContainer>
+        <ModalContainer targetName='journal'>
           <JournalInputModal setIsJournalModal={setIsJournalModal} />
-        </JournalInputModalContainer>
+        </ModalContainer>
       }
     </div>
 

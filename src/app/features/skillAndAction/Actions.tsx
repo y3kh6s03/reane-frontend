@@ -1,15 +1,26 @@
 "use client"
 
-import { Delete } from "@/components/elements/icons/Icons";
-import { useRef, useState } from "react";
-import styles from "./styles/Action.module.scss";
+import { Delete, Plus } from "@/components/elements/icons/Icons";
+import { useEffect, useRef, useState } from "react";
+import ModalContainer from "@/components/utils/ModalContainer";
+import AddActionModal from "@/components/elements/Modal/AddActionModal";
+import { AddActions } from "@/components/elements/Modal/types";
+// import { AxiosResponse } from "axios";
 import { ActionProps } from "./type";
-import { actionDeleteHndler, actionNameSubmitHandler } from "./handler";
+import { actionDeleteHndler, actionNameFormHandler } from "./handler";
+import styles from "./styles/Action.module.scss";
 
-export default function Actions({ reachName, skillName, actions }: ActionProps) {
+export default function Actions({ userEmail, reachName, skillName, actions }: ActionProps) {
 
   const [actionList, setActionList] = useState(actions);
+  const [modalActions, setModalActions] = useState<AddActions[]>(actionList);
   const [error, setError] = useState<string | null>(null);
+  const [modal, setModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    setModalActions(actionList);
+    console.log(actionList);
+  }, [actionList]);
 
   const actionCount = Object.keys(actions).length
   let executedCount = 0;
@@ -28,7 +39,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="actions">
       {error && <div className={styles.error}>{error}</div>}
       <h2 className={styles.action_title}>
         ACTION
@@ -47,10 +58,10 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
       {
         actionList.map((actionData, index) => {
-          const actionName = actionData.name;
           const actionId = actionData.id;
+          const actionName = actionData.name;
           return (
-            <div key={actionData.id} className={styles.actions_container}>
+            <div key={actionId} className={styles.actions_container}>
 
               <form
                 className={styles.checkbox}
@@ -61,7 +72,9 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
 
               <form
                 ref={(el) => { actionNameForms.current[index] = el }}
-                onSubmit={(e) => { actionNameSubmitHandler(e, actionName, actionId, reachName, skillName, setError) }}
+                onSubmit={async (e) => {
+                  await actionNameFormHandler({ e, index, actionName, actionId, reachName, skillName, setActionList, setError });
+                }}
                 className={styles.action_name}
               >
                 <input
@@ -71,7 +84,7 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
                   defaultValue={actionName}
                   onBlur={() => { actionNameBlurHandler(index) }}
                 />
-                <Delete deleteHandler={() => { actionDeleteHndler({ reachName, skillName, actionName, actionId }, setActionList, actionList) }} />
+                <Delete deleteHandler={() => { actionDeleteHndler({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
               </form>
 
               {/* <JournalButton /> */}
@@ -79,6 +92,29 @@ export default function Actions({ reachName, skillName, actions }: ActionProps) 
           )
         })
       }
+      <div className={styles.icon_container}>
+        <Plus pulsHandler={() => { setModal((prev) => !prev) }} />
+      </div>
+
+      {
+        modal
+          ?
+          <ModalContainer targetName="actions">
+            <AddActionModal
+              userEmail={userEmail}
+              reachName={reachName}
+              skillName={skillName}
+              actionList={actionList}
+              setActionList={setActionList}
+              setModal={setModal}
+              modalActions={modalActions}
+              setModalActions={setModalActions}
+            />
+          </ModalContainer>
+          :
+          ''
+      }
+
     </div>
   )
 }

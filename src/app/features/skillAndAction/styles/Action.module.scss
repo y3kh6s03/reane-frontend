@@ -67,6 +67,7 @@
 
     & .action_name {
       display: flex;
+      gap: 1rem;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
       & input {
@@ -85,7 +86,6 @@
         transform: translateY(-200%) scale(0);
         transition: all .1s $ease;
       }
-
     }
 
     &:hover {
@@ -97,5 +97,10 @@
     }
   }
 
-
+  & .icon_container{
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import { AddAction, deleteActionName, editSkillName } from "../../../../store/slice/CreateChartSlice";
-import { AppDispatch } from "../../../../store/store";
+import { AddAction, deleteActionName, editSkillName } from "../../../../../store/slice/CreateChartSlice";
+import { AppDispatch } from "../../../../../store/store";
 
 export const onChangeHandler = (e: ChangeEvent<HTMLInputElement>, setInputAction: Dispatch<SetStateAction<string>>) => {
   setInputAction(e.target.value);

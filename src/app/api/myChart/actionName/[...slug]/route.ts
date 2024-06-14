@@ -1,6 +1,7 @@
 import axios from "axios";
 
 interface ActionNameProps {
+  userEmail: string,
   reachName: string,
   skillName: string,
   actionName: string,
@@ -20,6 +21,15 @@ export async function POST(req: Request) {
   const { encordReachName, encordSkillName, encordActionName } = encodeFactory(reqData);
   const URL = `${process.env.LARAVEL_API_BASE_URL}/myChart/${encordReachName}/${encordSkillName}/${encordActionName}`;
   const res = await axios.post(URL, reqData);
+  const data = await res.data;
+  return Response.json(data);
+}
+
+export async function PUT(req: Request) {
+  const reqData: ActionNameProps = await req.json();
+  const { encordReachName, encordSkillName, } = encodeFactory(reqData);
+  const URL = `${process.env.LARAVEL_API_BASE_URL}/myChart/${encordReachName}/${encordSkillName}/put`;
+  const res = await axios.put(URL, reqData);
   const data = await res.data;
   return Response.json(data);
 }

@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 
 import axios from "axios";
-import { FormEvent, SetStateAction } from "react";
+// import { SetStateAction } from "react";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { ActionDeleteProps } from "./type";
+import { ActionDeleteHndlerProps, ActionNameFormHandlerProps } from "./type";
 
 
 interface DeleteHandlerProps {
@@ -31,47 +31,44 @@ export const deleteHandler = async ({ reachName, skillName, userEmail, router }:
   }
 }
 
-export const actionDeleteHndler = async (
-  actionDeleteProps: ActionDeleteProps,
-  setActionList: (value: SetStateAction<{
-    id: number;
-    name: string;
-    isCompleted: number;
-  }[]>) => void,
-  actionList: {
-    id: number;
-    name: string;
-    isCompleted: number;
-  }[]
-) => {
+export const actionDeleteHndler = async ({
+  reachName,
+  skillName,
+  actionName,
+  actionId,
+  setActionList,
+  // actionList
+}: ActionDeleteHndlerProps) => {
   const result = confirm('アクションを削除します。\n振り返りも削除されますがいいですか？');
   if (result) {
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/${actionDeleteProps.actionName}`;
+    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/${actionName}`;
     await axios.delete(URL, {
       data: {
-        reachName: actionDeleteProps.reachName,
-        skillName: actionDeleteProps.skillName,
-        actionName: actionDeleteProps.actionName,
-        actionId: actionDeleteProps.actionId
+        reachName,
+        skillName,
+        actionName,
+        actionId,
       }
     })
+    setActionList((prev) => prev.filter((action) => action.name !== actionName))
   }
-  setActionList(actionList.filter(action => action.id !== actionDeleteProps.actionId));
 }
 
-export const actionNameSubmitHandler = async (
-  e: FormEvent<HTMLFormElement>,
-  actionName: string,
-  actionId: number,
-  reachName: string,
-  skillName: string,
-  setError: (error: string | null) => void
+export const actionNameFormHandler = async ({ e,
+  index,
+  actionName,
+  actionId,
+  reachName,
+  skillName,
+  setActionList,
+  setError
+}: ActionNameFormHandlerProps
 ) => {
   e.preventDefault();
-  setError(null); // エラーメッセージをリセット
+  setError(null);
   const form = new FormData(e.currentTarget);
   const editActionName = form.get(actionName);
-  if (actionName !== editActionName) {
+  if (actionName !== editActionName && actionId) {
     const encordActionId = encodeURIComponent(actionId);
     const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/actionName/${encordActionId}`;
     const editActionNameData = {
@@ -82,9 +79,21 @@ export const actionNameSubmitHandler = async (
       editActionName
     }
     try {
-      await axios.post(URL, editActionNameData);
+      const res = await axios.post(URL, editActionNameData);
+      const data = await res.data;
+      if (res.status === 200) {
+        setActionList((prev) => {
+          const currentActions = [...prev];
+          currentActions[index] = { ...data };
+          return [...currentActions];
+        })
+      }
+
+      return true;
     } catch (error) {
       setError('アクション名の更新中にエラーが発生しました。');
+      return false;
     }
   }
+  return false;
 }
