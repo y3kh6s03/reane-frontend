@@ -21,10 +21,15 @@ export default function MyChart() {
 
   return (
     <div>
-      {authChartDatas &&
-        authChartDatas.map((authChartData: ChartData) =>
-          <ChartIndex key={authChartData.id} chartData={authChartData} />
-        )
+      {
+        authChartDatas && authChartDatas?.length !== 0
+          ?
+          authChartDatas.map((authChartData: ChartData) =>
+            <ChartIndex key={authChartData.id} chartData={authChartData} />
+          )
+          :
+          <h1
+          >あなたの目標を作成しましょう</h1>
       }
     </div>
   )
