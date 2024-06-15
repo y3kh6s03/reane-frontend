@@ -11,7 +11,7 @@ export default function ProgressMeter({ progressData }: ProgressData) {
   // SVGの描画サイズ
   const size = 450;
   // 現在の進捗
-  let progressPercent;
+  let progressPercent = 0;
   if (progressData.executedCount && progressData.actionCount) {
     progressPercent = Math.floor(progressData.executedCount / progressData.actionCount * 100);
   }
@@ -23,6 +23,8 @@ export default function ProgressMeter({ progressData }: ProgressData) {
   let strokeDashoffset;
   if (progressPercent) {
     strokeDashoffset = circumference - (progressPercent / 100) * circumference;
+  }else{
+    strokeDashoffset = 1200
   }
   return (
     <>

@@ -28,7 +28,9 @@ export default function ChartIndex({ chartData }: ChartProps) {
   }
 
   const reachData = {
+    id: chartData?.id,
     name: chartData?.reachName,
+    userEmail: chartData?.userEmail,
     userName: chartData?.userName,
     userImage: chartData?.userImage
   }
@@ -57,7 +59,7 @@ export default function ChartIndex({ chartData }: ChartProps) {
       <div className={styles.authDetail_container}>
         <AuthDetail userData={userData} />
       </div>
-      <Reach reachData={reachData} />
+      <Reach {...reachData} />
       <div className={styles.skills_wrapper}>
         <Chart skillDatas={skillDatas} />
 

@@ -14,6 +14,7 @@
   z-index: 99999;
 
   @include mq(lg){
+    width: 13.5rem;
     backdrop-filter: blur(0px);
     z-index: 10;
   }
