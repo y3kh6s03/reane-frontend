@@ -4,6 +4,7 @@ import { ActionData } from "./AuthChartsSlice"
 
 interface SKillAndActionProps {
   skillAndActionData: {
+    id: number,
     userName: string,
     userEmail: string,
     userImage: string,
@@ -15,6 +16,7 @@ interface SKillAndActionProps {
 
 const initialState: SKillAndActionProps = {
   skillAndActionData: {
+    id: -1,
     userName: '',
     userImage: '',
     userEmail: '',

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { ChartData, fetchAuthChartData } from "@/../store/slice/AuthChartsSlice";
+import IsRegisterSkillModalProvider from "@/components/libs/IsRegisterSkillModailProvider";
 import ChartIndex from "../features/chartView/Index";
 
 export default function MyChart() {
@@ -20,16 +21,19 @@ export default function MyChart() {
   const { authChartDatas } = useAppSelector((state) => state.authChart)
 
   return (
-    <div>
+    <div id='chart'>
       {
         authChartDatas && authChartDatas?.length !== 0
           ?
           authChartDatas.map((authChartData: ChartData) =>
-            <ChartIndex key={authChartData.id} chartData={authChartData} />
+            <IsRegisterSkillModalProvider  key={authChartData.id} >
+              <div>
+                <ChartIndex chartData={authChartData} />
+              </div>
+            </IsRegisterSkillModalProvider>
           )
           :
-          <h1
-          >あなたの目標を作成しましょう</h1>
+          <h1>あなたの目標を作成しましょう</h1>
       }
     </div>
   )
