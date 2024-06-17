@@ -10,6 +10,7 @@ import { CreateSkillData } from "../../../../store/slice/CreateChartSlice";
 
 interface ChartDatas {
   skillDatas: {
+    id?: number | undefined,
     userName: string | undefined,
     userImage: string | undefined,
     userEmail: string | undefined,
@@ -38,6 +39,7 @@ export default function Chart({ skillDatas }: ChartDatas) {
       const actionDatas = skillDatas.skills[skillName].actions
       if (actionDatas) {
         const skillAndActionData = {
+          id: skillDatas.id,
           userName: skillDatas.userName,
           userImage: skillDatas.userImage,
           userEmail: skillDatas.userEmail,

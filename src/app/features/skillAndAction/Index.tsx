@@ -16,6 +16,7 @@ export default function SkillAndActionIndex() {
   }
 
   const skillNameData = {
+    id: skillAndActionData.id,
     userEmail: skillAndActionData.userEmail,
     skillName: skillAndActionData.skillName,
     reachName: skillAndActionData.reachName

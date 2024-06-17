@@ -6,14 +6,15 @@ import { ActionCheckHander, ActionDeleteHndlerProps, ActionNameFormHandlerProps 
 
 
 interface DeleteHandlerProps {
+  id: number,
   skillName: string,
   reachName: string,
   userEmail: string,
   router: AppRouterInstance
 }
 
-
 interface EditSkillNameData {
+  id: number,
   userEmail: string,
   reachName: string,
   currentSkillName: string,
@@ -21,6 +22,7 @@ interface EditSkillNameData {
 }
 interface HandleSkillNameSubmitProps {
   e: FormEvent<HTMLFormElement>,
+  id: number,
   userEmail: string
   reachName: string,
   skillName: string,
@@ -28,11 +30,12 @@ interface HandleSkillNameSubmitProps {
 
 }
 
-export const handleSkillNameDelete = async ({ reachName, skillName, userEmail, router }: DeleteHandlerProps) => {
+export const handleSkillNameDelete = async ({ id, reachName, skillName, userEmail, router }: DeleteHandlerProps) => {
   const result = confirm('スキルを削除しますか？\nスキルに登録されたアクションも一緒に削除されます。')
   if (result) {
     const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/${skillName}`;
     const deleteData = {
+      id,
       reachName,
       skillName,
       userEmail
@@ -46,13 +49,19 @@ export const handleSkillNameDelete = async ({ reachName, skillName, userEmail, r
   }
 }
 
-export const handleSkillNameSubmit = async ({ e, userEmail, reachName, skillName }: HandleSkillNameSubmitProps) => {
+export const handleSkillNameSubmit = async ({ e, id, userEmail, reachName, skillName }: HandleSkillNameSubmitProps) => {
   e.preventDefault();
   const form = new FormData(e.currentTarget);
   const editSkillName = form.get('skillName') ?? '';
   const currentSkillName = skillName;
   if (editSkillName !== currentSkillName) {
-    const editSkillNameData: EditSkillNameData = { reachName, editSkillName, currentSkillName, userEmail };
+    const editSkillNameData: EditSkillNameData = {
+      id,
+      reachName,
+      editSkillName,
+      currentSkillName,
+      userEmail
+    };
     const encordSkillName = encodeURIComponent(currentSkillName)
     const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/${encordSkillName}`;
     await axios.post(URL, editSkillNameData);
@@ -129,7 +138,8 @@ export const handleActionNameSubmit = async (
 }
 
 export const handleToggleActionCompletion = async (
-  { actionId,
+  {
+    actionId,
     index,
     actionList,
     setActionList,
@@ -149,7 +159,9 @@ export const handleToggleActionCompletion = async (
   const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/${actionId}`
 
   try {
-    await axios.patch(URL, actionCheckPayload);
+    const res = await axios.patch(URL, actionCheckPayload);
+    console.log(res);
+
   } catch (error) {
     setErrorMsg('サーバーで処理が失敗してしまいました。')
   }

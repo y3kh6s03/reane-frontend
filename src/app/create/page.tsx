@@ -1,4 +1,5 @@
 import { auth } from "@/../auth";
+import IsRegisterSkillModalProvider from "@/components/libs/IsRegisterSkillModailProvider";
 import CreateIndex from "../features/create/Index";
 
 export default async function Create() {
@@ -9,6 +10,8 @@ export default async function Create() {
     userEmail: session?.user?.email ?? '',
   }
   return (
-    <CreateIndex userData={userData}/>
+    <IsRegisterSkillModalProvider>
+      <CreateIndex userData={userData} />
+    </IsRegisterSkillModalProvider>
   )
 }

@@ -9,7 +9,7 @@ type ButtonName = {
 
 export type ModalToggleProps = {
   modalToggleProps: {
-    setIsModal: Dispatch<SetStateAction<boolean>>,
+    setIsRegisterSkillModal: Dispatch<SetStateAction<boolean>>,
     toggleName: string,
   }
 };
@@ -52,7 +52,7 @@ export function JournalButton({ journal }: JournalProps) {
 
 export function ModalToggleButton({ modalToggleProps }: ModalToggleProps) {
   const toggleModal = () => {
-    modalToggleProps.setIsModal((prev: boolean) => !prev);
+    modalToggleProps.setIsRegisterSkillModal((prev: boolean) => !prev);
   }
   return (
     <button className={styles.addSkill} type="button" onClick={() => { toggleModal() }}>

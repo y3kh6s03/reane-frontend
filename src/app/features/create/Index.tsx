@@ -6,13 +6,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
-import { AddAction, addReach, initCreateChart } from "@/../store/slice/CreateChartSlice";
+import { AddAction, addReach, addSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
 import ModalContainer from "@/components/utils/ModalContainer";
+import { useIsRegisterSkillModal } from "@/components/libs/IsRegisterSkillModailProvider";
 import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 
 import styles from "./Create.module.scss";
 import { CreateAndCancelButton, ModalToggleButton } from "../../components/elements/button/Button";
-import SkillInputModal from "../../components/elements/Modal/SkillInputModal";
+import RegisterSkillModal from "../../components/elements/Modal/RegisterSkillModal";
 import Chart from "../../components/elements/chart/Chart";
 import ActionInputModal from "../../components/elements/Modal/ActionInputModal";
 
@@ -25,11 +26,15 @@ interface UserData {
   }
 }
 
+interface AddChartPayload {
+  skillName: string;
+}
+
 export default function CreateIndex({ userData }: UserData) {
 
+  const { isRegisterSkillModal, setIsRegisterSkillModal } = useIsRegisterSkillModal();
   const createChartStates = useAppSelector((state) => state.createChart)
   const dispatch = useAppDispatch();
-  const [isSkillModal, setIsSkillModal] = useState(false);
   const [isActionModal, setIsActionModal] = useState(false);
   const [skillName, setSkillName] = useState('');
   const [reachName, setReachName] = useState('');
@@ -65,7 +70,7 @@ export default function CreateIndex({ userData }: UserData) {
   }
 
   const modalToggleProps = {
-    setIsModal: setIsSkillModal,
+    setIsRegisterSkillModal,
     toggleName: 'スキル'
   }
 
@@ -88,6 +93,11 @@ export default function CreateIndex({ userData }: UserData) {
     dispatch(initCreateChart())
     setReachName('');
     router.push('/myChart');
+  }
+
+  const handleRegisterSkillModalSubmit = (inputSkillName: string) => {
+  const payload: AddChartPayload = { skillName: inputSkillName };
+  dispatch(addSkill(payload));
   }
 
   return (
@@ -121,13 +131,15 @@ export default function CreateIndex({ userData }: UserData) {
         <Chart skillDatas={chartData} />
       </div>
 
-      {isSkillModal &&
+      {
+        isRegisterSkillModal &&
         <ModalContainer targetName='create'>
-          <SkillInputModal setIsSkillModal={setIsSkillModal} />
+          <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
         </ModalContainer>
       }
 
-      {isActionModal &&
+      {
+        isActionModal &&
         <ModalContainer targetName='create'>
           <ActionInputModal actionData={actionData}
           />
