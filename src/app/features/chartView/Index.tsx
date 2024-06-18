@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { splitString } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
-import { ChartData } from "@/../store/slice/AuthChartsSlice";
+import { ChartData, addedSkill } from "@/../store/slice/AuthChartsSlice";
 import ModalContainer from "@/components/utils/ModalContainer";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
 import axios from "axios";
@@ -13,6 +13,7 @@ import ProgressMeter from "./ProgressMeter";
 import ChartDisp from "./ChartDisp";
 import Chart from "../../components/elements/chart/Chart";
 import Button from "../../components/elements/button/Button";
+import { useAppDispatch } from "../../../store/hooks";
 
 interface ChartProps {
   chartData: ChartData | null
@@ -25,6 +26,7 @@ export default function ChartIndex({ chartData }: ChartProps) {
   if (chartData?.createdAt) {
     dispCreatedAt = chartData?.createdAt ? splitString(chartData.createdAt, 'T') : '';
   }
+  const dispatch = useAppDispatch();
 
   const userData = {
     userName: chartData?.userEmail,
@@ -70,7 +72,16 @@ export default function ChartIndex({ chartData }: ChartProps) {
       inputSkillName
     }
     try {
-      await axios.patch(URL, skillNamePayload)
+      const res = await axios.patch(URL, skillNamePayload)
+      if(res.status===200){
+        const data = await res.data;
+        const addedSkillPayload = {
+          reachId: data.reach_id,
+          id: data.id,
+          skillName: data.name,
+        }
+        dispatch(addedSkill(addedSkillPayload));
+      }
     } catch (error) {
       console.error("Failed to submit skill registration:", error);
     }

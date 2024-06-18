@@ -16,7 +16,7 @@ export interface SkillData {
   }
 }
 
-export type ChartData = {
+export interface ChartData {
   id: number;
   userName: string;
   userImage: string;
@@ -53,7 +53,18 @@ export const fetchAuthChartData = createAsyncThunk<ChartData[], { authEmail: str
 const authChartsSlice = createSlice({
   name: 'authChart',
   initialState,
-  reducers: {},
+  reducers: {
+    addedSkill(state, action) {
+      const { id, skillName, reachId } = action.payload;
+      const addSkillChartData = state.authChartDatas?.find((chartData: ChartData) => chartData.id === reachId);
+      if (addSkillChartData) {
+        addSkillChartData.skills[skillName] = {
+          id,
+          actions: []
+        }
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAuthChartData.pending, (state) => {
@@ -72,3 +83,4 @@ const authChartsSlice = createSlice({
 })
 
 export default authChartsSlice.reducer;
+export const { addedSkill } = authChartsSlice.actions;
