@@ -16,18 +16,35 @@
       flex-direction: column;
       align-self: center;
       font-family: var(--font-en);
-    }
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
-    &_label {
-      font-weight: normal;
-      font-size: 1rem;
-      display: flex;
-      flex-direction: column;
+      &_label {
+        font-weight: normal;
+        font-size: 1rem;
+      }
 
       & input {
         font-family: var(--font-jp);
         font-weight: bold;
         font-size: 1.5rem;
+      }
+
+      & .delete_container {
+        width: 1rem;
+        aspect-ratio: 1/1;
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 4rem;
+        transform: translateY(-200%);
+        transition: all .1s $ease;
+      }
+
+      &:hover{
+        & .delete_container{
+          transform: translateY(0);
+        }
       }
     }
 
