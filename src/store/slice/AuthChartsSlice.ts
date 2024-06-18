@@ -63,6 +63,13 @@ const authChartsSlice = createSlice({
           actions: []
         }
       }
+    },
+    deleteChart(state, action) {
+      const id = action.payload;
+      const targetIndex = state.authChartDatas?.findIndex(chartData => chartData.id === id);
+      if (targetIndex !== -1 && typeof targetIndex === 'number') {
+        state.authChartDatas?.splice(targetIndex, 1);
+      }
     }
   },
   extraReducers: (builder) => {
@@ -83,4 +90,4 @@ const authChartsSlice = createSlice({
 })
 
 export default authChartsSlice.reducer;
-export const { addedSkill } = authChartsSlice.actions;
+export const { deleteChart, addedSkill } = authChartsSlice.actions;

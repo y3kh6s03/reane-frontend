@@ -2,10 +2,12 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
+import { Delete } from "@/components/elements/icons/Icons";
 import styles from "./styles/Reach.module.scss";
 import { JournalButton } from "../../components/elements/button/Button";
 import AuthDetail from "../../components/elements/authDetail/AuthDetail";
-import { ReachData, handleReachNameSubmit } from "./handlers/ReachHandler";
+import { ReachData, handleReachDeleteSubmit, handleReachNameSubmit } from "./handlers/ReachHandler";
+import { useAppDispatch } from "../../../store/hooks";
 
 
 
@@ -13,6 +15,9 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
 
   const { data: session } = useSession();
   const [reachName, setReachName] = useState<string>(name || '');
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+
   const authName = session?.user?.name
   const userData = {
     userName,
@@ -41,25 +46,38 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
     <div className={styles.container}>
       <div className={styles.reach}>
         {
-          userName === authName
+          userName === authName && id && userEmail
             ?
             <form
               className={styles.reach_title}
               ref={formRef}
-              onSubmit={(e) => handleReachNameSubmit({ e, reachData, setReachName })}
+              onSubmit={(e) => handleReachNameSubmit({ e, reachData, setReachName, setErrorMsg })}
             >
               <label
                 className={styles.reach_label}
-                htmlFor="reachName">
+                htmlFor="reachNameName">
                 REACH
-                <input
-                  id="reachName"
-                  type="text"
-                  name="reachName"
-                  defaultValue={reachName || ''}
-                  onBlur={() => { handleReachNameOnBlur() }}
-                />
               </label>
+              <input
+                id="reachNameName"
+                type="text"
+                name="reachName"
+                defaultValue={reachName || ''}
+                onBlur={() => { handleReachNameOnBlur() }}
+              />
+              {
+                errorMsg !== null
+                &&
+                <span
+                  style={{ color: 'red' }}
+                >
+                  {errorMsg}
+                </span>
+              }
+              <div className={styles.delete_container}>
+                <Delete deleteHandler={() => { handleReachDeleteSubmit({ id, userEmail, dispatch, setErrorMsg }) }} />
+              </div>
+
             </form>
             :
             <div className={styles.reach_title}>
@@ -75,8 +93,10 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
       {
 
         userName === authName
-          ? <JournalButton journal={name !== undefined ? name : ''} />
-          : <div className={styles.authDetail_container}>
+          ?
+          <JournalButton journal={name !== undefined ? name : ''} />
+          :
+          <div className={styles.authDetail_container}>
             <AuthDetail userData={userData} />
           </div>
       }
