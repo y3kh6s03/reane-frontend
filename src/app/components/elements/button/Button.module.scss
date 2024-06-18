@@ -81,6 +81,7 @@
   &:global(.CANCEL),
   &:global(.DELETE) {
     background-color: $alertRed;
+    transition: all .1s $ease;
 
     &:hover {
       background-color: lighten(#FF3700, 10%);
@@ -91,11 +92,11 @@
   &:global(.CREATE),
   &:global(.SAVE) {
     background-color: $green;
+    transition: all .1s $ease;
 
     &:hover {
       background-color: lighten($green, 10%);
       transform: scale(1.1);
-
     }
   }
 }
