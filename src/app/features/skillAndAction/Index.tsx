@@ -2,11 +2,15 @@
 
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
 import { useAppSelector } from "@/../store/hooks";
+import { BackButton } from "@/components/elements/button/Button";
+import { useRouter } from "next/navigation";
 import SkillName from "./SkillName";
 import styles from "./styles/SkillAndAction.module.scss";
 import Actions from "./Actions";
 
 export default function SkillAndActionIndex() {
+
+  const router = useRouter();
 
   const { skillAndActionData } = useAppSelector((state) => state.skillAndAction)
 
@@ -37,6 +41,7 @@ export default function SkillAndActionIndex() {
         </h1>
         <AuthDetail userData={userData} />
       </div>
+      <BackButton {...router}/>
       <SkillName {...skillNameData} />
       {
         skillAndActionData.actionDatas

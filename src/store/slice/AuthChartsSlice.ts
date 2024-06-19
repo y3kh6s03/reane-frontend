@@ -17,16 +17,17 @@ export interface SkillData {
 }
 
 export interface ChartData {
-  id: number;
-  userName: string;
-  userImage: string;
-  userEmail: string;
-  reachName: string;
+  id: number,
+  userName: string,
+  userImage: string,
+  userEmail: string,
+  reachName: string,
   skills: SkillData,
-  actionCount?: number;
-  executedActionCount?: number;
-  days: number;
-  createdAt: string;
+  actionCount?: number,
+  executedActionCount?: number,
+  days: number,
+  createdAt: string,
+  updatedAt: string,
 };
 
 interface AuthChartState {
@@ -55,13 +56,14 @@ const authChartsSlice = createSlice({
   initialState,
   reducers: {
     addedSkill(state, action) {
-      const { id, skillName, reachId } = action.payload;
+      const { id, skillName, reachId, updatedAt } = action.payload;
       const addSkillChartData = state.authChartDatas?.find((chartData: ChartData) => chartData.id === reachId);
       if (addSkillChartData) {
         addSkillChartData.skills[skillName] = {
           id,
           actions: []
         }
+        addSkillChartData.updatedAt = updatedAt
       }
     },
     deleteChart(state, action) {

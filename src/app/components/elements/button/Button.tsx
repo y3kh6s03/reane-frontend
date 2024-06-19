@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Dispatch, SetStateAction } from "react";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import styles from "./Button.module.scss"
 
 type ButtonName = {
@@ -69,6 +70,19 @@ export function CreateAndCancelButton({ createAndCancelProps }: CreateAndCancelP
       type="button"
       onClick={createAndCancelProps.handler}>
       {createAndCancelProps.buttonName}
+    </button>
+  )
+}
+
+export function BackButton({ back }: AppRouterInstance) {
+  return (
+    <button
+      className={styles.back}
+      type="submit"
+      onClick={() => { back() }}
+    >
+      <Image src='/arrow.svg' fill alt="arrow" />
+      Back
     </button>
   )
 }

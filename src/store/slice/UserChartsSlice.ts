@@ -30,6 +30,7 @@ const initialState: UserChartState = {
     actionCount: 999,
     executedActionCount: 444,
     createdAt: '2024-02-30',
+    updatedAt: '2024-02-30',
   },
 }
 // sliceを定義する
