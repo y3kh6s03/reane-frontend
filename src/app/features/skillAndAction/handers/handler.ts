@@ -159,8 +159,7 @@ export const handleToggleActionCompletion = async (
   const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/${actionId}`
 
   try {
-    const res = await axios.patch(URL, actionCheckPayload);
-    console.log(res);
+    await axios.patch(URL, actionCheckPayload);
 
   } catch (error) {
     setErrorMsg('サーバーで処理が失敗してしまいました。')

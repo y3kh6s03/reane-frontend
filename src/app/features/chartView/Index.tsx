@@ -6,6 +6,7 @@ import ModalContainer from "@/components/utils/ModalContainer";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
 import axios from "axios";
 import { useIsRegisterSkillModal } from "@/components/libs/IsRegisterSkillModailProvider";
+import { useState } from "react";
 import styles from "./styles/ChartView.module.scss";
 import Reach from "./Reach";
 
@@ -21,6 +22,7 @@ interface ChartProps {
 
 export default function ChartIndex({ chartData }: ChartProps) {
   const { data: session } = useSession();
+  const [errorMsg, setErrorMsg] = useState<string>('');
   const authName = session?.user?.name;
   let dispCreatedAt;
   if (chartData?.createdAt) {
@@ -29,7 +31,7 @@ export default function ChartIndex({ chartData }: ChartProps) {
   const dispatch = useAppDispatch();
 
   const userData = {
-    userName: chartData?.userEmail,
+    userName: chartData?.userName,
     userImage: chartData?.userImage
   }
 
@@ -73,17 +75,18 @@ export default function ChartIndex({ chartData }: ChartProps) {
     }
     try {
       const res = await axios.patch(URL, skillNamePayload)
-      if(res.status===200){
+      if (res.status === 200) {
         const data = await res.data;
         const addedSkillPayload = {
           reachId: data.reach_id,
           id: data.id,
           skillName: data.name,
+          updatedAt: data.updated_at
         }
         dispatch(addedSkill(addedSkillPayload));
       }
     } catch (error) {
-      console.error("Failed to submit skill registration:", error);
+      setErrorMsg(`Failed to submit skill registration: ${error}`);
     }
   }
 
@@ -95,6 +98,10 @@ export default function ChartIndex({ chartData }: ChartProps) {
       </div>
 
       <Reach {...reachData} />
+      {
+        errorMsg !== "" &&
+        <span>{errorMsg}</span>
+      }
 
       <div className={styles.skills_wrapper}>
         <Chart skillDatas={skillDatas} />
@@ -130,6 +137,7 @@ export default function ChartIndex({ chartData }: ChartProps) {
       }
       {
         isRegisterSkillModal &&
+        authName === chartData?.userName &&
         <ModalContainer targetName={`chart${chartData ? chartData.id : ''}`}>
           <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
         </ModalContainer>

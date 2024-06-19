@@ -100,3 +100,26 @@
     }
   }
 }
+
+.back{
+  display: block;
+  width: 5rem;
+  height: 1rem;
+  position: relative;
+
+  & img{
+    width: 1rem !important;
+    height: 1rem !important;
+    transform: rotate(90deg);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transition: all .1s $ease;
+  }
+
+  &:hover{
+    & img{
+      transform: rotate(90deg) translateY(.5rem);
+    }
+  }
+}
