@@ -1,0 +1,33 @@
+@use "@/styles/_variables" as *;
+
+.container {
+  width: 100%;
+
+  @include mq(lg){
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  & .title {
+    width: 100%;
+    text-align: center;
+    font: bold 1.5rem var(--font-jp);
+    line-height: 6rem;
+
+    @include mq(lg){
+      font: bold 3rem var(--font-jp);
+      margin-bottom: 3rem;
+    }
+  }
+
+  & .features_container {
+    @include mq(lg){
+      width: 900px;
+      display: flex;
+      align-self: center;
+      gap: 1rem;
+    }
+  }
+}

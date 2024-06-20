@@ -41,7 +41,6 @@ export default async function RootLayout({
               }
               {children}
             </ChartProvider>
-
           </SessionProvider>
         </main>
       </body>

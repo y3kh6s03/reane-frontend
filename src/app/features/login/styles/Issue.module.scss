@@ -1,0 +1,38 @@
+@use "@/styles/_variables" as *;
+
+.container{
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 6rem 1fr;
+  gap: 3rem;
+
+  @include mq(xl){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  & .wrapper{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 2rem;
+
+    @include mq(xl){
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      gap: 5rem;
+      margin: 0 auto;
+    }
+  }
+
+  & .title{
+    line-height: 6rem;
+
+    @include mq(xl){
+      font-size: 3rem;
+    }
+  }
+}

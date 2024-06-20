@@ -1,0 +1,59 @@
+@use "@/styles/_variables" as *;
+
+
+.container {
+  width: 100%;
+  max-width: 550px;
+  height: 25rem;
+  position: relative;
+  padding-top: 6rem;
+  margin: 0 auto 2rem;
+
+  @include mq(lg){
+    height: 26rem;
+  }
+
+  & .image_container {
+    width: 15rem;
+    aspect-ratio: 1/1;
+    position: absolute;
+    border-radius: 10px;
+    overflow: hidden;
+    top: 0;
+    right: 1rem;
+
+    @include mq(lg){
+      width: 11rem;
+    }
+
+    & img {}
+  }
+
+  & .text_container {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    background-color: $gray;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+  }
+
+  & .number {
+    position: relative;
+    font: bold 8rem/8rem var(--font-en);
+    z-index: 100;
+
+    @include mq(lg){
+      font: bold 6rem/4rem var(--font-en);
+      margin-left: -1rem;
+    }
+  }
+
+  & .headline {
+    margin-top: 1rem;
+  }
+
+  & .description {
+    margin-top: 1rem;
+  }
+}
