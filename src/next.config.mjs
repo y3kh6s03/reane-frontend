@@ -11,6 +11,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'next-auth.js.org',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       }
     ],
   },

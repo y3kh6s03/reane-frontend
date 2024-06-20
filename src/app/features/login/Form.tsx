@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { signIn } from "@/../auth";
-import styles from './login.module.scss';
+import styles from './styles/Form.module.scss';
 
 export default function LoginForm() {
   const login = async () => {
 
     "use server"
 
-    await signIn('google',{ redirectTo: "/myChart" });
+    await signIn('google', { redirectTo: "/myChart" });
   }
 
   return (
@@ -33,13 +33,26 @@ export default function LoginForm() {
           新規登録 / ログイン
         </span>
         <button type="submit" className={styles.form_button}>
-          <span>GOOGLE</span>
-          でログイン
+          <div className={styles.google_container}>
+            <Image src="/google.svg" fill sizes="100%" alt="google logo" />
+          </div>
+          <span>
+            LOGIN
+          </span>
         </button>
       </form>
+
       <p className={styles.description}>
         利用規約およびプライバシーポリシーに同意の上、ログインへお進みください。
       </p>
+
+      <div className={styles.what_container}>
+        <div className={styles.what_reane}>
+          What&apos;s Reane !?
+          <span className={styles.what_reane_jp}>REANEとは...</span>
+          <span className={styles.what_reane_arrow} />
+        </div>
+      </div>
     </div>
   )
 }
