@@ -1,5 +1,5 @@
 import { auth } from "@/../auth";
-import IsRegisterSkillModalProvider from "@/components/libs/IsRegisterSkillModailProvider";
+import IsRegisterSkillModalProvider from "@/components/utils/IsRegisterSkillModailProvider";
 import CreateIndex from "../features/create/Index";
 
 export default async function Create() {

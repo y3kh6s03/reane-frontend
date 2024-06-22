@@ -1,16 +1,16 @@
-import React from 'react';
-
 import Link from "next/link";
 import Image from "next/image";
-
+import IsHowToModalProvider from "@/components/utils/IsHowToModalProvider";
 import styles from "./nav.module.scss";
 import Logout from '../../elements/logout/Logout';
+import NavHowToButton from "./NavHowToButton";
 
 interface Props {
   props: string
 }
 
-export default function MobileNav({ props }: Props) {
+export default function Nav({ props }: Props) {
+
   const navItems = [
     { id: 1, name: 'home' },
     { id: 2, name: 'create' },
@@ -21,6 +21,11 @@ export default function MobileNav({ props }: Props) {
 
   return (
     <nav className={styles.nav}>
+      <div className={styles.HowToButton_container}>
+        <IsHowToModalProvider>
+          <NavHowToButton />
+        </IsHowToModalProvider>
+      </div>
       <ul className={styles.nav_ul}>
         {
           navItems.map(item =>

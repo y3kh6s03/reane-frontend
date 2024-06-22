@@ -5,7 +5,7 @@ import { ChartData, addedSkill } from "@/../store/slice/AuthChartsSlice";
 import ModalContainer from "@/components/utils/ModalContainer";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
 import axios from "axios";
-import { useIsRegisterSkillModal } from "@/components/libs/IsRegisterSkillModailProvider";
+import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import { useState } from "react";
 import styles from "./styles/ChartView.module.scss";
 import Reach from "./Reach";

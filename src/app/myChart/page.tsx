@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { ChartData, fetchAuthChartData } from "@/../store/slice/AuthChartsSlice";
 import ChartIntro from "@/features/chartView/ChartIntro";
-import IsRegisterSkillModalProvider from "@/components/libs/IsRegisterSkillModailProvider";
+import IsRegisterSkillModalProvider from "@/components/utils/IsRegisterSkillModailProvider";
 import ChartIndex from "../features/chartView/Index";
 import styles from "./MyChart.module.scss";
 

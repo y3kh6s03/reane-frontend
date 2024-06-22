@@ -87,5 +87,17 @@ export function BackButton({ back }: AppRouterInstance) {
   )
 }
 
+export function HowToButton({ setIsHowToModal }: { setIsHowToModal: Dispatch<SetStateAction<boolean>> }) {
+  return (
+    <button
+      type="submit"
+      className={styles.howTo_link}
+      onClick={() => setIsHowToModal(prev => !prev)}
+    >
+      How to use
+    </button>
+  )
+}
+
 // 編集ページにリンクするボタンをここで作成してコンポーネントかしていこう
 // Reachからコードを取得してくる
