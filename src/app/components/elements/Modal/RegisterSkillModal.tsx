@@ -1,4 +1,4 @@
-import { useIsRegisterSkillModal } from "@/components/libs/IsRegisterSkillModailProvider";
+import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import styles from "./styles/SkillInput.module.scss";
 
 interface RegisterSkillModalProps {

@@ -1,15 +1,16 @@
 @use "@/styles/_variables.scss" as *;
 
-.header{
+.container{
   width: 100vw;
   height: 5rem;
   position: fixed;
   top: 0;
   left: 0;
   padding: 0 5% 0 3%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
   align-items: center;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
   backdrop-filter: blur(3px);
   z-index: 99999;
 
@@ -19,10 +20,17 @@
     z-index: 10;
   }
 
-  & .logout_container{
+  & .header_inner{
+    display: flex;
+    justify-self: flex-end;
 
     @include mq(lg){
-      opacity: 0;
+      display: none;
+    }
+
+    & .howToButton_container{
+      display: flex;
+      align-items: center;
     }
   }
 }

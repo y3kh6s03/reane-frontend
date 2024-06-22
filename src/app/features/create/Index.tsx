@@ -8,7 +8,7 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { AddAction, addReach, addSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
 import ModalContainer from "@/components/utils/ModalContainer";
-import { useIsRegisterSkillModal } from "@/components/libs/IsRegisterSkillModailProvider";
+import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 
 import styles from "./Create.module.scss";

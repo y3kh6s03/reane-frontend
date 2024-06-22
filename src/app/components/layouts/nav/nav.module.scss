@@ -32,6 +32,16 @@
     }
   }
 
+  & .HowToButton_container{
+    width: 10rem;
+    display: none;
+
+    @include mq(lg){
+      display: block;
+      padding: 5rem 0 0 .5rem;
+    }
+  }
+
   &_ul {
     width: 100%;
     height: 2rem;
@@ -40,7 +50,8 @@
     place-items: center;
 
     @include mq(lg) {
-      padding: 5rem 1rem 0 0;
+      height: calc(100vh - 10rem);
+      padding: 2rem 1rem 0 0;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(5, 1fr) 3fr;
     }
@@ -127,7 +138,7 @@
   }
 
   &_logout {
-    margin-top: 5rem;
+    // margin-top: 3rem;
     padding-left: calc(10% + 2.5rem);
   }
 }

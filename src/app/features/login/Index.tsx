@@ -1,26 +1,31 @@
-import React from "react"
+"use client"
 
-import { redirect } from "next/navigation";
-import { auth } from "@/../auth"
-import LoginForm from "./Form";
+import HowToModal from "@/components/elements/Modal/HowToModal";
+import { useIsHowToModal } from "@/components/utils/IsHowToModalProvider";
+import ModalContainer from "@/components/utils/ModalContainer";
 import styles from "./styles/Login.module.scss"
 import LoginHeader from "./LoginHeader";
 import Description from "./Description";
 import Issue from "./Issue";
 import Features from "./Features";
 
-export default async function LoginIndex() {
-  const session = await auth();
-  if (session?.user) {
-    redirect('/myChart')
-  }
+export default function LoginIndex() {
+
+  const { isHowToModal } = useIsHowToModal();
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="login">
       <LoginHeader />
-      <LoginForm />
       <Description />
       <Issue />
       <Features />
+      {
+        isHowToModal
+        &&
+        <ModalContainer targetName="login">
+          <HowToModal />
+        </ModalContainer>
+      }
     </div>
   )
 }
