@@ -24,7 +24,7 @@ export default function IsRegisterSkillModalProvider({ children }: { children: R
 export function useIsRegisterSkillModal() {
   const context = useContext(IsRegisterSkillModalContext);
   if (!context) {
-    throw new Error("useIsEdit must be used within an IsEditProvider");
+    throw new Error("useIsRegisterSkillModal must be used within an IsRegisterSkillModalProvider");
   }
   return context;
 };

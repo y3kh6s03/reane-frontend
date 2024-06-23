@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { signIn } from "@/../auth";
+import Link from "next/link";
 import styles from './styles/Form.module.scss';
 
 export default function LoginForm() {
@@ -16,9 +17,6 @@ export default function LoginForm() {
         className={styles.form}
         action={login}>
         <h1 className={styles.name}>
-          <span className={styles.subname}>
-            Share Mandala Chart
-          </span>
           REANE
         </h1>
         <div className={styles.image_container}>
@@ -40,6 +38,17 @@ export default function LoginForm() {
             LOGIN
           </span>
         </button>
+        <Link
+          style={{
+            font: "normal .8rem var(--font-jp)"
+          }}
+          href="/terms"
+        >利用規約</Link>
+        <Link
+          style={{
+            font: "normal .8rem var(--font-jp)"
+          }}
+          href="/privacy">プライバシーポリシー</Link>
       </form>
 
       <p className={styles.description}>
@@ -47,11 +56,11 @@ export default function LoginForm() {
       </p>
 
       <div className={styles.what_container}>
-        <div className={styles.what_reane}>
+        <Link href="/login#description" className={styles.what_reane}>
           What&apos;s Reane !?
           <span className={styles.what_reane_jp}>REANEとは...</span>
           <span className={styles.what_reane_arrow} />
-        </div>
+        </Link>
       </div>
     </div>
   )

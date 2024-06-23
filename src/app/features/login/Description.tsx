@@ -6,7 +6,7 @@ import styles from "./styles/Description.module.scss"
 
 export default function Description() {
   return (
-    <div className={styles.container}>
+    <div id="description" className={styles.container}>
       <h1 className={styles.title}>
         <Logo size='lg' />
         <span>とは？</span>

@@ -136,8 +136,8 @@ export default function ChartIndex({ chartData }: ChartProps) {
           ''
       }
       {
-        isRegisterSkillModal &&
         authName === chartData?.userName &&
+        isRegisterSkillModal &&
         <ModalContainer targetName={`chart${chartData ? chartData.id : ''}`}>
           <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
         </ModalContainer>
