@@ -16,7 +16,7 @@ export default function Privacy() {
       <h1 className={styles.title}>プライバシーポリシー</h1>
       <main className={styles.mainContainer}>
         <p className={styles.paragraph}>
-          「SaboLearn」（以下「当方」といいます。）がこのウェブサイトで提供するサービス（以下「本サービス」といいます。）における、ユーザーについての個人情報を含む利用者情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます。）を定めます。
+          「REANE」（以下「当方」といいます。）がこのウェブサイトで提供するサービス（以下「本サービス」といいます。）における、ユーザーについての個人情報を含む利用者情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます。）を定めます。
         </p>
         <h2 className={styles.heading}>収集する利用者情報及び収集方法</h2>
         <p className={styles.paragraph}>
@@ -118,13 +118,13 @@ export default function Privacy() {
         <p className={styles.paragraph}>
           ご意見、ご質問、苦情のお申出その他利用者情報の取扱いに関するお問い合わせは、下記の窓口までお願いいたします。
         </p>
-        <p className={styles.paragraph}>連絡先 : sabolearn@gmail.com</p>
+        <p className={styles.paragraph}>連絡先 : reane.site@gmail.com</p>
 
         <h2 className={styles.heading}>プライバシーポリシーの変更手続</h2>
         <p className={styles.paragraph}>
           当方は、必要に応じて、本ポリシーを変更します。但し、法令上ユーザーの同意が必要となるような本ポリシーの変更を行う場合、変更後の本ポリシーは、当方所定の方法で変更に同意したユーザーに対してのみ適用されるものとします。なお、当方は、本ポリシーを変更する場合には、変更後の本ポリシーの施行時期及び内容を当方のウェブサイト上での表示その他の適切な方法により周知し、またはユーザーに通知します。
         </p>
-        <p>【2024年3月21日制定】</p>
+        <p>【2024年6月23日制定】</p>
       </main>
       <Footer />
     </div>
