@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { AddAction, addReach, addSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
 import ModalContainer from "@/components/utils/ModalContainer";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
-import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 
 import styles from "./Create.module.scss";
 import { CreateAndCancelButton, ModalToggleButton } from "../../components/elements/button/Button";
@@ -104,10 +103,6 @@ export default function CreateIndex({ userData }: UserData) {
     <div className={styles.container} id="create">
 
       <h1 className={styles.title}>New Create</h1>
-
-      <div className={styles.authDetail_container}>
-        <AuthDetail userData={userData} />
-      </div>
 
       <label className={styles.reachInput_label} htmlFor="reachName">
         REACH

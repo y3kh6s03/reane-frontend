@@ -90,8 +90,8 @@ export default function MyChart() {
                   }
                 </select>
               </form>
-              <ChartIndex chartData={currentMyChart} />
             </div>
+            <ChartIndex chartData={currentMyChart} />
           </IsRegisterSkillModalProvider>
           :
           <ChartIntro />

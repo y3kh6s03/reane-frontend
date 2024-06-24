@@ -12,7 +12,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="loginForm">
       <form
         className={styles.form}
         action={login}>
@@ -40,7 +40,8 @@ export default function LoginForm() {
         </button>
         <Link
           style={{
-            font: "normal .8rem var(--font-jp)"
+            font: "normal .8rem var(--font-jp)",
+            margin: "1rem 0"
           }}
           href="/terms"
         >利用規約</Link>

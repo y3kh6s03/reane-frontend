@@ -34,9 +34,11 @@
     display: grid;
     grid-template-rows: 1fr 1fr 5fr;
     gap: 1rem;
+    transform: translateY(-3rem);
 
     @include mq(lg) {
       margin: 0 auto;
+      transform: translateY(0);
     }
 
 
@@ -98,9 +100,13 @@
   height: 100vh;
 
   & .swiper_slide {
-    height: 80%;
+    height: 65%;
     justify-self: center;
     align-self: center;
+
+    @include mq(lg){
+      height: 80%;
+    }
   }
 }
 

@@ -2,8 +2,9 @@
 
 .container {
   width: 100%;
+  margin-bottom: 5rem;
 
-  @include mq(lg){
+  @include mq(lg) {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -16,18 +17,69 @@
     font: bold 1.5rem var(--font-jp);
     line-height: 6rem;
 
-    @include mq(lg){
+    @include mq(lg) {
       font: bold 3rem var(--font-jp);
       margin-bottom: 3rem;
     }
   }
 
   & .features_container {
-    @include mq(lg){
+    @include mq(lg) {
       width: 900px;
       display: flex;
       align-self: center;
       gap: 1rem;
     }
   }
+
+  & .howToButton_container {
+    width: 100%;
+    margin: 3rem 0;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & h4 {
+      font: bold 2rem var(--font-en);
+    }
+  }
+
+  & .letStart_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    @include mq(lg){
+      margin-bottom: 10rem;
+    }
+
+    & h4{
+      font: bold 1.5rem var(--font-en);
+    }
+
+    & .pagetop {
+      height: 50px;
+      width: 50px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+
+      & .pagetop_arrow {
+        height: 1rem;
+        width: 1rem;
+        border-top: 1px solid #000;
+        border-right: 1px solid #000;
+        transform: translateY(20%) rotate(-45deg);
+      }
+    }
+  }
+
 }

@@ -14,7 +14,8 @@
 
   &:hover {
     & .form_button {
-      font-size: 2rem;
+      // font-size: 2rem;
+      transform: scale(1.5);
     }
   }
 
@@ -22,6 +23,6 @@
     font-family: var(--font-en);
     font-weight: bold;
     color: $red;
-    transition: all .05s $ease;
+    transition: all .1s $ease;
   }
 }

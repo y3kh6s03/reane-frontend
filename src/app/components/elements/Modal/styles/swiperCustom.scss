@@ -1,5 +1,16 @@
+@use "@/styles/_variables" as *;
+
 .swiper-button-prev,
 .swiper-button-next
 {
   color: white;
+  transform: translateY(-3rem);
+
+  @include mq(lg){
+    transform: translateY(0rem);
+  }
+}
+
+.swiper-pagination{
+  bottom: 5rem;
 }
