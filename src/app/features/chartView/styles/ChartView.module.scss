@@ -1,49 +1,85 @@
 @use '@/styles/_variables' as *;
 
-.skills_wrapper {
+.container {
   width: 100%;
-  aspect-ratio: 1/1;
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  @include mq(sm) {
-    width: calc((100vh / 9) * 7 - 7rem);
-    justify-content: center;
-    align-items: center;
-  }
+  height: calc(100vh - 7rem);
+  margin: 3.5rem auto 3.5rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 7fr;
+  gap: 0rem;
+  place-items: center;
+  overflow: hidden;
 
   @include mq(lg) {
-    width: calc((100vh / 6) * 5 - 3rem);
+    width: 100%;
+    height: calc(100vh - 2rem);
+    padding: 0 calc(20rem - 3%) 0 calc(14rem - 3%);
+    margin: 1rem auto 1rem;
+    gap: 1rem;
   }
 
-  & .chatData_wrapper {
-    width: 10rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  & .authDetail_container {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    justify-self: flex-start;
+  }
 
-    @include mq(lg) {
-      width: 12rem;
+  & .icons_container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+  }
+
+
+  & .skills_wrapper {
+    height: 100%;
+    aspect-ratio: 1/1;
+    max-width: calc(100vw - 3%);
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    @include mq(sm) {
+      width: calc((100vh / 9) * 7 - 7rem);
+      justify-content: center;
+      align-items: center;
     }
 
-    & .skillRegisterButton {
-      width: 100%;
-      text-align: center;
-      margin-bottom: .5rem;
-      animation: skillRegisterButtonAnimation 1s infinite;
-      cursor: pointer;
-      z-index: 10;
-      transition: transform 1s $ease;
+    @include mq(lg) {
+      width: calc((100vh / 10) * 7 - 1rem);
+    }
 
-      &:hover {
-        animation-play-state: paused;
-        transform: scale(1.5);
+    & .chatData_wrapper {
+      width: 10rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      @include mq(lg) {
+        width: 12rem;
+      }
+
+      & .skillRegisterButton {
+        width: 100%;
+        text-align: center;
+        margin-bottom: .5rem;
+        animation: skillRegisterButtonAnimation 1s infinite;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 1s $ease;
+
+        &:hover {
+          animation-play-state: paused;
+          transform: scale(1.5);
+        }
       }
     }
   }
@@ -60,39 +96,5 @@
 
   100% {
     transform: scale(1.2);
-  }
-}
-
-.container {
-  width: 100%;
-  height: calc(100vh - 6rem);
-  padding-bottom: 4rem;
-  display: grid;
-  grid-template-rows: repeat(2, 1fr) 7fr;
-  gap: 1.2rem;
-  place-items: center;
-
-  @include mq(lg) {
-    width: calc(100vw - 36rem);
-    margin: 0 auto;
-    grid-template-rows: 1fr 5fr;
-    gap: 1.5rem;
-  }
-
-  & .authDetail_container {
-    justify-self: flex-start;
-
-    @include mq(lg) {
-      display: none;
-    }
-  }
-
-  & .icons_container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-right: 2rem;
   }
 }
