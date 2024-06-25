@@ -6,21 +6,23 @@ import ModalContainer from "@/components/utils/ModalContainer";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
 import axios from "axios";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
-import { useState } from "react";
+import Button from "@/components/elements/button/Button";
+import { Dispatch, SetStateAction, useState } from "react";
 import styles from "./styles/ChartView.module.scss";
 import Reach from "./Reach";
 
 import ProgressMeter from "./ProgressMeter";
 import ChartDisp from "./ChartDisp";
 import Chart from "../../components/elements/chart/Chart";
-import Button from "../../components/elements/button/Button";
 import { useAppDispatch } from "../../../store/hooks";
+import ChartSlect from "./ChartSelect";
 
-interface ChartProps {
-  chartData: ChartData | null
+interface ChartPropsIndex {
+  chartData: ChartData | null,
+  setCurrentMyChart?: Dispatch<SetStateAction<ChartData | undefined>> | undefined
 }
 
-export default function ChartIndex({ chartData }: ChartProps) {
+export default function ChartIndex({ chartData, setCurrentMyChart }: ChartPropsIndex) {
   const { data: session } = useSession();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const authName = session?.user?.name;
@@ -103,6 +105,18 @@ export default function ChartIndex({ chartData }: ChartProps) {
         <span>{errorMsg}</span>
       }
 
+      {
+        authName === userData.userName
+          ?
+          <ChartSlect setCurrentMyChart={setCurrentMyChart} />
+          :
+          <div className={styles.icons_container}>
+            <Button buttonName="like" />
+            <Button buttonName="favorite" />
+            <Button buttonName="create" />
+          </div>
+      }
+
       <div className={styles.skills_wrapper}>
         <Chart skillDatas={skillDatas} />
         <div className={styles.chatData_wrapper}>
@@ -125,17 +139,6 @@ export default function ChartIndex({ chartData }: ChartProps) {
       </div>
 
       {
-        authName !== chartData?.userName
-          ?
-          <div className={styles.icons_container}>
-            <Button buttonName="like" />
-            <Button buttonName="favorite" />
-            <Button buttonName="create" />
-          </div>
-          :
-          ''
-      }
-      {
         authName === chartData?.userName &&
         isRegisterSkillModal &&
         <ModalContainer targetName={`chart${chartData ? chartData.id : ''}`}>
@@ -143,6 +146,9 @@ export default function ChartIndex({ chartData }: ChartProps) {
         </ModalContainer>
       }
     </div>
-
   )
 }
+
+ChartIndex.defaultProps = {
+  setCurrentMyChart: undefined,
+};

@@ -5,10 +5,10 @@
 
   @include mq(lg){
     display: block;
-    width: 13.5rem;
+    width: 20rem;
     height: 100vh;
-    position: fixed;
-    right: 3%;
+    position: absolute;
+    right: 0%;
     bottom: 0;
     padding: 2rem 0 0 1rem;
 

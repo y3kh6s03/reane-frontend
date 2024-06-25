@@ -15,19 +15,15 @@
       display: flex;
       flex-direction: column;
       align-self: center;
-      font-family: var(--font-en);
       position: relative;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
-      &_label {
-        font-weight: normal;
-        font-size: 1rem;
+      & .reach_label {
+        font: normal .8rem/.8rem var(--font-en);
       }
 
       & input {
-        font-family: var(--font-jp);
-        font-weight: bold;
-        font-size: 1.5rem;
+        font: bold 1.3rem var(--font-jp)
       }
 
       & .delete_container {

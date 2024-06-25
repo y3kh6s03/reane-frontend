@@ -2,7 +2,7 @@
 
 .container{
   width: 100vw;
-  height: 5rem;
+  height: 3rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,13 +12,7 @@
   grid-template-columns: 1fr 2fr;
   gap: 3rem;
   backdrop-filter: blur(3px);
-  z-index: 99999;
-
-  @include mq(lg){
-    width: 13.5rem;
-    backdrop-filter: blur(0px);
-    z-index: 10;
-  }
+  z-index: 9999;
 
   & .header_inner{
     display: flex;
@@ -32,5 +26,9 @@
       display: flex;
       align-items: center;
     }
+  }
+
+  @include mq(lg){
+    display: none;
   }
 }

@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { Delete } from "@/components/elements/icons/Icons";
 import styles from "./styles/Reach.module.scss";
 import { JournalButton } from "../../components/elements/button/Button";
-import AuthDetail from "../../components/elements/authDetail/AuthDetail";
 import { ReachData, handleReachDeleteSubmit, handleReachNameSubmit } from "./handlers/ReachHandler";
 import { useAppDispatch } from "../../../store/hooks";
 
@@ -19,10 +18,6 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
   const dispatch = useAppDispatch();
 
   const authName = session?.user?.name
-  const userData = {
-    userName,
-    userImage
-  }
 
   useEffect(() => {
     if (name) {
@@ -55,7 +50,8 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
             >
               <label
                 className={styles.reach_label}
-                htmlFor="reachNameName">
+                htmlFor="reachNameName"
+              >
                 REACH
               </label>
               <input
@@ -91,14 +87,7 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
         }
       </div>
       {
-
-        userName === authName
-          ?
-          <JournalButton journal={name !== undefined ? name : ''} />
-          :
-          <div className={styles.authDetail_container}>
-            <AuthDetail userData={userData} />
-          </div>
+        userName === authName && <JournalButton journal={name !== undefined ? name : ''} />
       }
     </div>
   )
