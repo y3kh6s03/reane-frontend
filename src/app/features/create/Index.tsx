@@ -95,13 +95,12 @@ export default function CreateIndex({ userData }: UserData) {
   }
 
   const handleRegisterSkillModalSubmit = (inputSkillName: string) => {
-  const payload: AddChartPayload = { skillName: inputSkillName };
-  dispatch(addSkill(payload));
+    const payload: AddChartPayload = { skillName: inputSkillName };
+    dispatch(addSkill(payload));
   }
 
   return (
     <div className={styles.container} id="create">
-
       <h1 className={styles.title}>New Create</h1>
 
       <label className={styles.reachInput_label} htmlFor="reachName">
@@ -117,13 +116,12 @@ export default function CreateIndex({ userData }: UserData) {
         />
 
       </label>
-
       <div className={styles.chart_container}>
+        <Chart skillDatas={chartData} />
         <div className={styles.modalbutton_container}>
           <ModalToggleButton modalToggleProps={modalToggleProps} />
           <CreateAndCancelButton createAndCancelProps={{ buttonName: 'CREATE', handler: createHandler }} />
         </div>
-        <Chart skillDatas={chartData} />
       </div>
 
       {
@@ -140,7 +138,7 @@ export default function CreateIndex({ userData }: UserData) {
           />
         </ModalContainer>
       }
-
     </div>
+
   )
 }

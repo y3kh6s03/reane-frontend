@@ -2,13 +2,13 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - 7rem);
-  margin: 3.5rem auto 3.5rem;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 7fr;
-  gap: 0rem;
-  place-items: center;
-  overflow: hidden;
+  height: calc(100vh - 10rem);
+  margin: 5rem auto 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  overflow: scroll;
 
   @include mq(lg) {
     width: 100%;
@@ -35,21 +35,16 @@
 
 
   & .skills_wrapper {
-    height: 100%;
+    width: 100%;
+    max-width: 550px;
     aspect-ratio: 1/1;
-    max-width: calc(100vw - 3%);
     position: relative;
     display: flex;
     justify-content: center;
-
-    @include mq(sm) {
-      width: calc((100vh / 9) * 7 - 7rem);
-      justify-content: center;
-      align-items: center;
-    }
+    align-items: center;
 
     @include mq(lg) {
-      width: calc((100vh / 10) * 7 - 1rem);
+      // width: calc((100vh / 10) * 7 - 7rem);
     }
 
     & .chatData_wrapper {

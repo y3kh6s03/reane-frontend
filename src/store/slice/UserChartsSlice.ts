@@ -26,6 +26,26 @@ const initialState: UserChartState = {
           }
         ]
       },
+      "栄養管理": {
+        id: 2,
+        actions: [
+          {
+            name: "食事の内容を把握する",
+            id: 2,
+            isCompleted: 0
+          }
+        ]
+      },
+      "運動": {
+        id: 3,
+        actions: [
+          {
+            name: "毎日運動する",
+            id: 3,
+            isCompleted: 0
+          }
+        ]
+      },
     },
     actionCount: 999,
     executedActionCount: 444,

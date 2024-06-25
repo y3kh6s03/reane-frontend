@@ -61,6 +61,7 @@
 
     @include mq(lg) {
       height: calc(100vh - 15rem);
+      max-height: 40rem;
       grid-template-columns: 1fr;
       grid-template-rows: repeat(5, 1fr) 3fr;
     }

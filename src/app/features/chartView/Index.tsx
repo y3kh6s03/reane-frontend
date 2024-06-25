@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { useSession } from "next-auth/react";
 import { splitString } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
@@ -22,7 +23,7 @@ interface ChartPropsIndex {
   setCurrentMyChart?: Dispatch<SetStateAction<ChartData | undefined>> | undefined
 }
 
-export default function ChartIndex({ chartData, setCurrentMyChart }: ChartPropsIndex) {
+export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }: ChartPropsIndex) {
   const { data: session } = useSession();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const authName = session?.user?.name;
@@ -148,7 +149,3 @@ export default function ChartIndex({ chartData, setCurrentMyChart }: ChartPropsI
     </div>
   )
 }
-
-ChartIndex.defaultProps = {
-  setCurrentMyChart: undefined,
-};

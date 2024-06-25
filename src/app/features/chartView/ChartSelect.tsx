@@ -42,7 +42,7 @@ export default function ChartSlect({ setCurrentMyChart }: { setCurrentMyChart: D
         htmlFor="chartName"
         style={{
           marginRight: '1rem',
-          font: 'normal 1rem/1.5rem var(--font-en)'
+          font: 'normal 1rem/1rem var(--font-en)'
         }}
       >
         Choose an your chart:
@@ -60,9 +60,6 @@ export default function ChartSlect({ setCurrentMyChart }: { setCurrentMyChart: D
               key={`${chartName}`}
               value={`${chartName}`}
               defaultValue='MyChartの選択'
-              style={{
-                backgroundColor:'transparent'
-              }}
             >{chartName}</option>
           )
         }
