@@ -24,9 +24,11 @@ export default function Nav({ props }: Props) {
 
   return (
     <nav className={styles.nav}>
-      <div className={styles.logo_container}>
+      <Link
+        href="/"
+        className={styles.logo_container}>
         <Logo size="lg" />
-      </div>
+      </Link>
       <div className={styles.HowToButton_container}>
         <IsHowToModalProvider>
           <NavHowToButton />

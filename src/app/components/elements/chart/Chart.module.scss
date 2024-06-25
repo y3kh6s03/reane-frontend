@@ -16,13 +16,20 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: transform .15s $ease;
+    animation: float 3s ease-in-out infinite;
+    animation-play-state: running;
 
     @include mq(md) {
       width: 5.5rem;
     }
 
     @include mq(lg) {
-      width: 5.5rem;
+      width: 6rem;
+    }
+
+    &:hover{
+      animation-play-state: paused;
     }
 
     &_name {
@@ -43,5 +50,25 @@
       }
     }
   }
+}
 
+@keyframes float {
+  0% {
+      transform: translateY(0) scale(1);
+  }
+  20% {
+      transform: translateY(-.5px) scale(1.01);
+  }
+  40% {
+      transform: translateY(.7px) scale(0.99);
+  }
+  60% {
+      transform: translateY(-.5px) scale(1.02);
+  }
+  80% {
+      transform: translateY(1.1px) scale(0.99);
+  }
+  100% {
+      transform: translateY(0) scale(1);
+  }
 }

@@ -1,20 +1,21 @@
 @use "@/styles/_variables" as *;
 
 .login_header {
-  width: 94%;
+  width: 100%;
+  // max-width: 1440px;
   height: 5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem 3%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   top: 0;
+  left: 0;
   backdrop-filter: blur(3px);
   z-index: 99999;
 
   @include mq(lg){
-    width: calc(100vw - 36rem);
+    // width: calc(100vw - 36rem);
   }
 
   & .header_icon {

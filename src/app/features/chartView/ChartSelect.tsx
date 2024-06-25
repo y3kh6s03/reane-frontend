@@ -45,7 +45,7 @@ export default function ChartSlect({ setCurrentMyChart }: { setCurrentMyChart: D
           font: 'normal 1rem/1rem var(--font-en)'
         }}
       >
-        Choose an your chart:
+        Choose on your chart:
       </label>
       <select
         className={styles.select}

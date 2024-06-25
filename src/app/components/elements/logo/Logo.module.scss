@@ -1,6 +1,7 @@
 @use '../../../styles/_variables' as *;
 
 .logo_container {
+  display: block;
   aspect-ratio: 10 / 3.2;
   position: relative;
 

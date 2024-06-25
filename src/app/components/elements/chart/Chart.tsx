@@ -1,12 +1,15 @@
 'use client'
 
-import { useRouter, usePathname } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+
+import { motion } from "framer-motion";
 import { SkillData } from "@/../store/slice/AuthChartsSlice";
 import { useAppDispatch } from "@/../store/hooks";
 import { currentSkillAndAction } from "@/../store/slice/SkillAndActionSlice";
-import styles from "./Chart.module.scss"
 import { CreateSkillData } from "../../../../store/slice/CreateChartSlice";
+
+import styles from "./Chart.module.scss"
 
 interface ChartDatas {
   skillDatas: {
@@ -64,9 +67,9 @@ export default function Chart({ skillDatas }: ChartDatas) {
     if (skillsContainer.current && skillsInner.current && skillLength > 0) {
       const deg = 360.0 / skillLength;
       let circleRadius
-      if(skillsContainer.current.clientHeight>skillsContainer.current.clientWidth){
+      if (skillsContainer.current.clientHeight > skillsContainer.current.clientWidth) {
         circleRadius = skillsContainer.current.clientWidth / 2 - skillsInner.current.clientWidth / 2;
-      }else{
+      } else {
         circleRadius = skillsContainer.current.clientHeight / 2 - skillsInner.current.clientHeight / 2;
       }
       const radianOffset = -Math.PI / 2;
@@ -94,10 +97,18 @@ export default function Chart({ skillDatas }: ChartDatas) {
               ? Math.cos(rad * index + radOffset) * r + r
               : 0;
             return (
-              <div
+              <motion.div
                 ref={skillsInner}
                 className={styles.skills_inner}
-                style={{ left: x, top: y, backgroundColor: pathName === 'create' ? "gray" : '' }}
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                  left: x,
+                  top: y,
+                  backgroundColor: pathName === 'create' ? "gray" : '',
+                }}
                 key={skillName}
                 role="button"
                 tabIndex={0}
@@ -119,7 +130,7 @@ export default function Chart({ skillDatas }: ChartDatas) {
                 >
                   {skillName}
                 </span>
-              </div>
+              </motion.div>
             )
           })
           : ''
