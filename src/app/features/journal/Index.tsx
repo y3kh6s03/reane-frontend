@@ -7,7 +7,7 @@ import { useAppSelector } from "@/../store/hooks"
 import { ModalToggleButton } from "@/../app/components/elements/button/Button"
 import ModalContainer from "@/components/utils/ModalContainer"
 import JournalInputModal from "@/../app/components/elements/Modal/JournalInputModal"
-import SearchFilter from "./SearchFilter"
+// import SearchFilter from "./SearchFilter"
 import Archive from "./Archive"
 
 import styles from "./styles/Journal.module.scss"
