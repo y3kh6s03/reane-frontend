@@ -28,6 +28,7 @@
   & .icons_container {
     position: relative;
     width: 100%;
+    max-width: 550px;
     display: flex;
     justify-content: flex-start;
     gap: 1.5rem;

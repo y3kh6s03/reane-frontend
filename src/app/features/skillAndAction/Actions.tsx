@@ -1,12 +1,15 @@
 "use client"
 
-import { Delete, Plus } from "@/components/elements/icons/Icons";
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "next-auth/react";
+
+import { AddActions } from "@/components/elements/Modal/types";
+import { Delete, Plus } from "@/components/elements/icons/Icons";
 import ModalContainer from "@/components/utils/ModalContainer";
 import AddActionModal from "@/components/elements/Modal/AddActionModal";
-import { AddActions } from "@/components/elements/Modal/types";
-import { ActionProps } from "./type";
 import { handleActionDelete, handleActionNameSubmit, handleToggleActionCompletion } from "./handers/handler";
+import { ActionProps } from "./type";
+
 import styles from "./styles/Action.module.scss";
 
 export default function Actions({ userEmail, reachName, skillName, actions }: ActionProps) {
@@ -17,6 +20,9 @@ export default function Actions({ userEmail, reachName, skillName, actions }: Ac
   const [isModal, setIsModal] = useState<boolean>(false);
   const [executedCount, setExecutedCount] = useState(0);
   const [rate, setRate] = useState(0);
+
+  const { data } = useSession();
+  const authEmail = data?.user?.email
 
   useEffect(() => {
     setModalActions(actionList);
@@ -59,13 +65,19 @@ export default function Actions({ userEmail, reachName, skillName, actions }: Ac
           <div key={actionId} className={styles.actions_container}>
 
             <form className={styles.checkbox}>
-              <input
-                type="checkbox"
-                checked={actionData.isCompleted === 1}
-                onChange={() => {
-                  handleToggleActionCompletion({ actionId, index, actionList, setActionList, setErrorMsg });
-                }}
-              />
+              {
+                authEmail === userEmail
+                  ?
+                  <input
+                    type="checkbox"
+                    checked={actionData.isCompleted === 1}
+                    onChange={() => {
+                      handleToggleActionCompletion({ actionId, index, actionList, setActionList, setErrorMsg });
+                    }}
+                  />
+                  :
+                  <span>{index + 1}</span>
+              }
             </form>
 
             <form
@@ -82,30 +94,42 @@ export default function Actions({ userEmail, reachName, skillName, actions }: Ac
                 defaultValue={actionName}
                 onBlur={() => { handleActionNameBlur(index) }}
               />
-              <Delete deleteHandler={() => { handleActionDelete({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
             </form>
+            {
+              authEmail === userEmail
+              &&
+              <Delete deleteHandler={() => { handleActionDelete({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
+            }
           </div>
         );
       })}
 
       <div className={styles.icon_container}>
-        <Plus pulsHandler={() => { setIsModal((prev) => !prev) }} />
+        {
+          authEmail === userEmail
+          &&
+          <Plus pulsHandler={() => { setIsModal((prev) => !prev) }} />
+        }
       </div>
 
-      {isModal && (
-        <ModalContainer targetName="actions">
-          <AddActionModal
-            userEmail={userEmail}
-            reachName={reachName}
-            skillName={skillName}
-            actionList={actionList}
-            setActionList={setActionList}
-            setIsModal={setIsModal}
-            modalActions={modalActions}
-            setModalActions={setModalActions}
-          />
-        </ModalContainer>
-      )}
+      {
+        isModal
+        &&
+        (
+          <ModalContainer targetName="actions">
+            <AddActionModal
+              userEmail={userEmail}
+              reachName={reachName}
+              skillName={skillName}
+              actionList={actionList}
+              setActionList={setActionList}
+              setIsModal={setIsModal}
+              modalActions={modalActions}
+              setModalActions={setModalActions}
+            />
+          </ModalContainer>
+        )
+      }
     </div>
   );
 }

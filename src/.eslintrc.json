@@ -22,6 +22,7 @@
         "assert": "htmlFor",
         "depth": 3
       }
-    ]
+    ],
+    "react/require-default-props": "off"
   }
 }

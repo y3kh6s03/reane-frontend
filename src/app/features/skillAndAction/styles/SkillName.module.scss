@@ -2,6 +2,8 @@
 
 .container {
   width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-self: center;
@@ -10,7 +12,7 @@
     width: 100%;
 
     & .skill_title {
-      font: bold 1.5rem var(--font-en);
+      font: normal 1rem var(--font-en);
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -22,7 +24,7 @@
       }
 
       &_name {
-        font: 1rem var(--font-jp) 700;
+        font: bold 1.5rem var(--font-jp);
         width: 100%;
       }
     }

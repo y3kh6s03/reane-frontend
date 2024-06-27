@@ -1,36 +1,45 @@
 "use client"
 
-import AuthDetail from "@/components/elements/authDetail/AuthDetail";
-import { useAppSelector } from "@/../store/hooks";
-import { BackButton } from "@/components/elements/button/Button";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useAppSelector } from "@/../store/hooks";
+
+import AuthDetail from "@/components/elements/authDetail/AuthDetail";
+import { BackButton, JournalButton } from "@/components/elements/button/Button";
 import SkillName from "./SkillName";
-import styles from "./styles/SkillAndAction.module.scss";
 import Actions from "./Actions";
 
+import styles from "./styles/SkillAndAction.module.scss";
+
 export default function SkillAndActionIndex() {
+
+  const { data } = useSession();
+  const authEmail = data?.user?.email;
 
   const router = useRouter();
 
   const { skillAndActionData } = useAppSelector((state) => state.skillAndAction)
 
+  const { userName, userEmail, userImage, id, reachName, skillName, actionDatas, } = skillAndActionData
+
   const userData = {
-    userName: skillAndActionData.userName,
-    userImage: skillAndActionData.userImage
+    userName,
+    userImage
   }
 
   const skillNameData = {
-    id: skillAndActionData.id,
-    userEmail: skillAndActionData.userEmail,
-    skillName: skillAndActionData.skillName,
-    reachName: skillAndActionData.reachName
+    id,
+    userEmail,
+    skillName,
+    reachName,
   }
 
   const actionProps = {
-    userEmail: skillAndActionData.userEmail,
-    skillName: skillAndActionData.skillName,
-    reachName: skillAndActionData.reachName,
-    actions: skillAndActionData.actionDatas
+    userEmail,
+    id,
+    skillName,
+    reachName,
+    actions: actionDatas,
   }
 
   return (
@@ -41,7 +50,14 @@ export default function SkillAndActionIndex() {
         </h1>
         <AuthDetail userData={userData} />
       </div>
-      <BackButton {...router}/>
+      <div className={styles.button_container}>
+        <BackButton {...router} />
+        {
+          authEmail === skillAndActionData.userEmail
+          &&
+          <JournalButton reachName={reachName} skillName={skillName}/>
+        }
+      </div>
       <SkillName {...skillNameData} />
       {
         skillAndActionData.actionDatas

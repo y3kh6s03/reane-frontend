@@ -1,14 +1,13 @@
 "use client"
 
-import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useAppDispatch } from "@/../store/hooks";
+
 import { Delete } from "@/components/elements/icons/Icons";
-import styles from "./styles/Reach.module.scss";
-import { JournalButton } from "../../components/elements/button/Button";
 import { ReachData, handleReachDeleteSubmit, handleReachNameSubmit } from "./handlers/ReachHandler";
-import { useAppDispatch } from "../../../store/hooks";
 
-
+import styles from "./styles/Reach.module.scss";
 
 export default function Reach({ id, name, userEmail, userName, userImage }: ReachData) {
 
@@ -86,9 +85,6 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
             </div>
         }
       </div>
-      {
-        userName === authName && <JournalButton journal={name !== undefined ? name : ''} />
-      }
     </div>
   )
 }

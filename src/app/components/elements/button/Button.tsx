@@ -10,13 +10,14 @@ type ButtonName = {
 
 export type ModalToggleProps = {
   modalToggleProps: {
-    setIsRegisterSkillModal: Dispatch<SetStateAction<boolean>>,
+    setIsModal: Dispatch<SetStateAction<boolean>>,
     toggleName: string,
   }
 };
 
 interface JournalProps {
-  journal: string
+  reachName: string,
+  skillName: string,
 }
 
 interface CreateAndCancelProps {
@@ -36,16 +37,19 @@ export default function Button({ buttonName }: ButtonName) {
   )
 }
 
-export function JournalButton({ journal }: JournalProps) {
+export function JournalButton({ reachName, skillName }: JournalProps) {
   return (
-    <Link className={styles.journal_link} href={`${process.env.NEXT_PUBLIC_BASE_URL}/journal/${journal}`}>
-      <div className={styles.title_container}>
+    <Link
+      className={styles.journal_link}
+      href={`${process.env.NEXT_PUBLIC_BASE_URL}/journal/${reachName}/${skillName}`}
+    >
+      <div className={styles.inner}>
         <span>
-          振り返り
+          Journal
         </span>
-      </div>
-      <div className={styles.journal_link_inner}>
-        <Image src='/arrow.svg' fill sizes="100%" alt="arrow" />
+        <div className={styles.image_inner}>
+          <Image src='/arrow.svg' fill sizes="100%" alt="arrow" />
+        </div>
       </div>
     </Link>
   )
@@ -53,7 +57,7 @@ export function JournalButton({ journal }: JournalProps) {
 
 export function ModalToggleButton({ modalToggleProps }: ModalToggleProps) {
   const toggleModal = () => {
-    modalToggleProps.setIsRegisterSkillModal((prev: boolean) => !prev);
+    modalToggleProps.setIsModal((prev: boolean) => !prev);
   }
   return (
     <button className={styles.addSkill} type="button" onClick={() => { toggleModal() }}>
@@ -81,8 +85,14 @@ export function BackButton({ back }: AppRouterInstance) {
       type="submit"
       onClick={() => { back() }}
     >
-      <Image src='/arrow.svg' fill alt="arrow" />
-      Back
+      <div className={styles.inner}>
+        <div className={styles.image_inner}>
+          <Image src='/arrow.svg' fill alt="arrow" />
+        </div>
+        <span className={styles.backName}>
+          Back
+        </span>
+      </div>
     </button>
   )
 }
@@ -98,6 +108,3 @@ export function HowToButton({ setIsHowToModal }: { setIsHowToModal: Dispatch<Set
     </button>
   )
 }
-
-// 編集ページにリンクするボタンをここで作成してコンポーネントかしていこう
-// Reachからコードを取得してくる

@@ -1,10 +1,13 @@
 @use "@/styles/_variables.scss" as *;
 
 .container {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
   margin-bottom: 5rem;
 
   & .action_title {
-    font: bold 1.5rem var(--font-en);
+    font: normal 1rem var(--font-en);
     margin-bottom: .5rem;
   }
 
@@ -35,8 +38,9 @@
   }
 
   & .actions_container {
+    width: 100%;
     display: grid;
-    grid-template-columns: 2rem 3fr 2rem 1fr;
+    grid-template-columns: 1.5rem 3fr 2rem ;
     gap: .5rem;
     align-items: center;
 
@@ -66,14 +70,13 @@
 
 
     & .action_name {
-      display: flex;
-      gap: 1rem;
+      height: 2.5rem;
+      align-self: center;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
       & input {
         width: 100%;
-        font: 1rem var(--font-jp);
-        line-height: 2.5rem;
+        font: bold 1.3rem var(--font-jp);
         border-radius: 10px;
         padding: 0 1rem;
 
@@ -82,22 +85,21 @@
         }
       }
 
-      & button {
-        transform: translateY(-200%) scale(0);
-        transition: all .1s $ease;
-      }
+    }
+
+    & button {
+      transform: translateY(-200%) scale(0);
+      transition: all .1s $ease;
     }
 
     &:hover {
-      & .action_name {
-        & button {
-          transform: translateY(0) scale(1);
-        }
+      & button {
+        transform: translateY(0) scale(1);
       }
     }
   }
 
-  & .icon_container{
+  & .icon_container {
     margin-top: 1rem;
     width: 100%;
     display: flex;

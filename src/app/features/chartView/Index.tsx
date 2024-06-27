@@ -1,22 +1,23 @@
 /* eslint-disable react/require-default-props */
 import { useSession } from "next-auth/react";
+import { Dispatch, SetStateAction, useState } from "react";
+import axios from "axios";
+import { useAppDispatch } from "@/../store/hooks";
+import { ChartData, addedSkill } from "@/../store/slice/AuthChartsSlice";
+
 import { splitString } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
-import { ChartData, addedSkill } from "@/../store/slice/AuthChartsSlice";
-import ModalContainer from "@/components/utils/ModalContainer";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
-import axios from "axios";
+import ModalContainer from "@/components/utils/ModalContainer";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import Button from "@/components/elements/button/Button";
-import { Dispatch, SetStateAction, useState } from "react";
-import styles from "./styles/ChartView.module.scss";
+import Chart from "@/components/elements/chart/Chart";
 import Reach from "./Reach";
-
 import ProgressMeter from "./ProgressMeter";
 import ChartDisp from "./ChartDisp";
-import Chart from "../../components/elements/chart/Chart";
-import { useAppDispatch } from "../../../store/hooks";
 import ChartSlect from "./ChartSelect";
+
+import styles from "./styles/ChartView.module.scss";
 
 interface ChartPropsIndex {
   chartData: ChartData | null,

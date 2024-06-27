@@ -2,6 +2,7 @@ import { Dispatch, FormEvent, SetStateAction } from "react";
 
 export interface ActionProps {
   userEmail: string,
+  id: number,
   reachName: string,
   skillName: string,
   actions: {
