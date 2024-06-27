@@ -15,45 +15,36 @@
 }
 
 .journal_link {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  width: 7rem;
+  height: 1.2rem;
 
-  & .title_container {
-    width: 4.5rem;
-    font-size: 1rem;
-    font-weight: normal;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  & .inner {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 
     & span {
-      display: block;
-      width: 100%;
-      transform: translateX(-100%);
-      transition: all .3s $ease;
+      width: 5rem;
+      font: bold 1.5rem var(--font-en);
     }
-  }
 
-  &_inner {
-    position: relative;
-    width: 2rem;
-    aspect-ratio: 1/1;
+    & .image_inner {
+      width: 1.5rem;
+      aspect-ratio: 1/1;
+      position: relative;
+      font: bold 1.2rem var(--font-en);
+      transition: transform .3s $ease;
 
-    & img {
-      transform: rotate(-90deg);
-      transition: all .3s .1s $ease;
+      & img {
+        transform: translateX(40%) rotate(-90deg);
+      }
     }
   }
 
   &:hover {
-    & .title_container {
-      & span {
-        transform: translateY(0%);
-      }
-    }
-
-    & .journal_link_inner {
-      & img {
-        transform: rotate(-90deg) translateY(10%);
+    & .inner{
+      & .image_inner{
+        transform: translateX(50%);
       }
     }
   }
@@ -101,25 +92,38 @@
   }
 }
 
-.back{
-  display: block;
-  width: 5rem;
-  height: 1rem;
-  position: relative;
+.back {
+  width: 7rem;
+  height: 1.2rem;
 
-  & img{
-    width: 1rem !important;
-    height: 1rem !important;
-    transform: rotate(90deg);
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transition: all .1s $ease;
+  & .inner {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    & span {
+      width: 5rem;
+      font: bold 1.5rem var(--font-en);
+    }
+
+    & .image_inner {
+      width: 1.5rem;
+      aspect-ratio: 1/1;
+      position: relative;
+      font: bold 1.2rem var(--font-en);
+      transition: transform .3s $ease;
+
+      & img {
+        transform: translateX(10%) rotate(90deg);
+      }
+    }
   }
 
-  &:hover{
-    & img{
-      transform: rotate(90deg) translateY(.5rem);
+  &:hover {
+    & .inner{
+      & .image_inner{
+        transform: translateX(-40%);
+      }
     }
   }
 }

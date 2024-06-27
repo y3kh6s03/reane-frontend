@@ -1,28 +1,43 @@
 import { Dispatch, SetStateAction } from "react"
 import styles from "./styles/JournalInput.module.scss"
 
-interface SetIsJournalModalProps {
-  setIsJournalModal: Dispatch<SetStateAction<boolean>>
+interface JournalInputModalProps {
+  reachName: string | undefined,
+  skillName: string | undefined,
+  actionNames: string[] | null,
+  setIsJournalModal: Dispatch<SetStateAction<boolean>>,
+
 }
 
-export default function JournalInputModal({ setIsJournalModal }: SetIsJournalModalProps) {
+export default function JournalInputModal({ reachName, skillName, actionNames, setIsJournalModal }: JournalInputModalProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <form action={() => { }} className={styles.form}>
+          <span className={styles.reachName}>
+            <span className={styles.reachName_title}>
+              REACH
+            </span>
+            {reachName}
+          </span>
+          <span className={styles.skillName}>
+            <span className={styles.reachName_title}>
+              SKILL
+            </span>
+            {skillName}
+          </span>
           <label htmlFor="journal_action" className={styles.inputLabel}>
             ACTION
             <select name="action_name" className={styles.action_select}>
-              <option value="action">action1</option>
-              <option value="action2">action2</option>
-              <option value="action3">action3</option>
-              <option value="action4">action4</option>
-              <option value="action5">action5</option>
+              {
+                actionNames &&
+                actionNames.map(actionName =>
+                  <option key={actionName} value="action">
+                    {actionName}
+                  </option>
+                )
+              }
             </select>
-          </label>
-          <label htmlFor="journal_time" className={styles.inputLabel}>
-            TIME
-            <input className={styles.time_input} type="time" id="journal_time" />
           </label>
           <label htmlFor="journal_memo" className={styles.inputLabel}>
             MEMO
@@ -39,10 +54,10 @@ export default function JournalInputModal({ setIsJournalModal }: SetIsJournalMod
               className={styles.save_button}
               type="button"
               onClick={() => { setIsJournalModal((prev: boolean) => !prev) }}>
-            SAVE
-          </button>
-      </div>
-    </form>
+              SAVE
+            </button>
+          </div>
+        </form>
       </div >
     </div >
   )

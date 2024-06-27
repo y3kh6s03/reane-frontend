@@ -34,12 +34,13 @@ export default function Chart({ skillDatas }: ChartDatas) {
     }
   }
 
+
   const dispatch = useAppDispatch();
 
   const router = useRouter();
   const skillAndActionRedirect = (skillName: string) => {
     if (skillDatas.skills && skillDatas.userName && skillDatas.userImage) {
-      const actionDatas = skillDatas.skills[skillName].actions
+      const actionDatas = skillDatas.skills[skillName].actions;
       if (actionDatas) {
         const skillAndActionData = {
           id: skillDatas.id,

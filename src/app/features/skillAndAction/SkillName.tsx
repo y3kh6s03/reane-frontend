@@ -1,12 +1,12 @@
 "use client"
 
-
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { JournalButton } from "@/../app/components/elements/button/Button";
+
 import { Delete } from "@/components/elements/icons/Icons";
-import styles from "./styles/SkillName.module.scss";
 import { handleSkillNameDelete, handleSkillNameSubmit } from "./handers/handler";
+
+import styles from "./styles/SkillName.module.scss";
 
 interface SkillNameProps {
   id: number,
@@ -46,8 +46,8 @@ export default function SkillName({ userEmail, id, reachName, skillName }: Skill
             handleSkillNameBlur()
           }}
         />
+
       </form>
-      <JournalButton journal="" />
     </div>
   )
 }

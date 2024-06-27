@@ -69,7 +69,7 @@ export default function CreateIndex({ userData }: UserData) {
   }
 
   const modalToggleProps = {
-    setIsRegisterSkillModal,
+    setIsModal: setIsRegisterSkillModal,
     toggleName: 'スキル'
   }
 
