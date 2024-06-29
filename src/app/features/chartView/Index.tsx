@@ -1,9 +1,7 @@
 /* eslint-disable react/require-default-props */
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
-import axios from "axios";
-import { useAppDispatch } from "@/../store/hooks";
-import { ChartData, addedSkill } from "@/../store/slice/AuthChartsSlice";
+import { ChartData } from "@/../store/slice/AuthChartsSlice";
 
 import { splitString } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
@@ -12,6 +10,7 @@ import ModalContainer from "@/components/utils/ModalContainer";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import Button from "@/components/elements/button/Button";
 import Chart from "@/components/elements/chart/Chart";
+import useSkillRegistration from "@/components/utils/customHooks/useSkillRegistration";
 import Reach from "./Reach";
 import ProgressMeter from "./ProgressMeter";
 import ChartDisp from "./ChartDisp";
@@ -32,8 +31,7 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
   if (chartData?.createdAt) {
     dispCreatedAt = chartData?.createdAt ? splitString(chartData.createdAt, 'T') : '';
   }
-  const dispatch = useAppDispatch();
-
+  const { handleRegisterSkillModalSubmit } = useSkillRegistration({ chartData, setErrorMsg })
   const userData = {
     userName: chartData?.userName,
     userImage: chartData?.userImage
@@ -68,31 +66,6 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
   }
 
   const { isRegisterSkillModal, setIsRegisterSkillModal } = useIsRegisterSkillModal();
-
-  const handleRegisterSkillModalSubmit = async (inputSkillName: string) => {
-    if (!chartData) return;
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/${inputSkillName}`;
-    const skillNamePayload = {
-      id: chartData?.id,
-      userEmail: chartData?.userEmail,
-      inputSkillName
-    }
-    try {
-      const res = await axios.patch(URL, skillNamePayload)
-      if (res.status === 200) {
-        const data = await res.data;
-        const addedSkillPayload = {
-          reachId: data.reach_id,
-          id: data.id,
-          skillName: data.name,
-          updatedAt: data.updated_at
-        }
-        dispatch(addedSkill(addedSkillPayload));
-      }
-    } catch (error) {
-      setErrorMsg(`Failed to submit skill registration: ${error}`);
-    }
-  }
 
   return (
     <div id={`chart${chartData ? chartData.id : ''}`} className={styles.container}>

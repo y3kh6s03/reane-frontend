@@ -1,12 +1,13 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 import { motion } from "framer-motion";
 import { SkillData } from "@/../store/slice/AuthChartsSlice";
 import { useAppDispatch } from "@/../store/hooks";
 import { currentSkillAndAction } from "@/../store/slice/SkillAndActionSlice";
+import useCircularLayout from "@/components/utils/customHooks/useCircularLayout";
 import { CreateSkillData } from "../../../../store/slice/CreateChartSlice";
 
 import styles from "./Chart.module.scss"
@@ -34,7 +35,6 @@ export default function Chart({ skillDatas }: ChartDatas) {
     }
   }
 
-
   const dispatch = useAppDispatch();
 
   const router = useRouter();
@@ -58,28 +58,9 @@ export default function Chart({ skillDatas }: ChartDatas) {
   }
 
   const skillLength = skillDatas.skills ? Object.entries(skillDatas.skills).length : 0;
-  const [rad, setRad] = useState<number>();
-  const [r, setR] = useState<number>();
-  const [radOffset, setRadOffset] = useState<number>();
   const skillsContainer = useRef<HTMLDivElement | null>(null);
   const skillsInner = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (skillsContainer.current && skillsInner.current && skillLength > 0) {
-      const deg = 360.0 / skillLength;
-      let circleRadius
-      if (skillsContainer.current.clientHeight > skillsContainer.current.clientWidth) {
-        circleRadius = skillsContainer.current.clientWidth / 2 - skillsInner.current.clientWidth / 2;
-      } else {
-        circleRadius = skillsContainer.current.clientHeight / 2 - skillsInner.current.clientHeight / 2;
-      }
-      const radianOffset = -Math.PI / 2;
-      const angleInRadians = deg * Math.PI / 180.0;
-      setRad(angleInRadians);
-      setR(circleRadius);
-      setRadOffset(radianOffset);
-    }
-  }, [skillLength]);
+  const { rad, r, radOffset } = useCircularLayout({ skillsContainer, skillsInner, skillLength })
 
   return (
     <div
