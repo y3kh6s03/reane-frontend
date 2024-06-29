@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useAppSelector } from "@/../store/hooks";
 
-import AuthDetail from "@/components/elements/authDetail/AuthDetail";
 import { BackButton, JournalButton } from "@/components/elements/button/Button";
-import SkillName from "./SkillName";
+import PageTitle from "@/components/elements/pageTitle/PageTitle";
 import Actions from "./Actions";
+import SkillName from "./SkillName";
 
 import styles from "./styles/SkillAndAction.module.scss";
 
@@ -44,18 +44,13 @@ export default function SkillAndActionIndex() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.page_title_container}>
-        <h1 className={styles.page_title}>
-          Skill and Action
-        </h1>
-        <AuthDetail userData={userData} />
-      </div>
+      <PageTitle title="Skill And Action" userData={userData} />
       <div className={styles.button_container}>
         <BackButton {...router} />
         {
           authEmail === skillAndActionData.userEmail
           &&
-          <JournalButton reachName={reachName} skillName={skillName}/>
+          <JournalButton reachName={reachName} skillName={skillName} />
         }
       </div>
       <SkillName {...skillNameData} />

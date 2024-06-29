@@ -98,7 +98,7 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
     <div id={`chart${chartData ? chartData.id : ''}`} className={styles.container}>
 
       <div className={styles.authDetail_container}>
-        <AuthDetail userData={userData} />
+        <AuthDetail {...userData} />
       </div>
 
       <Reach {...reachData} />

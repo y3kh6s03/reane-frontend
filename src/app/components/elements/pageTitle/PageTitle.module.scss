@@ -1,0 +1,27 @@
+@use "@/styles/_variables.scss" as *;
+
+
+.page_title_container {
+  width: 100%;
+  max-width: 550px;
+  height: 5rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  & .page_title {
+    align-self: center;
+
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: .1px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+  }
+}
