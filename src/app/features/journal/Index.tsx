@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useAppSelector } from "@/../store/hooks"
 
-import { ModalToggleButton } from "@/../app/components/elements/button/Button"
+import { BackButton, ModalToggleButton } from "@/../app/components/elements/button/Button"
 import ModalContainer from "@/components/utils/ModalContainer"
 import JournalInputModal from "@/../app/components/elements/Modal/JournalInputModal"
 // import SearchFilter from "./SearchFilter"
+import PageTitle from "@/components/elements/pageTitle/PageTitle"
 import Archive from "./Archive"
 
 import styles from "./styles/Journal.module.scss"
@@ -16,14 +17,22 @@ import styles from "./styles/Journal.module.scss"
 export default function JournalIndex() {
 
   const [isJournalModal, setIsJournalModal] = useState(false);
-  const authChartDatas = useAppSelector(state => state.authChart);
+  const { authChartDatas } = useAppSelector(state => state.authChart);
   const pathName = usePathname();
   const pathReachName = decodeURIComponent(pathName.substring(1)).split('/')[1];
   const pathSkillName = decodeURIComponent(pathName.substring(1)).split('/')[2];
-  const actionNames = authChartDatas.authChartDatas && authChartDatas.authChartDatas[0].skills[pathSkillName].actions.map((deta) => deta.name)
+  const journalChartData = authChartDatas?.filter((chartData) =>
+    chartData.reachName === pathReachName
+  )[0]
+  const skillId = journalChartData && journalChartData.skills[pathSkillName].id;
+  const actionNames = journalChartData && journalChartData.skills[pathSkillName].actions.map((deta) => deta.name)
+
+  const router = useRouter();
 
   const journalInputModalProps = {
+    id: journalChartData?.id,
     reachName: pathReachName,
+    skillId,
     skillName: pathSkillName,
     actionNames,
     setIsJournalModal,
@@ -35,12 +44,13 @@ export default function JournalIndex() {
   }
 
   return (
-    <div id="journal"className={styles.wrapper}>
+    <div id="journal" className={styles.wrapper}>
       <div className={styles.container}>
-        <h1 className={styles.page_title}>
-          Journal
-        </h1>
-        <ModalToggleButton modalToggleProps={modalToggleProps} />
+        <PageTitle title="Journal" />
+        <div className={styles.button_container}>
+          <BackButton {...router} />
+          <ModalToggleButton modalToggleProps={modalToggleProps} />
+        </div>
         {/*
       <div className={styles.searchContainer}>
         <SearchFilter searchTitle='Reach' searchName='WEB開発者' />

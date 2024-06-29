@@ -6,7 +6,15 @@
   margin: 5rem auto;
 
   @include mq(lg){
-    margin: 1rem auto;
+    margin: 0 auto;
     transform: translateX(-3rem);
+  }
+
+  & .button_container{
+    width: 100%;
+    padding: 1.5rem 0 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
   }
 }
