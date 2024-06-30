@@ -2,16 +2,18 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import axios from "axios";
+// import axios from "axios";
 
 import styles from "./styles/JournalInput.module.scss"
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { registerJournal } from "../../../../store/slice/journalSlice";
 
 interface JournalInputModalProps {
-  id: number | undefined,
-  reachName: string | undefined,
-  skillId: number | undefined,
-  skillName: string | undefined,
-  actionNames: string[] | undefined,
+  id: number,
+  reachName: string,
+  skillId: number,
+  skillName: string,
+  actionNames: string[],
   setIsJournalModal: Dispatch<SetStateAction<boolean>>,
 }
 
@@ -36,17 +38,18 @@ export default function JournalInputModal({
     control
   })
 
+  const dispatch = useAppDispatch();
+  const journalState = useAppSelector(state => state.journal);
+  console.log(journalState)
+
   const handleJournalSubmit = handleSubmit(async (data) => {
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/journal`;
     const journalPayload = {
       reach_id: id,
-      skill_id:skillId,
+      skill_id: skillId,
       data,
     }
-    const res = await axios.post(URL, journalPayload);
-    const resData = await res.data;
-    console.log(resData);
-    // setIsJournalModal(prev => !prev)
+    dispatch(registerJournal(journalPayload))
+    setIsJournalModal(prev => !prev)
   })
 
   return (
