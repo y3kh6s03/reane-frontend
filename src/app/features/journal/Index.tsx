@@ -30,11 +30,11 @@ export default function JournalIndex() {
   const router = useRouter();
 
   const journalInputModalProps = {
-    id: journalChartData?.id,
+    id: journalChartData !== undefined ? journalChartData.id : -1,
     reachName: pathReachName,
-    skillId,
+    skillId: skillId !== undefined ? skillId : -1,
     skillName: pathSkillName,
-    actionNames,
+    actionNames: actionNames !== undefined ? actionNames : [],
     setIsJournalModal,
   }
 
