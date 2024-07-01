@@ -2,13 +2,13 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-// import axios from "axios";
+import { useAppDispatch } from "../../../../store/hooks";
+import { registerJournal } from "../../../../store/thunks/journalThunks";
 
 import styles from "./styles/JournalInput.module.scss"
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { registerJournal } from "../../../../store/slice/journalSlice";
 
 interface JournalInputModalProps {
+  userEmail: string,
   id: number,
   reachName: string,
   skillId: number,
@@ -18,6 +18,7 @@ interface JournalInputModalProps {
 }
 
 export default function JournalInputModal({
+  userEmail,
   id,
   reachName,
   skillId,
@@ -39,16 +40,16 @@ export default function JournalInputModal({
   })
 
   const dispatch = useAppDispatch();
-  const journalState = useAppSelector(state => state.journal);
-  console.log(journalState)
 
   const handleJournalSubmit = handleSubmit(async (data) => {
     const journalPayload = {
+      user_email: userEmail,
       reach_id: id,
       skill_id: skillId,
       data,
     }
     dispatch(registerJournal(journalPayload))
+
     setIsJournalModal(prev => !prev)
   })
 

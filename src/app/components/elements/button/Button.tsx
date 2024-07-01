@@ -9,10 +9,8 @@ type ButtonName = {
 }
 
 export type ModalToggleProps = {
-  modalToggleProps: {
-    setIsModal: Dispatch<SetStateAction<boolean>>,
-    toggleName: string,
-  }
+  setIsModal: Dispatch<SetStateAction<boolean>>,
+  toggleName: string,
 };
 
 interface JournalProps {
@@ -55,15 +53,17 @@ export function JournalButton({ reachName, skillName }: JournalProps) {
   )
 }
 
-export function ModalToggleButton({ modalToggleProps }: ModalToggleProps) {
+export function ModalToggleButton({ setIsModal, toggleName }: ModalToggleProps) {
   const toggleModal = () => {
-    modalToggleProps.setIsModal((prev: boolean) => !prev);
+    setIsModal((prev: boolean) => !prev);
   }
   return (
-    <button className={styles.addSkill} type="button" onClick={() => { toggleModal() }}>
-      +
-      <span>{modalToggleProps.toggleName}追加</span>
-    </button>
+    <div className={styles.modalToggle}>
+      <button type="button" onClick={() => { toggleModal() }}>
+        +
+      </button>
+      <span>{toggleName}追加</span>
+    </div>
   )
 }
 

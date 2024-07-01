@@ -88,9 +88,9 @@ export default function Chart({ skillDatas }: ChartDatas) {
                 animate={{
                   opacity: 1,
                   left: x,
-                  top: y,
-                  backgroundColor: pathName === 'create' ? "gray" : '',
+                  top: y
                 }}
+                style={{ backgroundColor: pathName === 'create' ? "gray" : '' }}
                 key={skillName}
                 role="button"
                 tabIndex={0}

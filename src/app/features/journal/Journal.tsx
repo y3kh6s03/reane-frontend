@@ -1,6 +1,23 @@
 import styles from "./styles/Archive.module.scss"
 
-export default function Archive() {
+export interface JournalProps {
+  reachName: string,
+  skillName: string,
+  actions: {
+    id: number,
+    name: string
+  }[],
+  description: string,
+  date: string
+}
+
+export default function Journal({
+  reachName,
+  skillName,
+  actions,
+  description,
+  date
+}: JournalProps) {
   return (
     <div className={styles.container}>
 
@@ -9,7 +26,7 @@ export default function Archive() {
           DATE
         </h3>
         <p className={styles.date}>
-          2024 / 01 / 31
+          {date}
         </p>
       </div>
 
@@ -18,7 +35,7 @@ export default function Archive() {
           REACH
         </h3>
         <p className={styles.name}>
-          プログラムの設計
+          {reachName}
         </p>
       </div>
 
@@ -27,7 +44,7 @@ export default function Archive() {
           SKILL
         </h3>
         <p className={styles.name}>
-          プログラムの設計
+          {skillName}
         </p>
       </div>
 
@@ -35,9 +52,13 @@ export default function Archive() {
         <h3 className={styles.title}>
           ACTION
         </h3>
-        <p className={styles.name}>
-          プログラムの設計
-        </p>
+        {
+          actions.map((action) =>
+            <p key={action.id} className={styles.name}>
+              {action.name}
+            </p>
+          )
+        }
       </div>
 
       <div className={styles.inner}>
@@ -45,7 +66,7 @@ export default function Archive() {
           MEMO
         </h3>
         <p className={styles.description}>
-          本日のトレーニングで、180kgのベンチプレス挙上目標に一歩近づきました。フォームに集中し、自信を持って重量を増やしていきます。成長と改善に意欲を持ち、目標達成に向けて頑張ります！
+          {description}
         </p>
       </div>
 
