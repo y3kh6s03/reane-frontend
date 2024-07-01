@@ -65,10 +65,10 @@
 
       & .skillRegisterButton {
         width: 100%;
+        font: bold 1.5rem var(--font-en);
         text-align: center;
         margin-bottom: .5rem;
-        animation: skillRegisterButtonAnimation 1s infinite;
-        cursor: pointer;
+        animation: $plusAnimation;
         z-index: 10;
         transition: transform 1s $ease;
 
@@ -81,16 +81,16 @@
   }
 }
 
-@keyframes skillRegisterButtonAnimation {
-  0% {
-    transform: scale(1.2);
-  }
+// @keyframes plusButtonAnimation {
+//   0% {
+//     transform: scale(1.2);
+//   }
 
-  50% {
-    transform: scale(.5);
-  }
+//   50% {
+//     transform: scale(.5);
+//   }
 
-  100% {
-    transform: scale(1.2);
-  }
-}
+//   100% {
+//     transform: scale(1.2);
+//   }
+// }

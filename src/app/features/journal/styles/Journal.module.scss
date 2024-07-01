@@ -2,8 +2,10 @@
 
 .container{
   width: 100%;
+  height: 100vh;
   max-width: 550px;
   margin: 5rem auto;
+  overflow: scroll;
 
   @include mq(lg){
     margin: 0 auto;
@@ -12,9 +14,15 @@
 
   & .button_container{
     width: 100%;
-    padding: 1.5rem 0 2rem;
+    padding: 1.5rem 0 4rem;
     display: flex;
-    gap: 2rem;
+    gap: 3rem;
     flex-direction: column;
+
+    & .button_inner{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
 }

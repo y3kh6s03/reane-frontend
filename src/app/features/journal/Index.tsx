@@ -1,17 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import { useAppSelector } from "@/../store/hooks"
+import { useAppDispatch, useAppSelector } from "@/../store/hooks"
 
 import { BackButton, ModalToggleButton } from "@/../app/components/elements/button/Button"
 import ModalContainer from "@/components/utils/ModalContainer"
 import JournalInputModal from "@/../app/components/elements/Modal/JournalInputModal"
-// import SearchFilter from "./SearchFilter"
 import PageTitle from "@/components/elements/pageTitle/PageTitle"
-import Archive from "./Archive"
+import Journal from "./Journal"
 
 import styles from "./styles/Journal.module.scss"
+import { fetchJournal } from "../../../store/thunks/journalThunks"
 
 
 export default function JournalIndex() {
@@ -30,6 +30,7 @@ export default function JournalIndex() {
   const router = useRouter();
 
   const journalInputModalProps = {
+    userEmail: journalChartData !== undefined ? journalChartData?.userEmail : '',
     id: journalChartData !== undefined ? journalChartData.id : -1,
     reachName: pathReachName,
     skillId: skillId !== undefined ? skillId : -1,
@@ -38,18 +39,28 @@ export default function JournalIndex() {
     setIsJournalModal,
   }
 
-  const modalToggleProps = {
-    setIsModal: setIsJournalModal,
-    toggleName: '振り返り'
-  }
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (journalChartData) {
+      const fetchJournalPayload = {
+        user_email: journalChartData.userEmail
+      }
+      dispatch(fetchJournal(fetchJournalPayload));
+    }
+  }, [dispatch, journalChartData]);
 
+  const journals = useAppSelector(state => state.journal.journals);
+  console.log(journals)
   return (
     <div id="journal" className={styles.wrapper}>
       <div className={styles.container}>
         <PageTitle title="Journal" />
         <div className={styles.button_container}>
           <BackButton {...router} />
-          <ModalToggleButton modalToggleProps={modalToggleProps} />
+          <div className={styles.button_inner}>
+            <ModalToggleButton
+              {...{ setIsModal: setIsJournalModal, toggleName: '振り返り' }} />
+          </div>
         </div>
         {/*
       <div className={styles.searchContainer}>
@@ -59,9 +70,13 @@ export default function JournalIndex() {
       </div> */}
 
         <span className={styles.holizonBar} />
-        <div className={styles.archiveContainer}>
-          <Archive />
-        </div>
+        {
+          journals?.map((journal) =>
+            <div key={journal.journal_id} className={styles.archiveContainer} >
+              <Journal {...journal} />
+            </div>
+          )
+        }
         {
           isJournalModal
           &&
@@ -70,6 +85,6 @@ export default function JournalIndex() {
           </ModalContainer>
         }
       </div>
-    </div>
+    </div >
   )
 }

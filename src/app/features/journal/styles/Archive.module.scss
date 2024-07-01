@@ -2,7 +2,7 @@
 
 .container {
   position: relative;
-  padding-top: 2rem;
+  padding: 3rem 0 3rem;
 
   &::before{
     content: "";
@@ -16,11 +16,11 @@
     margin-bottom: 1rem;
 
     & .title {
-      font: normal 1rem var(--font-en)
+      font: normal .8rem var(--font-en)
     }
 
     & .date {
-      font: bold 1.2rem var(--font-jp);
+      font: bold 1rem var(--font-jp);
     }
 
   }
@@ -28,11 +28,11 @@
   & .inner {
     margin-bottom: 1rem;
     & .title {
-      font: normal 1rem var(--font-en);
+      font: normal .8rem var(--font-en);
     }
 
     & .name {
-      font: bold 1.2rem var(--font-jp);
+      font: bold 1rem var(--font-jp);
     }
 
     & .description {

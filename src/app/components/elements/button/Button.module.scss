@@ -42,18 +42,28 @@
   }
 
   &:hover {
-    & .inner{
-      & .image_inner{
+    & .inner {
+      & .image_inner {
         transform: translateX(50%);
       }
     }
   }
 }
 
-.addSkill {
+.modalToggle {
+  width: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 3rem;
   font-weight: 0;
   margin-bottom: 1rem;
+
+  & button {
+    font: bold 2rem var(--font-en);
+    animation: $plusAnimation;
+  }
 
   & span {
     display: block;
@@ -120,8 +130,8 @@
   }
 
   &:hover {
-    & .inner{
-      & .image_inner{
+    & .inner {
+      & .image_inner {
         transform: translateX(-40%);
       }
     }

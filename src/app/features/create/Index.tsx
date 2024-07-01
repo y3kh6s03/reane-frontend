@@ -68,11 +68,6 @@ export default function CreateIndex({ userData }: UserData) {
     setEditActionNames,
   }
 
-  const modalToggleProps = {
-    setIsModal: setIsRegisterSkillModal,
-    toggleName: 'スキル'
-  }
-
   const reachNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReachName(e.target.value)
   }
@@ -119,7 +114,10 @@ export default function CreateIndex({ userData }: UserData) {
       <div className={styles.chart_container}>
         <Chart skillDatas={chartData} />
         <div className={styles.modalbutton_container}>
-          <ModalToggleButton modalToggleProps={modalToggleProps} />
+          <ModalToggleButton {...{
+            setIsModal: setIsRegisterSkillModal,
+            toggleName: 'スキル'
+          }} />
           <CreateAndCancelButton createAndCancelProps={{ buttonName: 'CREATE', handler: createHandler }} />
         </div>
       </div>
