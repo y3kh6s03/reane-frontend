@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { ChartData, fetchAuthChartData } from "@/../store/slice/AuthChartsSlice";
 import ChartIntro from "@/features/chartView/ChartIntro";
 import IsRegisterSkillModalProvider from "@/components/utils/IsRegisterSkillModailProvider";
+import LoadingAnimation from "@/components/elements/LoadingAnimation/LoadingAnimation";
 import ChartIndex from "../features/chartView/Index";
 import { fetchJournal } from "../../store/thunks/journalThunks";
 
@@ -22,7 +23,7 @@ export default function MyChart() {
     }
   }, [dispatch, authEmail])
 
-  const { authChartDatas } = useAppSelector((state) => state.authChart);
+  const { authChartDatas, loading } = useAppSelector((state) => state.authChart);
 
   useEffect(() => {
     if (authChartDatas && authChartDatas.length > 0) {
@@ -32,14 +33,23 @@ export default function MyChart() {
     }
   }, [authChartDatas]);
 
+  if (loading === true) {
+    return (
+      <LoadingAnimation />
+    )
+  }
 
-  return (
-    authChartDatas && authChartDatas?.length !== 0 && currentMyChart
-      ?
+  if (authChartDatas?.length !== 0) {
+    <ChartIntro />
+  }
+
+  if (authChartDatas && authChartDatas?.length !== 0 && currentMyChart) {
+    return (
       <IsRegisterSkillModalProvider key={currentMyChart.id} >
         <ChartIndex chartData={currentMyChart} setCurrentMyChart={setCurrentMyChart} />
+        <h1>{loading}</h1>
       </IsRegisterSkillModalProvider>
-      :
-      <ChartIntro />
-  )
+    )
+  }
+
 }
