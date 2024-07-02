@@ -1,10 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { usePathname, useRouter } from "next/navigation"
-import { useAppDispatch, useAppSelector } from "@/../store/hooks"
 import { motion } from "framer-motion"
 
+import useJournalData from "@/components/utils/customHooks/useJournalData"
 import { BackButton, ModalToggleButton } from "@/../app/components/elements/button/Button"
 import ModalContainer from "@/components/utils/ModalContainer"
 import JournalInputModal from "@/../app/components/elements/Modal/JournalInputModal"
@@ -12,46 +10,12 @@ import PageTitle from "@/components/elements/pageTitle/PageTitle"
 import Journal from "./Journal"
 
 import styles from "./styles/Journal.module.scss"
-import { fetchJournal } from "../../../store/thunks/journalThunks"
-
 
 export default function JournalIndex() {
 
-  const [isJournalModal, setIsJournalModal] = useState(false);
-  const { authChartDatas } = useAppSelector(state => state.authChart);
-  const pathName = usePathname();
-  const pathReachName = decodeURIComponent(pathName.substring(1)).split('/')[1];
-  const pathSkillName = decodeURIComponent(pathName.substring(1)).split('/')[2];
-  const journalChartData = authChartDatas?.filter((chartData) =>
-    chartData.reachName === pathReachName
-  )[0]
-  const skillId = journalChartData && journalChartData.skills[pathSkillName].id;
-  const actionNames = journalChartData && journalChartData.skills[pathSkillName].actions.map((deta) => deta.name)
 
-  const router = useRouter();
+  const { router, journals, journalInputModalProps, isJournalModal, setIsJournalModal } = useJournalData();
 
-  const journalInputModalProps = {
-    userEmail: journalChartData !== undefined ? journalChartData?.userEmail : '',
-    id: journalChartData !== undefined ? journalChartData.id : -1,
-    reachName: pathReachName,
-    skillId: skillId !== undefined ? skillId : -1,
-    skillName: pathSkillName,
-    actionNames: actionNames !== undefined ? actionNames : [],
-    setIsJournalModal,
-  }
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (journalChartData) {
-      const fetchJournalPayload = {
-        user_email: journalChartData.userEmail
-      }
-      dispatch(fetchJournal(fetchJournalPayload));
-    }
-  }, [dispatch, journalChartData]);
-
-  const journals = useAppSelector(state => state.journal.journals);
-  console.log(journals)
   return (
     <motion.div
       initial={{

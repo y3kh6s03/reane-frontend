@@ -15,7 +15,11 @@
   position: relative;
   width: 4rem;
   height: 1rem;
-  left: -3rem;  // 左に3rem移動
+  left: 0rem;
+
+  @include mq(lg){
+    left: -3rem;
+  }
 
   &__dot {
     position: absolute;
