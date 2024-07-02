@@ -7,14 +7,16 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { AddAction, addReach, addSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
-import ModalContainer from "@/components/utils/ModalContainer";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
+import { motion } from "framer-motion";
 
-import styles from "./Create.module.scss";
+import ModalContainer from "@/components/utils/ModalContainer";
 import { CreateAndCancelButton, ModalToggleButton } from "../../components/elements/button/Button";
 import RegisterSkillModal from "../../components/elements/Modal/RegisterSkillModal";
 import Chart from "../../components/elements/chart/Chart";
 import ActionInputModal from "../../components/elements/Modal/ActionInputModal";
+
+import styles from "./Create.module.scss";
 
 
 interface UserData {
@@ -95,7 +97,21 @@ export default function CreateIndex({ userData }: UserData) {
   }
 
   return (
-    <div className={styles.container} id="create">
+    <motion.div
+      id="create"
+      className={styles.container}
+      initial={{
+        opacity: 0,
+        x: 100
+      }}
+      animate={{
+        opacity: 1,
+        x: 0
+      }}
+      transition={{
+        delay: .3,
+      }}
+    >
       <h1 className={styles.title}>New Create</h1>
 
       <label className={styles.reachInput_label} htmlFor="reachName">
@@ -136,7 +152,7 @@ export default function CreateIndex({ userData }: UserData) {
           />
         </ModalContainer>
       }
-    </div>
+    </motion.div>
 
   )
 }

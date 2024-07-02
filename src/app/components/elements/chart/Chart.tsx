@@ -85,14 +85,18 @@ export default function Chart({ skillDatas }: ChartDatas) {
                 initial={{
                   opacity: 0,
                   top: "40%",
-                  left: "40%",
+                  left: "100%",
                 }}
                 animate={{
                   opacity: 1,
                   left: x,
                   top: y,
                 }}
-                transition={{ duration: .5, ease: 'easeInOut', delay: .1 * index }}
+                transition={{
+                  duration: .2,
+                  ease: 'easeInOut',
+                  delay: .3 + .1 * index
+                }}
                 style={{ backgroundColor: pathName === 'create' ? "gray" : '' }}
                 key={skillName}
                 role="button"
