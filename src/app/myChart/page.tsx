@@ -8,7 +8,7 @@ import ChartIntro from "@/features/chartView/ChartIntro";
 import IsRegisterSkillModalProvider from "@/components/utils/IsRegisterSkillModailProvider";
 import LoadingAnimation from "@/components/elements/LoadingAnimation/LoadingAnimation";
 import ChartIndex from "../features/chartView/Index";
-import { fetchJournal } from "../../store/thunks/journalThunks";
+// import { fetchJournal } from "../../store/thunks/journalThunks";
 
 export default function MyChart() {
   const { data: session } = useSession();
@@ -19,7 +19,6 @@ export default function MyChart() {
   useEffect(() => {
     if (authEmail) {
       dispatch(fetchAuthChartData({ authEmail }))
-      dispatch(fetchJournal({ user_email: authEmail }))
     }
   }, [dispatch, authEmail])
 
@@ -39,9 +38,6 @@ export default function MyChart() {
     )
   }
 
-  if (authChartDatas?.length !== 0) {
-    <ChartIntro />
-  }
 
   if (authChartDatas && authChartDatas?.length !== 0 && currentMyChart) {
     return (
@@ -49,6 +45,12 @@ export default function MyChart() {
         <ChartIndex chartData={currentMyChart} setCurrentMyChart={setCurrentMyChart} />
         <h1>{loading}</h1>
       </IsRegisterSkillModalProvider>
+    )
+  }
+
+  if (authChartDatas?.length === 0) {
+    return (
+      <ChartIntro />
     )
   }
 

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { useAppDispatch, useAppSelector } from "@/../store/hooks"
+import { motion } from "framer-motion"
 
 import { BackButton, ModalToggleButton } from "@/../app/components/elements/button/Button"
 import ModalContainer from "@/components/utils/ModalContainer"
@@ -52,7 +53,19 @@ export default function JournalIndex() {
   const journals = useAppSelector(state => state.journal.journals);
   console.log(journals)
   return (
-    <div id="journal" className={styles.wrapper}>
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: 100
+      }}
+      animate={{
+        opacity: 1,
+        x: 0
+      }}
+      transition={{
+        delay: .3,
+      }}
+      id="journal" className={styles.wrapper}>
       <div className={styles.container}>
         <PageTitle title="Journal" />
         <div className={styles.button_container}>
@@ -85,6 +98,6 @@ export default function JournalIndex() {
           </ModalContainer>
         }
       </div>
-    </div >
+    </motion.div >
   )
 }

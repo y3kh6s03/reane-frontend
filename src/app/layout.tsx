@@ -25,6 +25,7 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   const authImage = session?.user?.image;
+  const authEmail = session?.user?.email;
 
   return (
     <html lang='ja'>
@@ -36,7 +37,11 @@ export default async function RootLayout({
                 <>
                   <Header />
                   <Nav props={authImage} />
-                  <SideBar />
+                  {
+                    authEmail
+                    &&
+                    <SideBar authEmail={authEmail} />
+                  }
                 </>
               }
               {children}

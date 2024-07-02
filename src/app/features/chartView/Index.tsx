@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ChartData } from "@/../store/slice/AuthChartsSlice";
+import {motion} from "framer-motion";
 
 import { splitString } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
@@ -68,7 +69,21 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
   const { isRegisterSkillModal, setIsRegisterSkillModal } = useIsRegisterSkillModal();
 
   return (
-    <div id={`chart${chartData ? chartData.id : ''}`} className={styles.container}>
+    <motion.div
+     id={`chart${chartData ? chartData.id : ''}`}
+      className={styles.container}
+      initial={{
+        opacity: 0,
+        x: 100
+      }}
+      animate={{
+        opacity: 1,
+        x: 0
+      }}
+      transition={{
+        delay: .3,
+      }}
+      >
 
       <div className={styles.authDetail_container}>
         <AuthDetail {...userData} />
@@ -120,6 +135,6 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
           <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
         </ModalContainer>
       }
-    </div>
+    </motion.div>
   )
 }

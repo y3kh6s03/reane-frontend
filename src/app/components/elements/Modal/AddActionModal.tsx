@@ -25,12 +25,13 @@ export default function AddActionModal({ userEmail, setIsModal, reachName, skill
             className={styles.form_input}
             type="text"
             name="addActionName"
-            placeholder="ACTIONを追加してください"
+            placeholder="Actionを入力してください。"
             defaultValue=''
           />
           {errorMsg && (
             <div className={styles.error_msg}>{errorMsg}</div>
           )}
+          <span>Enter 追加</span>
         </form>
 
         <ul className={styles.addActions_container}>

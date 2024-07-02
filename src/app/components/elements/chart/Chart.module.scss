@@ -30,6 +30,12 @@
 
     &:hover{
       animation-play-state: paused;
+
+      & .skills_inner_name{
+        width: 15rem;
+        font-size: 1rem;
+        overflow: visible;
+      }
     }
 
     &_name {
@@ -43,6 +49,8 @@
       color: white;
       white-space: nowrap;
       line-height: 1rem;
+      will-change: width overflow font-size;
+      transition: width .15s $ease;
 
       @include mq(md) {
         width: 5rem;

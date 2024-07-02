@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useAppSelector } from "@/../store/hooks";
+import { motion } from "framer-motion";
 
 import { BackButton, JournalButton } from "@/components/elements/button/Button";
 import PageTitle from "@/components/elements/pageTitle/PageTitle";
@@ -43,7 +44,22 @@ export default function SkillAndActionIndex() {
   }
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{
+        opacity: 0,
+        x: 100
+      }}
+      animate={{
+        opacity: 1,
+        x: 0
+      }}
+      transition={{
+        delay: .3,
+        // duration: .15,
+        // ease: 'easeInOut',
+      }}
+    >
       <PageTitle title="Skill And Action" userData={userData} />
       <div className={styles.button_container}>
         <BackButton {...router} />
@@ -59,6 +75,6 @@ export default function SkillAndActionIndex() {
           ? <Actions {...actionProps} />
           : ''
       }
-    </div >
+    </motion.div >
   )
 }
