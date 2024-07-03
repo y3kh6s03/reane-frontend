@@ -2,14 +2,13 @@
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ChartData } from "@/../store/slice/AuthChartsSlice";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
-import { splitString } from "@/components/utils/chartUtils";
+import { calcCreatedAt } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
 import ModalContainer from "@/components/utils/ModalContainer";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
-import Button from "@/components/elements/button/Button";
 import Chart from "@/components/elements/chart/Chart";
 import useSkillRegistration from "@/components/utils/customHooks/useSkillRegistration";
 import Reach from "./Reach";
@@ -28,10 +27,8 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
   const { data: session } = useSession();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const authName = session?.user?.name;
-  let dispCreatedAt;
-  if (chartData?.createdAt) {
-    dispCreatedAt = chartData?.createdAt ? splitString(chartData.createdAt, 'T') : '';
-  }
+
+  const dispCreatedAt = chartData && calcCreatedAt(chartData?.createdAt)
   const { handleRegisterSkillModalSubmit } = useSkillRegistration({ chartData, setErrorMsg })
   const userData = {
     userName: chartData?.userName,
@@ -70,7 +67,7 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
 
   return (
     <motion.div
-     id={`chart${chartData ? chartData.id : ''}`}
+      id={`chart${chartData ? chartData.id : ''}`}
       className={styles.container}
       initial={{
         opacity: 0,
@@ -83,10 +80,14 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
       transition={{
         delay: .3,
       }}
-      >
+    >
 
       <div className={styles.authDetail_container}>
-        <AuthDetail {...userData} />
+        {
+          userData.userImage
+          &&
+          <AuthDetail {...userData} />
+        }
       </div>
 
       <Reach {...reachData} />
@@ -97,14 +98,8 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
 
       {
         authName === userData.userName
-          ?
-          <ChartSlect setCurrentMyChart={setCurrentMyChart} />
-          :
-          <div className={styles.icons_container}>
-            <Button buttonName="like" />
-            <Button buttonName="favorite" />
-            <Button buttonName="create" />
-          </div>
+        &&
+        <ChartSlect setCurrentMyChart={setCurrentMyChart} />
       }
 
       <div className={styles.skills_wrapper}>

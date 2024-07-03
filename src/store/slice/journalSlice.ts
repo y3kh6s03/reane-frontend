@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { JournalProps, JournalSliceProps } from "../types/journalTypes";
-import { fetchJournal, registerJournal } from "../thunks/journalThunks";
+import { fetchJournal, registerJournal } from "../thunks/journalThunk";
 
 const initialState: JournalSliceProps = {
   journals: null,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import { fetchJournal } from "../../../../store/thunks/journalThunks";
+import { fetchJournal } from "../../../../store/thunks/journalThunk";
 
 export default function useJournalData() {
   const router = useRouter();

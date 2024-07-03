@@ -1,14 +1,28 @@
+"use client"
+
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { fetchAllUsersCharts } from "../../../store/thunks/AllUsersChartsThunk";
 import Tab from "./Tab";
 import UserCard from "./UserCard";
 
 export default function HomeIndex() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchAllUsersCharts());
+  }, [dispatch])
+  const allUsersChartsData = useAppSelector(state => state.AllUsersChart);
+
   return (
     <div>
       <Tab />
-      <UserCard/>
-      <UserCard/>
-      <UserCard/>
-      <UserCard/>
+      {
+        allUsersChartsData.allUsersChartDatas
+        &&
+        Object.values(allUsersChartsData.allUsersChartDatas).map((userChartData) =>
+          <UserCard key={userChartData.id} {...userChartData} />
+        )
+      }
     </div>
-  )
+  );
 }

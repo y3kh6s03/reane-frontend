@@ -7,6 +7,7 @@
 
   @include mq(lg) {
     margin: 0 auto 3rem;
+    transform: translateX(-3rem);
   }
 
   .card {
@@ -23,8 +24,11 @@
         position: relative;
         background-color: $rGray;
         border-radius: 50%;
+        overflow: hidden;
 
-        & img {}
+        & img {
+          object-fit: cover;
+        }
       }
 
       & .detail_container {
@@ -47,7 +51,19 @@
         padding-bottom: .5rem;
       }
 
-      & .chart_description {}
+      & .chart_description {
+        font: bold 1rem var(--font-en);
+        width: 100%;
+        height: 6rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+
+        & .action_inner {
+          font: normal 1rem/1.5rem var(--font-jp);
+        }
+      }
     }
 
   }

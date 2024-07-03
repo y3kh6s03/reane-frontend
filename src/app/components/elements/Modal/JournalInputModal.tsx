@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useAppDispatch } from "../../../../store/hooks";
-import { registerJournal } from "../../../../store/thunks/journalThunks";
+import { registerJournal } from "../../../../store/thunks/journalThunk";
 
 import styles from "./styles/JournalInput.module.scss"
 

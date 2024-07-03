@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import LoadingAnimation from "@/components/elements/LoadingAnimation/LoadingAnimation"
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks"
-import { fetchJournal } from "../../../../store/thunks/journalThunks"
+import { fetchJournal } from "../../../../store/thunks/journalThunk"
 import SideJournal from "./SideJournal"
 import styles from "./styles/Sidebar.module.scss"
 
