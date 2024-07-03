@@ -16,8 +16,8 @@ export const registerJournal = createAsyncThunk<JournalProps, JournalPayloadProp
 export const fetchJournal = createAsyncThunk<JournalProps[], { user_email: string }>(
   'journal/fetchJournal',
   async (fetchJournalPayload) => {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/journal`, { ...fetchJournalPayload });
-    const data = await res.data;
-    return data;
+    // const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/journal`, { ...fetchJournalPayload });
+    // const data = await res.data;
+    return 'data';
   }
 )
