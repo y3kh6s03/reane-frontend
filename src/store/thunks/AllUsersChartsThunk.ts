@@ -7,7 +7,7 @@ import { ChartData } from "../slice/AuthChartsSlice";
 export const fetchAllUsersCharts = createAsyncThunk<{ [key: number]: ChartData }>(
   'allUsersCharts/fetchAllUsersCharts',
   async () => {
-    const res = await apiRouteAxios.get("api/");
+    const res = await apiRouteAxios.get("api");
     const data = await res.data;
     return data
   }
