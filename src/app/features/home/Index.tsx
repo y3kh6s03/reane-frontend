@@ -9,7 +9,7 @@ import UserCard from "./UserCard";
 export default function HomeIndex() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchAllUsersCharts());
+    dispatch(fetchAllUsersCharts(5));
   }, [dispatch])
   const allUsersChartsData = useAppSelector(state => state.AllUsersChart);
 
