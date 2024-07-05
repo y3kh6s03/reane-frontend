@@ -5,7 +5,7 @@ import { fetchAllUsersCharts } from "../thunks/AllUsersChartsThunk";
 
 
 interface AllUsersChartsSliceProps {
-  allUsersChartDatas: { [key: number]: ChartData } | null,
+  allUsersChartDatas: ChartData[] | null,
   selectedChartData: ChartData | null,
   loading: boolean,
   error: string | null
@@ -24,8 +24,10 @@ const allUsersChartsSlice = createSlice({
   reducers: {
     getChartById(state, action: PayloadAction<number>) {
       const chartId = action.payload;
-      const chartData = state.allUsersChartDatas && state.allUsersChartDatas[chartId];
-      state.selectedChartData = chartData;
+      const chartData = state.allUsersChartDatas && state.allUsersChartDatas.find(charData => charData.id === chartId);
+      if (chartData) {
+        state.selectedChartData = chartData;
+      }
     }
   },
   extraReducers: (builder) => {
