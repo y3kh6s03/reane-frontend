@@ -1,18 +1,24 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+// import { ChartData } from "./AuthChartsSlice";
+import { FetchAllUsersChartsProps, fetchAllUsersCharts } from "../thunks/AllUsersChartsThunk";
 import { ChartData } from "./AuthChartsSlice";
-import { fetchAllUsersCharts } from "../thunks/AllUsersChartsThunk";
-
 
 interface AllUsersChartsSliceProps {
-  allUsersChartDatas: ChartData[] | null,
+  allUsersChartsDatas: FetchAllUsersChartsProps
   selectedChartData: ChartData | null,
   loading: boolean,
   error: string | null
 }
 
 const initialState: AllUsersChartsSliceProps = {
-  allUsersChartDatas: null,
+  allUsersChartsDatas: {
+    data: null,
+    current_page: 1,
+    last_page: -1,
+    per_page: -1,
+    total: -1,
+  },
   selectedChartData: null,
   loading: false,
   error: null
@@ -24,7 +30,7 @@ const allUsersChartsSlice = createSlice({
   reducers: {
     getChartById(state, action: PayloadAction<number>) {
       const chartId = action.payload;
-      const chartData = state.allUsersChartDatas && state.allUsersChartDatas.find(charData => charData.id === chartId);
+      const chartData = state.allUsersChartsDatas.data && state.allUsersChartsDatas.data.find(charData => charData.id === chartId);
       if (chartData) {
         state.selectedChartData = chartData;
       }
@@ -37,7 +43,7 @@ const allUsersChartsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAllUsersCharts.fulfilled, (state, action) => {
-        state.allUsersChartDatas = action.payload;
+        state.allUsersChartsDatas = action.payload;
         state.loading = false;
       })
       .addCase(fetchAllUsersCharts.rejected, (state) => {

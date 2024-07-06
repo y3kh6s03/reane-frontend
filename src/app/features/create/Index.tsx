@@ -7,17 +7,17 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
 import { AddAction, addReach, addSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
-import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
-import { motion } from "framer-motion";
 
+import ActionInputModal from "@/components/elements/Modal/ActionInputModal";
+import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
+import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import ModalContainer from "@/components/utils/ModalContainer";
-import { CreateAndCancelButton, ModalToggleButton } from "../../components/elements/button/Button";
-import RegisterSkillModal from "../../components/elements/Modal/RegisterSkillModal";
-import Chart from "../../components/elements/chart/Chart";
-import ActionInputModal from "../../components/elements/Modal/ActionInputModal";
+import PageTitle from "@/components/elements/pageTitle/PageTitle";
+import Chart from "@/components/elements/chart/Chart";
+import MotionWrapper from "@/components/libs/MotionWrapper";
+import { CreateAndCancelButton, ModalToggleButton } from "@/components/elements/button/Button";
 
 import styles from "./Create.module.scss";
-
 
 interface UserData {
   userData: {
@@ -97,62 +97,49 @@ export default function CreateIndex({ userData }: UserData) {
   }
 
   return (
-    <motion.div
-      id="create"
-      className={styles.container}
-      initial={{
-        opacity: 0,
-        x: 100
-      }}
-      animate={{
-        opacity: 1,
-        x: 0
-      }}
-      transition={{
-        delay: .3,
-      }}
-    >
-      <h1 className={styles.title}>New Create</h1>
+    <MotionWrapper>
+      <div id="create" className={styles.container}>
+        <PageTitle title="New Create" />
 
-      <label className={styles.reachInput_label} htmlFor="reachName">
-        REACH
-        <input
-          className={styles.reachInput_input}
-          name="reach_name"
-          type="text"
-          placeholder="目標を入力してください"
-          value={reachName}
-          onChange={(e) => { reachNameHandler(e) }}
-          onBlur={reachNameDispatch}
-        />
-
-      </label>
-      <div className={styles.chart_container}>
-        <Chart skillDatas={chartData} />
-        <div className={styles.modalbutton_container}>
-          <ModalToggleButton {...{
-            setIsModal: setIsRegisterSkillModal,
-            toggleName: 'スキル'
-          }} />
-          <CreateAndCancelButton createAndCancelProps={{ buttonName: 'CREATE', handler: createHandler }} />
-        </div>
-      </div>
-
-      {
-        isRegisterSkillModal &&
-        <ModalContainer targetName='create'>
-          <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
-        </ModalContainer>
-      }
-
-      {
-        isActionModal &&
-        <ModalContainer targetName='create'>
-          <ActionInputModal actionData={actionData}
+        <label className={styles.reachInput_label} htmlFor="reachName">
+          REACH
+          <input
+            className={styles.reachInput_input}
+            name="reach_name"
+            type="text"
+            placeholder="目標を入力してください"
+            value={reachName}
+            onChange={(e) => { reachNameHandler(e) }}
+            onBlur={reachNameDispatch}
           />
-        </ModalContainer>
-      }
-    </motion.div>
 
+        </label>
+        <div className={styles.chart_container}>
+          <Chart skillDatas={chartData} />
+          <div className={styles.modalbutton_container}>
+            <ModalToggleButton {...{
+              setIsModal: setIsRegisterSkillModal,
+              toggleName: 'スキル'
+            }} />
+            <CreateAndCancelButton createAndCancelProps={{ buttonName: 'CREATE', handler: createHandler }} />
+          </div>
+        </div>
+
+        {
+          isRegisterSkillModal &&
+          <ModalContainer targetName='create'>
+            <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
+          </ModalContainer>
+        }
+
+        {
+          isActionModal &&
+          <ModalContainer targetName='create'>
+            <ActionInputModal actionData={actionData}
+            />
+          </ModalContainer>
+        }
+      </div>
+    </MotionWrapper>
   )
 }

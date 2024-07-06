@@ -11,7 +11,7 @@
 
   @include mq(lg) {
     padding-top: 1rem;
-    padding: 0 calc(20rem - 3%) 0 calc(14rem - 3%);
+    padding: 0 20rem 0 14rem;
   }
 
   & .button_container{

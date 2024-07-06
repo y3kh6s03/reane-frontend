@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useAppSelector } from "@/../store/hooks";
-import { motion } from "framer-motion";
 
 import { BackButton, JournalButton } from "@/components/elements/button/Button";
 import PageTitle from "@/components/elements/pageTitle/PageTitle";
+import MotionWrapper from "@/components/libs/MotionWrapper";
 import Actions from "./Actions";
 import SkillName from "./SkillName";
 
@@ -44,37 +44,24 @@ export default function SkillAndActionIndex() {
   }
 
   return (
-    <motion.div
-      className={styles.container}
-      initial={{
-        opacity: 0,
-        x: 100
-      }}
-      animate={{
-        opacity: 1,
-        x: 0
-      }}
-      transition={{
-        delay: .3,
-        // duration: .15,
-        // ease: 'easeInOut',
-      }}
-    >
-      <PageTitle title="Skill And Action" userData={userData} />
-      <div className={styles.button_container}>
-        <BackButton {...router} />
+    <MotionWrapper>
+      <div className={styles.container}>
+        <PageTitle title="Skill And Action" userData={userData} />
+        <div className={styles.button_container}>
+          <BackButton {...router} />
+          {
+            authEmail === skillAndActionData.userEmail
+            &&
+            <JournalButton reachName={reachName} skillName={skillName} />
+          }
+        </div>
+        <SkillName {...skillNameData} />
         {
-          authEmail === skillAndActionData.userEmail
-          &&
-          <JournalButton reachName={reachName} skillName={skillName} />
+          skillAndActionData.actionDatas
+            ? <Actions {...actionProps} />
+            : ''
         }
-      </div>
-      <SkillName {...skillNameData} />
-      {
-        skillAndActionData.actionDatas
-          ? <Actions {...actionProps} />
-          : ''
-      }
-    </motion.div >
+      </div >
+    </MotionWrapper>
   )
 }

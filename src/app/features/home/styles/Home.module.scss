@@ -1,0 +1,7 @@
+@use "@/styles/_variables" as *;
+
+.container{
+  @extend .base_container;
+
+  overflow: scroll;
+}

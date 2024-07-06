@@ -4,11 +4,11 @@ import styles from "./AuthDetail.module.scss"
 export interface UserData {
   userName: string | undefined,
   userImage: string | undefined,
+  days: number
 }
 
-export default function AuthDetail({ userName, userImage }: UserData) {
+export default function AuthDetail({ userName, userImage, days }: UserData) {
   // DB取得データに変更
-  const days = 224;
   return (
     <div className={styles.auth}>
       <div className={styles.auth_icon_container}>
