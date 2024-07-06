@@ -20,8 +20,9 @@ interface ChartDatas {
     userEmail: string | undefined,
     reachName: string | undefined,
     skills: SkillData | CreateSkillData | undefined,
-    setIsActionModal?: Dispatch<SetStateAction<boolean>>;
-    setSkillName?: Dispatch<SetStateAction<string>>
+    days?: number,
+    setIsActionModal?: Dispatch<SetStateAction<boolean>>,
+    setSkillName?: Dispatch<SetStateAction<string>>,
   },
 }
 
@@ -49,7 +50,8 @@ export default function Chart({ skillDatas }: ChartDatas) {
           userEmail: skillDatas.userEmail,
           reachName: skillDatas.reachName,
           skillName,
-          actionDatas
+          actionDatas,
+          days: skillDatas.days
         }
         dispatch(currentSkillAndAction(skillAndActionData));
         router.push(`/skillAndAction/${skillDatas.userName}/${skillDatas.reachName}/${skillName}`);

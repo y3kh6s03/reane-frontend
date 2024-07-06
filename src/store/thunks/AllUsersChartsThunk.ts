@@ -4,7 +4,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiRouteAxios } from "@/components/utils/apiRouteAxios";
 import { ChartData } from "../slice/AuthChartsSlice";
 
-export const fetchAllUsersCharts = createAsyncThunk<ChartData[], number>(
+export interface FetchAllUsersChartsProps {
+  data: ChartData[] | null,
+  current_page:number,
+  last_page:number,
+  per_page:number,
+  total:number,
+}
+
+export const fetchAllUsersCharts = createAsyncThunk<FetchAllUsersChartsProps, number>(
   'allUsersCharts/fetchAllUsersCharts',
   async (pageNumber) => {
     const res = await apiRouteAxios.get(`api/home?page=${pageNumber}`);

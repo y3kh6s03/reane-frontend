@@ -11,6 +11,7 @@ interface SKillAndActionProps {
     reachName: string,
     skillName: string,
     actionDatas: ActionData[],
+    days: number
   }
 }
 
@@ -22,7 +23,9 @@ const initialState: SKillAndActionProps = {
     userEmail: '',
     reachName: '',
     skillName: '',
-    actionDatas: []
+    actionDatas: [],
+    days: 0
+
   }
 }
 

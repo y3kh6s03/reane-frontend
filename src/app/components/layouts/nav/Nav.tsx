@@ -38,17 +38,28 @@ export default function Nav({ props }: Props) {
         {
           navItems.map(item =>
             <li key={item.id} className={styles.nav_li}>
-              <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}/${item.name}`} className={styles.nav_li_link}>
+              <Link href={
+                item.name === 'search' || item.name === 'setting'
+                  ?
+                  '/'
+                  :
+                  `${process.env.NEXT_PUBLIC_BASE_URL}/${item.name}`
+              }
+                className={styles.nav_li_link}
+              >
                 <div className={styles.image_container}>
                   <Image
                     className={styles.image_container_img}
                     src={item.name !== 'myChart' ? `/${item.name}.svg` : props} fill sizes='100%' alt={`${item.name}`}
                   />
                 </div>
-                <span className={styles.name}>
-                  {item.name === 'myChart'
-                    ? 'My Chart'
-                    : item.name.charAt(0).toUpperCase() + item.name.slice(1)
+                <span
+                  className={`${styles.name} ${item.name === 'search' || item.name === 'setting' ? styles.disable : ''}`}
+                >
+                  {
+                    item.name === 'myChart'
+                      ? 'My Chart'
+                      : item.name.charAt(0).toUpperCase() + item.name.slice(1)
                   }
                 </span>
               </Link>
@@ -59,6 +70,6 @@ export default function Nav({ props }: Props) {
           <Logout />
         </li>
       </ul>
-    </nav>
+    </nav >
   )
 }
