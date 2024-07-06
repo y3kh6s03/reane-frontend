@@ -19,13 +19,21 @@ export default function SkillAndActionIndex() {
 
   const router = useRouter();
 
-  const { skillAndActionData } = useAppSelector((state) => state.skillAndAction)
-
-  const { userName, userEmail, userImage, id, reachName, skillName, actionDatas, } = skillAndActionData
+  const {
+    userName,
+    userEmail,
+    userImage,
+    id,
+    reachName,
+    skillName,
+    actionDatas,
+    days
+  } = useAppSelector((state) => state.skillAndAction.skillAndActionData)
 
   const userData = {
     userName,
-    userImage
+    userImage,
+    days
   }
 
   const skillNameData = {
@@ -50,14 +58,14 @@ export default function SkillAndActionIndex() {
         <div className={styles.button_container}>
           <BackButton {...router} />
           {
-            authEmail === skillAndActionData.userEmail
+            authEmail === userEmail
             &&
             <JournalButton reachName={reachName} skillName={skillName} />
           }
         </div>
         <SkillName {...skillNameData} />
         {
-          skillAndActionData.actionDatas
+          actionDatas
             ? <Actions {...actionProps} />
             : ''
         }

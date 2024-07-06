@@ -51,7 +51,8 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
     userImage: chartData?.userImage,
     userEmail: chartData?.userEmail,
     reachName: chartData?.reachName,
-    skills: chartData?.skills
+    skills: chartData?.skills,
+    days
   }
 
   const progressData = {
