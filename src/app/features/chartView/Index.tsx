@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { ChartData } from "@/../store/slice/AuthChartsSlice";
 import { motion } from "framer-motion";
 
-import { calcCreatedAt } from "@/components/utils/chartUtils";
+import { calcCreatedAt, calcElapsedDays } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
 import ModalContainer from "@/components/utils/ModalContainer";
@@ -30,9 +30,11 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
 
   const dispCreatedAt = chartData && calcCreatedAt(chartData?.createdAt)
   const { handleRegisterSkillModalSubmit } = useSkillRegistration({ chartData, setErrorMsg })
+  const days = chartData?.createdAt ? calcElapsedDays(chartData.createdAt) : 0;
   const userData = {
     userName: chartData?.userName,
-    userImage: chartData?.userImage
+    userImage: chartData?.userImage,
+    days
   }
 
   const reachData = {
