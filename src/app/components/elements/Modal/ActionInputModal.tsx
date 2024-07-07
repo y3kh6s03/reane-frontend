@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/../store/hooks';
-import { addActions, deleteSkillName, editActionName } from '@/../store/slice/CreateChartSlice';
+import { addCreateActions, deleteCreateSkillName, editCreateActionName } from '@/../store/slice/CreateChartSlice';
 import styles from './styles/ActionInput.module.scss';
 import { CreateAndCancelButton } from '../button/Button';
 import { Delete } from '../icons/Icons';
@@ -15,7 +15,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
       actionData.setEditActionNames([]);
       actionData.addedActions[actionData.skillName].actions.map((val) =>
         actionData.setEditActionNames((prev) =>
-          [...prev, Object.keys(val)[0]]
+          [...prev, val.name]
         )
       )
     }
@@ -25,7 +25,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
   const dispatch = useAppDispatch();
 
   const addActionsHandler = () => {
-    dispatch(addActions({ skillName: actionData.editSkillName, actionDatas: actionData.addModalActions }))
+    dispatch(addCreateActions({ skillName: actionData.editSkillName, addActions: actionData.addModalActions }))
     actionData.setAddModalActions([])
     actionData.setIsActionModal((prev) => !prev);
     actionData.setEditActionNames([]);
@@ -39,7 +39,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
   const deleteSkillNameHandler = () => {
     const result = confirm('スキルに登録したアクションもすべて削除されます。\nこのスキルを削除してもいいですか？');
     if (result) {
-      dispatch(deleteSkillName({ skillName: actionData.editSkillName }))
+      dispatch(deleteCreateSkillName({ skillName: actionData.editSkillName }))
       cancelHandler();
     }
   }
@@ -86,7 +86,7 @@ export default function ActionInputModal({ actionData }: ActionInputProps) {
                         newEditActionNames[index] = e.target.value;
                         actionData.setEditActionNames(newEditActionNames);
                       }}
-                      onBlur={() => dispatch(editActionName({ skillName: actionData.editSkillName, index, newActionName: actionName }))}
+                      onBlur={() => dispatch(editCreateActionName({ skillName: actionData.editSkillName, index, newActionName: actionName }))}
                     />
                     <div className={styles.deleteIcon_container}>
                       <Delete deleteHandler={() => { editActionDeleteHandler(index, actionData.editActionNames, actionData.setEditActionNames, dispatch, actionData.skillName) }} />

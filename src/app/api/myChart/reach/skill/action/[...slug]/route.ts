@@ -9,7 +9,7 @@ interface ActionNameProps {
 }
 
 interface ActionNamePatchProps {
-  isCompleted: boolean,
+  is_completed: boolean,
   actionId: number
 }
 

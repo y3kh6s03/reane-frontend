@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
-import { AddActions } from "@/components/elements/Modal/types";
 import { Delete, Plus } from "@/components/elements/icons/Icons";
 import ModalContainer from "@/components/utils/ModalContainer";
 import AddActionModal from "@/components/elements/Modal/AddActionModal";
@@ -11,11 +10,12 @@ import { handleActionDelete, handleActionNameSubmit, handleToggleActionCompletio
 import { ActionProps } from "./type";
 
 import styles from "./styles/Action.module.scss";
+import { Action } from "../../../store/slice/AuthChartsSlice";
 
 export default function Actions({ userEmail, reachName, skillName, actions }: ActionProps) {
 
   const [actionList, setActionList] = useState(actions);
-  const [modalActions, setModalActions] = useState<AddActions[]>(actionList);
+  const [modalActions, setModalActions] = useState<Action[]>(actionList);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [executedCount, setExecutedCount] = useState(0);
@@ -29,7 +29,7 @@ export default function Actions({ userEmail, reachName, skillName, actions }: Ac
   }, [actionList]);
 
   useEffect(() => {
-    const count = actionList.reduce((acc, action) => acc + (action.isCompleted === 1 ? 1 : 0), 0);
+    const count = actionList.reduce((acc, action) => acc + (action.is_completed === 1 ? 1 : 0), 0);
     setExecutedCount(count);
     setRate(Math.floor((count / actionList.length) * 100));
   }, [actionList]);
@@ -58,59 +58,78 @@ export default function Actions({ userEmail, reachName, skillName, actions }: Ac
         </span>
       </div>
 
-      {actionList.map((actionData, index) => {
-        const actionId = actionData.id;
-        const actionName = actionData.name;
-        return (
-          <div key={actionId} className={styles.actions_container}>
-
-            <form className={styles.checkbox}>
-              {
-                authEmail === userEmail
-                  ?
-                  <input
-                    type="checkbox"
-                    checked={actionData.isCompleted === 1}
-                    onChange={() => {
-                      handleToggleActionCompletion({ actionId, index, actionList, setActionList, setErrorMsg });
-                    }}
-                  />
-                  :
-                  <span>{index + 1}</span>
-              }
-            </form>
-
-            <form
-              ref={(el) => { actionNameForms.current[index] = el }}
-              onSubmit={(e) => {
-                handleActionNameSubmit({ e, index, actionName, actionId, reachName, skillName, setActionList, setErrorMsg });
-              }}
-              className={styles.action_name}
-            >
-              <input
-                type="text"
-                placeholder="アクションを入力"
-                name={actionName}
-                defaultValue={actionName}
-                onBlur={() => { handleActionNameBlur(index) }}
-              />
-            </form>
+      {
+        userEmail === authEmail
+          ?
+          <>
             {
-              authEmail === userEmail
-              &&
-              <Delete deleteHandler={() => { handleActionDelete({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
-            }
-          </div>
-        );
-      })}
+              actionList.map((actionData, index) => {
+                const actionId = actionData.id;
+                const actionName = actionData.name;
+                return (
+                  <div key={actionId} className={styles.actions_container}>
 
-      <div className={styles.icon_container}>
-        {
-          authEmail === userEmail
-          &&
-          <Plus pulsHandler={() => { setIsModal((prev) => !prev) }} />
-        }
-      </div>
+                    <form className={styles.checkbox}>
+                      <input
+                        type="checkbox"
+                        checked={actionData.is_completed === 1}
+                        onChange={() => {
+                          handleToggleActionCompletion({ actionId, index, actionList, setActionList, setErrorMsg });
+                        }}
+                      />
+                    </form>
+
+                    <form
+                      ref={(el) => { actionNameForms.current[index] = el }}
+                      onSubmit={(e) => {
+                        handleActionNameSubmit({ e, index, actionName, actionId, reachName, skillName, setActionList, setErrorMsg });
+                      }}
+                      className={styles.action_item}
+                    >
+                      <input
+                        className={styles.action_name}
+                        type="text"
+                        placeholder="アクションを入力"
+                        name={actionName}
+                        defaultValue={actionName}
+                        onBlur={() => { handleActionNameBlur(index) }}
+                      />
+                    </form>
+                    <Delete deleteHandler={() => { handleActionDelete({ reachName, skillName, actionName, actionId, setActionList, actionList }) }} />
+                  </div>
+                );
+              })
+            }
+            <div className={styles.icon_container}>
+              <Plus pulsHandler={() => { setIsModal((prev) => !prev) }} />
+            </div>
+          </>
+          :
+          <>
+            {
+              actionList.map((actionData, index) => {
+                const actionId = actionData.id;
+                const actionName = actionData.name;
+                return (
+                  <div key={actionId} className={styles.actions_container}>
+
+                    <div className={styles.checkbox}>
+                      <span>{index + 1}</span>
+                    </div>
+
+                    <div className={styles.action_item}
+                    >
+                      <span className={styles.action_name}>
+                        {actionName}
+                      </span>
+
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </>
+      }
 
       {
         isModal
@@ -130,6 +149,6 @@ export default function Actions({ userEmail, reachName, skillName, actions }: Ac
           </ModalContainer>
         )
       }
-    </div>
+    </div >
   );
 }

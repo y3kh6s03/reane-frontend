@@ -1,17 +1,16 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import { AddAction, CreateSkillData } from "../../../../store/slice/CreateChartSlice";
-import { SkillData } from "../../../../store/slice/AuthChartsSlice";
+import { CreateAddAction, CreateSkills } from "@/../store/slice/CreateChartSlice";
+import { Action, SkillData } from "../../../../store/slice/AuthChartsSlice";
 
 export interface ActionInputProps {
   actionData: {
     setIsActionModal: Dispatch<SetStateAction<boolean>>,
     skillName: string,
-    // setSkillName: Dispatch<SetStateAction<string>>
-    addModalActions: AddAction[],
-    setAddModalActions: Dispatch<SetStateAction<AddAction[]>>,
+    addModalActions: CreateAddAction[],
+    setAddModalActions: Dispatch<SetStateAction<CreateAddAction[]>>,
     inputAction: string,
     setInputAction: Dispatch<SetStateAction<string>>,
-    addedActions?: SkillData | CreateSkillData,
+    addedActions?: SkillData | CreateSkills,
     editSkillName: string,
     setEditSkillName: Dispatch<SetStateAction<string>>,
     editActionNames: string[],
@@ -20,9 +19,9 @@ export interface ActionInputProps {
 };
 
 export interface AddActions {
-  id: number | null;
+  id: number | undefined;
   name: string;
-  isCompleted: number;
+  is_completed: number;
 }
 
 export interface ModalActionProps {
@@ -30,28 +29,16 @@ export interface ModalActionProps {
   setIsModal: Dispatch<SetStateAction<boolean>>,
   reachName: string,
   skillName: string,
-  actionList: AddActions[],
-  setActionList: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>,
-  modalActions: AddActions[],
-  setModalActions: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>,
+  actionList: Action[],
+  setActionList: Dispatch<SetStateAction<Action[]>>,
+  modalActions: Action[],
+  setModalActions: Dispatch<SetStateAction<Action[]>>,
 }
 
 
 export interface FormSubmitHandlerProps {
   e: FormEvent<HTMLFormElement>,
-  setModalActions: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>,
+  setModalActions: Dispatch<SetStateAction<Action[]>>,
   setErrorMsg: (value: SetStateAction<string | null>) => void,
 }
 
@@ -62,44 +49,28 @@ export interface ResponseData {
 export interface AddActionHandlerProps {
   e: ChangeEvent<HTMLInputElement>,
   index: number,
-  setModalActions: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>,
+  setModalActions: Dispatch<SetStateAction<Action[]>>,
 }
 
 export interface AddActionSubmitHandlerProps {
-  modalActions: AddActions[],
-  actionList: AddActions[],
+  modalActions: Action[],
+  actionList: Action[],
   setIsModal: (value: SetStateAction<boolean>) => void,
   userEmail: string,
   reachName: string,
   skillName: string,
   setErrorMsg: (value: SetStateAction<string | null>) => void,
-  setActionList: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>
+  setActionList: Dispatch<SetStateAction<Action[]>>
 }
 
 export interface AddActionNameDeleteHanderProps {
   index: number,
-  id: number | null,
+  id: number | undefined,
   userEmail: string,
   reachName: string,
   skillName: string,
   actionName: string,
-  setModalActions: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>,
+  setModalActions: Dispatch<SetStateAction<Action[]>>,
   setErrorMsg: (value: SetStateAction<string | null>) => void,
-  setActionList: Dispatch<SetStateAction<{
-    id: number | null;
-    name: string;
-    isCompleted: number;
-  }[]>>
+  setActionList: Dispatch<SetStateAction<Action[]>>
 }

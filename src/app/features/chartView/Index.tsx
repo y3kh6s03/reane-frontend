@@ -2,7 +2,9 @@
 import { useSession } from "next-auth/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ChartData } from "@/../store/slice/AuthChartsSlice";
-import { motion } from "framer-motion";
+import MotionWrapper from "@/components/libs/MotionWrapper";
+import { useRouter } from "next/navigation";
+
 
 import { calcCreatedAt, calcElapsedDays } from "@/components/utils/chartUtils";
 import AuthDetail from "@/components/elements/authDetail/AuthDetail";
@@ -11,12 +13,14 @@ import ModalContainer from "@/components/utils/ModalContainer";
 import { useIsRegisterSkillModal } from "@/components/utils/IsRegisterSkillModailProvider";
 import Chart from "@/components/elements/chart/Chart";
 import useSkillRegistration from "@/components/utils/customHooks/useSkillRegistration";
+import { BackButton } from "@/components/elements/button/Button";
 import Reach from "./Reach";
 import ProgressMeter from "./ProgressMeter";
 import ChartDisp from "./ChartDisp";
 import ChartSlect from "./ChartSelect";
 
 import styles from "./styles/ChartView.module.scss";
+import QuoteCreateButton from "./QuoteCreateButton";
 
 interface ChartPropsIndex {
   chartData: ChartData | null,
@@ -27,13 +31,17 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
   const { data: session } = useSession();
   const [errorMsg, setErrorMsg] = useState<string>('');
   const authName = session?.user?.name;
+  const authEmail = session?.user?.email;
+  const authImage = session?.user?.image;
 
   const dispCreatedAt = chartData && calcCreatedAt(chartData?.createdAt)
   const { handleRegisterSkillModalSubmit } = useSkillRegistration({ chartData, setErrorMsg })
   const days = chartData?.createdAt ? calcElapsedDays(chartData.createdAt) : 0;
+
   const userData = {
-    userName: chartData?.userName,
-    userImage: chartData?.userImage,
+    userName: chartData?.userName || 'unname',
+    userImage: chartData?.userImage || '',
+    userEmail: chartData?.userEmail || 'unEmail',
     days
   }
 
@@ -66,73 +74,73 @@ export default function ChartIndex({ chartData, setCurrentMyChart = () => { } }:
     executedCount: chartData?.executedActionCount
   }
 
+  const quoteCreateChartPayLoad = {
+    userName: authName || '',
+    userImage: authImage || '',
+    userEmail: authEmail || '',
+    reachName: chartData?.reachName || '',
+    skills: chartData?.skills || {},
+  }
+
   const { isRegisterSkillModal, setIsRegisterSkillModal } = useIsRegisterSkillModal();
 
-  return (
-    <motion.div
-      id={`chart${chartData ? chartData.id : ''}`}
-      className={styles.container}
-      initial={{
-        opacity: 0,
-        x: 100
-      }}
-      animate={{
-        opacity: 1,
-        x: 0
-      }}
-      transition={{
-        delay: .3,
-      }}
-    >
+  const router = useRouter();
 
-      <div className={styles.authDetail_container}>
+  return (
+    <MotionWrapper>
+      <div id={`chart${chartData ? chartData.id : ''}`} className={styles.container}>
+        <div className={styles.backButton_container}>
+          <BackButton {...router} />
+        </div>
+        <div className={styles.authDetail_container}>
+          {
+            userData.userImage
+            &&
+            <AuthDetail {...userData} />
+          }
+        </div>
+
+        <Reach {...reachData} />
         {
-          userData.userImage
+          errorMsg !== "" &&
+          <span>{errorMsg}</span>
+        }
+
+        {
+          authName === userData.userName
           &&
-          <AuthDetail {...userData} />
+          <ChartSlect setCurrentMyChart={setCurrentMyChart} />
+        }
+
+        <div className={styles.skills_wrapper}>
+          <Chart skillDatas={skillDatas} />
+          <div className={styles.chatData_wrapper}>
+            <ProgressMeter progressData={progressData} />
+            {
+              authName === chartData?.userName
+                ?
+                <button
+                  className={styles.skillRegisterButton}
+                  type="submit"
+                  onClick={() => { setIsRegisterSkillModal(prev => !prev) }}
+                >
+                  +
+                </button>
+                :
+                <QuoteCreateButton quoteCreateChartPayLoad={quoteCreateChartPayLoad} />
+            }
+            <ChartDisp chartDispData={chartDispData} />
+          </div>
+        </div>
+
+        {
+          authName === chartData?.userName &&
+          isRegisterSkillModal &&
+          <ModalContainer targetName={`chart${chartData ? chartData.id : ''}`}>
+            <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
+          </ModalContainer>
         }
       </div>
-
-      <Reach {...reachData} />
-      {
-        errorMsg !== "" &&
-        <span>{errorMsg}</span>
-      }
-
-      {
-        authName === userData.userName
-        &&
-        <ChartSlect setCurrentMyChart={setCurrentMyChart} />
-      }
-
-      <div className={styles.skills_wrapper}>
-        <Chart skillDatas={skillDatas} />
-        <div className={styles.chatData_wrapper}>
-          <ProgressMeter progressData={progressData} />
-          {
-            authName === chartData?.userName
-              ?
-              <button
-                type="submit"
-                className={styles.skillRegisterButton}
-                onClick={() => { setIsRegisterSkillModal(prev => !prev) }}
-              >
-                +
-              </button>
-              :
-              ''
-          }
-          <ChartDisp chartDispData={chartDispData} />
-        </div>
-      </div>
-
-      {
-        authName === chartData?.userName &&
-        isRegisterSkillModal &&
-        <ModalContainer targetName={`chart${chartData ? chartData.id : ''}`}>
-          <RegisterSkillModal handleSubmit={handleRegisterSkillModalSubmit} />
-        </ModalContainer>
-      }
-    </motion.div>
+    </MotionWrapper>
   )
 }

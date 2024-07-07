@@ -14,7 +14,7 @@ export const formSubmitHandler = ({ e, setModalActions, setErrorMsg }: FormSubmi
         return prev;
       }
       setErrorMsg(null)
-      return [...prev, { id: null, name: addActionName, isCompleted: 0 }]
+      return [...prev, { id: undefined, name: addActionName, is_completed: 0 }]
     })
   };
   const inputField = e.currentTarget.querySelector('input[name="addActionName"]') as HTMLInputElement;
@@ -34,7 +34,7 @@ export const addActionHandler = ({ e, index, setModalActions }: AddActionHandler
 
 export const addActionNameDeleteHander = async ({ index, id, userEmail, reachName, skillName, actionName, setModalActions, setErrorMsg, setActionList }: AddActionNameDeleteHanderProps) => {
 
-  if (id !== null) {
+  if (id !== undefined) {
     const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/id`;
     try {
       const res = await axios.delete(URL, {

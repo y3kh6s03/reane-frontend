@@ -6,7 +6,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/../store/hooks";
-import { AddAction, addReach, addSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
+import { CreateAddAction, addCreateReach, addCreateSkill, initCreateChart } from "@/../store/slice/CreateChartSlice";
+
 
 import ActionInputModal from "@/components/elements/Modal/ActionInputModal";
 import RegisterSkillModal from "@/components/elements/Modal/RegisterSkillModal";
@@ -38,8 +39,8 @@ export default function CreateIndex({ userData }: UserData) {
   const dispatch = useAppDispatch();
   const [isActionModal, setIsActionModal] = useState(false);
   const [skillName, setSkillName] = useState('');
-  const [reachName, setReachName] = useState('');
-  const [addModalActions, setAddModalActions] = useState<AddAction[]>([]);
+  const [reachName, setReachName] = useState(createChartStates.reachName);
+  const [addModalActions, setAddModalActions] = useState<CreateAddAction[]>([]);
   const [inputAction, setInputAction] = useState<string>('');
   const [editSkillName, setEditSkillName] = useState<string>('');
   const [editActionNames, setEditActionNames] = useState<string[]>([]);
@@ -81,7 +82,7 @@ export default function CreateIndex({ userData }: UserData) {
       userEmail: userData.userEmail,
       reachName
     }
-    dispatch(addReach({ reachPaylord }))
+    dispatch(addCreateReach({ reachPaylord }))
   }
 
   const createHandler = async () => {
@@ -93,7 +94,7 @@ export default function CreateIndex({ userData }: UserData) {
 
   const handleRegisterSkillModalSubmit = (inputSkillName: string) => {
     const payload: AddChartPayload = { skillName: inputSkillName };
-    dispatch(addSkill(payload));
+    dispatch(addCreateSkill(payload));
   }
 
   return (

@@ -3,16 +3,16 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export interface ActionData {
+export interface Action {
   name: string,
-  id: number,
-  isCompleted: number
+  id?: number,
+  is_completed: number
 }
 
 export interface SkillData {
   [skill: string]: {
     id?: number,
-    actions: ActionData[]
+    actions: Action[]
   }
 }
 

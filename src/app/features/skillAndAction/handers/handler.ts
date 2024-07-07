@@ -149,12 +149,12 @@ export const handleToggleActionCompletion = async (
   setErrorMsg(null);
   setActionList((prev) =>
     prev.map((action, i) =>
-      i === index ? { ...action, isCompleted: action.isCompleted === 1 ? 0 : 1 } : action
+      i === index ? { ...action, is_completed: action.is_completed === 1 ? 0 : 1 } : action
     )
   )
   const actionCheckPayload = {
     actionId,
-    isCompleted: actionList[index].isCompleted
+    is_completed: actionList[index].is_completed
   }
   const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/${actionId}`
 

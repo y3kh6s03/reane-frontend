@@ -2,13 +2,14 @@
 
 import { Dispatch, SetStateAction, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { motion } from "framer-motion";
 import { SkillData } from "@/../store/slice/AuthChartsSlice";
 import { useAppDispatch } from "@/../store/hooks";
 import { currentSkillAndAction } from "@/../store/slice/SkillAndActionSlice";
 import useCircularLayout from "@/components/utils/customHooks/useCircularLayout";
-import { CreateSkillData } from "../../../../store/slice/CreateChartSlice";
+import { CreateSkills } from "@/../store/slice/CreateChartSlice";
 
 import styles from "./Chart.module.scss"
 
@@ -19,7 +20,7 @@ interface ChartDatas {
     userImage: string | undefined,
     userEmail: string | undefined,
     reachName: string | undefined,
-    skills: SkillData | CreateSkillData | undefined,
+    skills: SkillData | CreateSkills | undefined,
     days?: number,
     setIsActionModal?: Dispatch<SetStateAction<boolean>>,
     setSkillName?: Dispatch<SetStateAction<string>>,
@@ -29,6 +30,8 @@ interface ChartDatas {
 export default function Chart({ skillDatas }: ChartDatas) {
 
   const pathName = usePathname().substring(1);
+  const { data } = useSession();
+  const authEmail = data?.user?.email
   const modalOpen = (skill: string) => {
     if (skillDatas.setIsActionModal && skillDatas.setSkillName) {
       skillDatas.setIsActionModal((prev) => !prev);
@@ -83,7 +86,8 @@ export default function Chart({ skillDatas }: ChartDatas) {
             return (
               <motion.div
                 ref={skillsInner}
-                className={styles.skills_inner}
+                className={`${styles.skills_inner}
+                 ${authEmail !== skillDatas.userEmail && styles.user_skills_inner}`}
                 initial={{
                   opacity: 0,
                   top: "40%",
