@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit"
-import { ActionData } from "./AuthChartsSlice"
+import { Action } from "./AuthChartsSlice"
 
 interface SKillAndActionProps {
   skillAndActionData: {
@@ -10,7 +10,7 @@ interface SKillAndActionProps {
     userImage: string,
     reachName: string,
     skillName: string,
-    actionDatas: ActionData[],
+    actionDatas: Action[],
     days: number
   }
 }
