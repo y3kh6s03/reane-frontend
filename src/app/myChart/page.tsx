@@ -23,8 +23,6 @@ export default function MyChart() {
 
   const { authChartDatas, loading } = useAppSelector((state) => state.authChart);
 
-  console.log(authChartDatas);
-
   useEffect(() => {
     if (authChartDatas && authChartDatas.length > 0) {
       const latestChartData = authChartDatas.slice()
