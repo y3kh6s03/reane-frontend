@@ -30,29 +30,45 @@ export default function SkillName({ id, authEmail, userEmail, reachName, skillNa
 
   return (
     <div className={styles.container}>
-      <form
-        ref={formRef}
-        onSubmit={(e) => { handleSkillNameSubmit({ e, id, userEmail, reachName, skillName }) }}
-        className={styles.title_container}>
-        <h2 className={styles.skill_title}>
-          SKILL
-          {
-            authEmail === userEmail
-            &&
-            <Delete deleteHandler={() => { handleSkillNameDelete({ userEmail, id, reachName, skillName, router }) }} />
-          }
-        </h2>
-        <input
-          type="text"
-          className={styles.skill_title_name}
-          defaultValue={skillName}
-          name="skillName"
-          onBlur={() => {
-            handleSkillNameBlur()
-          }}
-        />
+      {
+        authEmail === userEmail
+          ?
+          <form
+            ref={formRef}
+            onSubmit={(e) => { handleSkillNameSubmit({ e, id, userEmail, reachName, skillName }) }}
+            className={styles.title_container}>
 
-      </form>
+            <h2 className={styles.skill_title}>
+              SKILL
+              <Delete deleteHandler={() => { handleSkillNameDelete({ userEmail, id, reachName, skillName, router }) }} />
+            </h2>
+
+            <input
+              type="text"
+              className={styles.skill_title_name}
+              defaultValue={skillName}
+              name="skillName"
+              onBlur={() => {
+                handleSkillNameBlur()
+              }}
+            />
+
+          </form>
+          :
+          <form
+            ref={formRef}
+            onSubmit={(e) => { handleSkillNameSubmit({ e, id, userEmail, reachName, skillName }) }}
+            className={styles.title_container}>
+            <h2 className={styles.skill_title}>
+              SKILL
+            </h2>
+
+            <span className={styles.skill_title_name}>
+              {skillName}
+            </span>
+
+          </form>
+      }
     </div>
   )
 }
