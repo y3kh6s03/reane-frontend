@@ -8,7 +8,7 @@ export interface ActionProps {
   actions: {
     id: number | null,
     name: string,
-    isCompleted: number
+    is_completed: number
   }[]
 }
 
@@ -16,7 +16,7 @@ export interface SetActionList {
   value: SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>
 }
 
@@ -30,7 +30,7 @@ export interface ActionNameFormHandlerProps {
   setActionList: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>,
   setErrorMsg: (error: string | null) => void
 }
@@ -43,12 +43,12 @@ export interface ActionDeleteHndlerProps {
   actionList: {
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]
   setActionList: (value: SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>) => void,
 }
 
@@ -58,12 +58,12 @@ export interface ActionCheckHander {
   actionList: {
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[],
   setActionList: (value: SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>) => void,
   setErrorMsg: (error: string | null) => void
 }

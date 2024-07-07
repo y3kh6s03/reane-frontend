@@ -1,17 +1,16 @@
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import { AddAction, CreateSkillData } from "../../../../store/slice/CreateChartSlice";
+import { CreateAddAction, CreateSkills } from "@/../store/slice/CreateChartSlice";
 import { SkillData } from "../../../../store/slice/AuthChartsSlice";
 
 export interface ActionInputProps {
   actionData: {
     setIsActionModal: Dispatch<SetStateAction<boolean>>,
     skillName: string,
-    // setSkillName: Dispatch<SetStateAction<string>>
-    addModalActions: AddAction[],
-    setAddModalActions: Dispatch<SetStateAction<AddAction[]>>,
+    addModalActions: CreateAddAction[],
+    setAddModalActions: Dispatch<SetStateAction<CreateAddAction[]>>,
     inputAction: string,
     setInputAction: Dispatch<SetStateAction<string>>,
-    addedActions?: SkillData | CreateSkillData,
+    addedActions?: SkillData | CreateSkills,
     editSkillName: string,
     setEditSkillName: Dispatch<SetStateAction<string>>,
     editActionNames: string[],
@@ -22,7 +21,7 @@ export interface ActionInputProps {
 export interface AddActions {
   id: number | null;
   name: string;
-  isCompleted: number;
+  is_completed: number;
 }
 
 export interface ModalActionProps {
@@ -34,13 +33,13 @@ export interface ModalActionProps {
   setActionList: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>,
   modalActions: AddActions[],
   setModalActions: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>,
 }
 
@@ -50,7 +49,7 @@ export interface FormSubmitHandlerProps {
   setModalActions: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>,
   setErrorMsg: (value: SetStateAction<string | null>) => void,
 }
@@ -65,7 +64,7 @@ export interface AddActionHandlerProps {
   setModalActions: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>,
 }
 
@@ -80,7 +79,7 @@ export interface AddActionSubmitHandlerProps {
   setActionList: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>
 }
 
@@ -94,12 +93,12 @@ export interface AddActionNameDeleteHanderProps {
   setModalActions: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>,
   setErrorMsg: (value: SetStateAction<string | null>) => void,
   setActionList: Dispatch<SetStateAction<{
     id: number | null;
     name: string;
-    isCompleted: number;
+    is_completed: number;
   }[]>>
 }

@@ -69,12 +69,12 @@
     }
 
 
-    & .action_name {
+    & .action_item {
       height: 2.5rem;
       align-self: center;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 
-      & input {
+      & .action_name {
         width: 100%;
         font: bold 1.3rem var(--font-jp);
         border-radius: 10px;

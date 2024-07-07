@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { getChartById } from "../../../store/slice/AllUsersChartsSlice";
 
+
 export default function UsersChart() {
   const dispatch = useAppDispatch();
   const path = usePathname();

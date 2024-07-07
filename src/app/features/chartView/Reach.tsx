@@ -72,7 +72,6 @@ export default function Reach({ id, name, userEmail, userName, userImage }: Reac
               <div className={styles.delete_container}>
                 <Delete deleteHandler={() => { handleReachDeleteSubmit({ id, userEmail, dispatch, setErrorMsg }) }} />
               </div>
-
             </form>
             :
             <div className={styles.reach_title}>

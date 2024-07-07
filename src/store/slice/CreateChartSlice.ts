@@ -1,27 +1,25 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-interface ActionData {
-  [action: string]: number
-}
-export interface CreateSkillData {
+import { Action } from "./AuthChartsSlice";
+// import { SkillData } from "./AuthChartsSlice";
+export interface CreateSkills {
   [skill: string]: {
-    actions: ActionData[]
+    id?: number,
+    actions: Action[]
   }
 }
-
-type CreateChartProps = {
+interface CreateChartProps {
   userName: string;
   userImage: string;
   userEmail: string;
   reachName: string;
-  skills: CreateSkillData,
+  skills: CreateSkills,
   actionCount?: number;
   executedActionCount?: number;
   days: number;
 };
 
-interface ReachPayload {
+interface CreateReachPayload {
   reachPaylord: {
     userName: string,
     userImage: string,
@@ -29,33 +27,41 @@ interface ReachPayload {
     reachName: string,
   }
 }
-export interface AddAction {
+export interface CreateAddAction {
   id: number,
   name: string,
 }
-interface AddChartPayload {
+interface CreateAddChartPayload {
   skillName: string,
-  actionDatas?: AddAction[],
+  addActions?: CreateAddAction[],
 }
 
-interface DeleteSkillNamePayload {
+interface CreateDeleteSkillNamePayload {
   skillName: string
 }
 
-interface EditSkillNamePayload {
+interface CreateEditSkillNamePayload {
   currentSkillName: string,
   newSkillName: string,
 }
 
-interface EditActionNamePayload {
+interface CreateEditActionNamePayload {
   skillName: string,
   index: number,
   newActionName: string,
 }
 
-interface DeleteActionNamePayload {
+interface CreateDeleteActionNamePayload {
   skillName: string,
   index: number,
+}
+
+interface QuoteCreateChartPayload {
+  userName: string,
+  userImage: string,
+  userEmail: string,
+  reachName: string,
+  skills: CreateSkills,
 }
 
 const initialState: CreateChartProps = {
@@ -74,7 +80,7 @@ const createChartSlice = createSlice({
   initialState,
   reducers: {
 
-    addReach(state, action: PayloadAction<ReachPayload>) {
+    addCreateReach(state, action: PayloadAction<CreateReachPayload>) {
       const { reachPaylord } = action.payload;
       state.reachName = reachPaylord.reachName;
       state.userName = reachPaylord.userName;
@@ -82,49 +88,63 @@ const createChartSlice = createSlice({
       state.userEmail = reachPaylord.userEmail;
     },
 
-    addSkill(state, action: PayloadAction<AddChartPayload>) {
+    addCreateSkill(state, action: PayloadAction<CreateAddChartPayload>) {
       const { skillName } = action.payload;
       state.skills[skillName] = { actions: [] }
     },
 
-    addActions(state, action: PayloadAction<AddChartPayload>) {
-      const { skillName, actionDatas } = action.payload;
-      const actions = actionDatas?.map(actionData => actionData.name);
-      const insertActions = actions?.map((actionName) => ({ [actionName]: 0 }))
+    addCreateActions(state, action: PayloadAction<CreateAddChartPayload>) {
+      const { skillName, addActions } = action.payload;
+      const actionNames = addActions?.map(addAction => addAction.name);
+      const insertActions = actionNames?.map((actionName) => ({
+        name: actionName,
+        is_completed: 0
+      }))
       const currentActions = [...state.skills[skillName].actions]
       if (currentActions && insertActions) {
         state.skills[skillName].actions = [...currentActions, ...insertActions]
       }
     },
 
-    editSkillName(state, action: PayloadAction<EditSkillNamePayload>) {
+    editCreateSkillName(state, action: PayloadAction<CreateEditSkillNamePayload>) {
       const { currentSkillName, newSkillName } = action.payload;
       const currentSkillNameActions = [...state.skills[currentSkillName].actions]
       delete state.skills[currentSkillName];
       state.skills[newSkillName] = { actions: [...currentSkillNameActions] }
     },
 
-    deleteSkillName(state, action: PayloadAction<DeleteSkillNamePayload>) {
+    deleteCreateSkillName(state, action: PayloadAction<CreateDeleteSkillNamePayload>) {
       const { skillName } = action.payload;
-      delete state.skills[skillName]
-
+      delete state.skills[skillName];
     },
 
-    editActionName(state, action: PayloadAction<EditActionNamePayload>) {
+    editCreateActionName(state, action: PayloadAction<CreateEditActionNamePayload>) {
       const { skillName, index, newActionName } = action.payload;
-      state.skills[skillName].actions[index] = { [newActionName]: 0 };
+      state.skills[skillName].actions[index] = {
+        name: newActionName,
+        is_completed: 0
+      }
     },
 
-    deleteActionName(state, action: PayloadAction<DeleteActionNamePayload>) {
+    deleteCreateActionName(state, action: PayloadAction<CreateDeleteActionNamePayload>) {
       const { skillName, index } = action.payload;
       state.skills[skillName].actions.splice(index, 1);
     },
 
     initCreateChart() {
       return initialState
+    },
+
+    quoteCreateChart(state, action: PayloadAction<QuoteCreateChartPayload>) {
+      const { userEmail, userImage, userName, reachName, skills } = action.payload;
+      state.reachName = reachName;
+      state.userEmail = userEmail;
+      state.userName = userName;
+      state.userImage = userImage;
+      state.skills = skills
     }
   },
 })
 
-export const { addSkill, addActions, addReach, initCreateChart, editSkillName, deleteSkillName, editActionName, deleteActionName } = createChartSlice.actions;
+export const { addCreateSkill, addCreateActions, addCreateReach, initCreateChart, editCreateSkillName, deleteCreateSkillName, editCreateActionName, deleteCreateActionName, quoteCreateChart } = createChartSlice.actions;
 export default createChartSlice.reducer;

@@ -58,6 +58,14 @@
       }
     }
   }
+
+  & .user_skills_inner{
+    background-color: white;
+
+    & .skills_inner_name{
+      color: $baseColor;
+    }
+  }
 }
 
 @keyframes float {

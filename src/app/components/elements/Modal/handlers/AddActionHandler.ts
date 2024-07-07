@@ -14,7 +14,7 @@ export const formSubmitHandler = ({ e, setModalActions, setErrorMsg }: FormSubmi
         return prev;
       }
       setErrorMsg(null)
-      return [...prev, { id: null, name: addActionName, isCompleted: 0 }]
+      return [...prev, { id: null, name: addActionName, is_completed: 0 }]
     })
   };
   const inputField = e.currentTarget.querySelector('input[name="addActionName"]') as HTMLInputElement;
