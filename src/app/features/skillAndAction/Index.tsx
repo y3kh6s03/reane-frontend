@@ -65,7 +65,7 @@ export default function SkillAndActionIndex() {
         </div>
         <SkillName {...skillNameData} />
         {
-          actionDatas
+          actionDatas && actionProps.id !== undefined
             ? <Actions {...actionProps} />
             : ''
         }

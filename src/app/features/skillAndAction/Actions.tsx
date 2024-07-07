@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
-import { AddActions } from "@/components/elements/Modal/types";
 import { Delete, Plus } from "@/components/elements/icons/Icons";
 import ModalContainer from "@/components/utils/ModalContainer";
 import AddActionModal from "@/components/elements/Modal/AddActionModal";
@@ -11,11 +10,12 @@ import { handleActionDelete, handleActionNameSubmit, handleToggleActionCompletio
 import { ActionProps } from "./type";
 
 import styles from "./styles/Action.module.scss";
+import { Action } from "../../../store/slice/AuthChartsSlice";
 
 export default function Actions({ userEmail, reachName, skillName, actions }: ActionProps) {
 
   const [actionList, setActionList] = useState(actions);
-  const [modalActions, setModalActions] = useState<AddActions[]>(actionList);
+  const [modalActions, setModalActions] = useState<Action[]>(actionList);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [executedCount, setExecutedCount] = useState(0);
