@@ -10,12 +10,13 @@ import styles from "./styles/SkillName.module.scss";
 
 interface SkillNameProps {
   id: number,
+  authEmail: string,
+  userEmail: string,
   skillName: string,
   reachName: string,
-  userEmail: string,
 }
 
-export default function SkillName({ userEmail, id, reachName, skillName }: SkillNameProps) {
+export default function SkillName({ id, authEmail, userEmail, reachName, skillName }: SkillNameProps) {
 
   const formRef = useRef<HTMLFormElement>(null)
   const router = useRouter();
@@ -35,7 +36,11 @@ export default function SkillName({ userEmail, id, reachName, skillName }: Skill
         className={styles.title_container}>
         <h2 className={styles.skill_title}>
           SKILL
-          <Delete deleteHandler={() => { handleSkillNameDelete({ userEmail, id, reachName, skillName, router }) }} />
+          {
+            authEmail === userEmail
+            &&
+            <Delete deleteHandler={() => { handleSkillNameDelete({ userEmail, id, reachName, skillName, router }) }} />
+          }
         </h2>
         <input
           type="text"

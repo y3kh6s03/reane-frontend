@@ -8,7 +8,6 @@ import ChartIntro from "@/features/chartView/ChartIntro";
 import IsRegisterSkillModalProvider from "@/components/utils/IsRegisterSkillModailProvider";
 import LoadingAnimation from "@/components/elements/LoadingAnimation/LoadingAnimation";
 import ChartIndex from "../features/chartView/Index";
-// import { fetchJournal } from "../../store/thunks/journalThunks";
 
 export default function MyChart() {
   const { data: session } = useSession();
@@ -23,6 +22,8 @@ export default function MyChart() {
   }, [dispatch, authEmail])
 
   const { authChartDatas, loading } = useAppSelector((state) => state.authChart);
+
+  console.log(authChartDatas);
 
   useEffect(() => {
     if (authChartDatas && authChartDatas.length > 0) {

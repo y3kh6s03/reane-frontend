@@ -156,6 +156,7 @@ export const handleToggleActionCompletion = async (
     actionId,
     is_completed: actionList[index].is_completed
   }
+  console.log(index);
   const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/myChart/reach/skill/action/${actionId}`
 
   try {

@@ -25,7 +25,6 @@ const initialState: SKillAndActionProps = {
     skillName: '',
     actionDatas: [],
     days: 0
-
   }
 }
 
