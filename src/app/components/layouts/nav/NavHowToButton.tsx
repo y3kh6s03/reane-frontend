@@ -1,6 +1,6 @@
 "use client"
 
-import HowToModal from "@/components/elements/Modal/HowToModal";
+import HowToModal from "@/components/elements/Modal/HowToModal/HowToModal";
 import { HowToButton } from "@/components/elements/button/Button";
 import { useIsHowToModal } from "@/components/utils/IsHowToModalProvider";
 import ModalContainer from "@/components/utils/ModalContainer";
