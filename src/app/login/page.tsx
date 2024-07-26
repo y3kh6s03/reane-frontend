@@ -13,7 +13,6 @@ export default async function Login() {
   }
   return (
     <IsHowToModalProvider>
-      <h1>Jest Test</h1>
       <LoginHeader />
       <LoginForm />
       <LoginIndex />
